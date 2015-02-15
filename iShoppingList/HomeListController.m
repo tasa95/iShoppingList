@@ -8,6 +8,8 @@
 
 #import "Shop.h"
 #import "HomeListController.h"
+#import "AddShopController.h"
+
 
 @interface HomeListController ()
 
@@ -19,7 +21,7 @@
 
 - (NSArray *) shoplist {
     if (!shoplist_) {
-//        self.shop = [NSKeyedUnarchiver unarchiveObjectWithFile:[self filePath]];
+        self.shoplist = [NSKeyedUnarchiver unarchiveObjectWithFile:[self filePath]];
     }
     return shoplist_;
 }
@@ -37,14 +39,15 @@
         [rightButtons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit)]];
         self.navigationItem.rightBarButtonItems = rightButtons;
         
-//        UIBarButtonItem* leftButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onTouchSave)];
-//        self.navigationItem.leftBarButtonItem = leftButton;
-        
     }
     return self;
 }
 
-- (void) onTouchAdd { }
+- (void) onTouchAdd {
+    AddShopController* addShop = [AddShopController new];
+//    addShop.delegate = self;
+    [self.navigationController pushViewController:addShop animated:YES];
+}
 
 - (void) onTouchEdit {
     self.tableView.editing = !self.tableView.editing;	
@@ -96,13 +99,27 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath { }
 
-//- (NSString*) filePath {
-//    NSArray* docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString* docPath = [docPaths objectAtIndex:0];
-//    
-//    NSLog(@"%@", docPath);
-//    
-//    return [docPath stringByAppendingPathComponent:@"shop.archive"];
+- (NSString*) filePath {
+    NSArray* docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* docPath = [docPaths objectAtIndex:0];
+    
+    NSLog(@"%@", docPath);
+    
+    return [docPath stringByAppendingPathComponent:@"shoplist.archive"];
+}
+
+//- (void) addShopControllerDidCreateShop:(Shop *)s {
+//    NSLog(@"Methode create called");
+//    [shoplist_ addObject:s];
+//    [self.tableView reloadData];
+//    [self.navigationController popToViewController:self animated:YES];
 //}
+//
+//- (void) addShopControllerDidEditShop:(Shop *)s {
+//    NSLog(@"Methode edit called");
+//    [self.tableView reloadData];
+//    [self.navigationController popToViewController:self animated:YES];
+//}
+
 
 @end
