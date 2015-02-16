@@ -7,13 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Shop.h"
 
-@interface AddShopController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *nameOfShop;
-@property (weak, nonatomic) IBOutlet UITextField *productOfShop;
+@protocol AddShopControllerDelegate <NSObject>
+@optional
+- (void) addShoppingControllerDidCreateShop:(Shop*)s;
+- (void) addShoppingControllerDidEditShop:(Shop *)s;
+@end
 
-- (IBAction)onTouchProductAdd:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *buttonManageProducts;
+@interface AddShopController : UIViewController {
+    @private
+    Shop* shop_;
+    __weak id<AddShopControllerDelegate> delegate_;
+}
+
+@property (nonatomic, strong) Shop* shop;
+@property (weak, nonatomic) id<AddShopControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UITextField* nameOfShop;
+@property (weak, nonatomic) IBOutlet UITextField* productOfShop;
 
 @end
