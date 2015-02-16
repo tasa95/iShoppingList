@@ -26,5 +26,6 @@
 @property (weak, nonatomic) id<AddShopControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextField* nameOfShop;
 @property (weak, nonatomic) IBOutlet UITextField* productOfShop;
+- (IBAction)onTouchProductAdd:(id)sender;
 
 @end

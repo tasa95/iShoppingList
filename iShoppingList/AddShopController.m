@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Tasa&Fllo. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "AddShopController.h"
 
 @interface AddShopController ()
@@ -18,9 +19,9 @@
 //-----------
 
 
-int count_fields;
-int rect_y_pos = 135;
-int rect_y_height = 29;
+BOOL checkBoxSelected;
+int count_items;
+int rect_y_pos = 135, rect_y_height = 29;
 
 
 //-----------
@@ -36,10 +37,11 @@ int rect_y_height = 29;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if ([super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        self.title = @"Add new";
+        self.title = @"Add list";
         UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onTouchSave:)];
         self.navigationItem.rightBarButtonItem = rightButton;
-        count_fields = 0;
+        checkBoxSelected = false;
+        count_items = 0;
     }
     return self;
 }
@@ -48,7 +50,8 @@ int rect_y_height = 29;
 //-----------
 
 
-- (IBAction)onTouchSave:(id) sender {
+- (IBAction)onTouchSave:(id) sender
+{
     // Save the shop, and pop to previous list
     Shop* newshop = [Shop new];
     newshop.titleOfShop = self.nameOfShop.text;
@@ -57,20 +60,16 @@ int rect_y_height = 29;
     }
 }
 
-- (IBAction)onTouchProductAdd:(id) sender {
-    // Add another textField in the list and change "+" to "-"
-    UIButton* button = (UIButton*) sender;
-    if ([button.titleLabel.text isEqual:@"+"]) {
-        [button setTitle:@"-" forState:UIControlStateNormal];
-        
-        [self addTextFields:count_fields];
-    } else {
-    // Remove the textField selected and up the position of the others...
-        [button setTitle:@"+" forState:UIControlStateNormal];
-        
-        if (button.tag)
-            [self removeTextFields:count_fields withButton:button];
-    }
+- (IBAction)onTouchProductAdd:(id) sender
+{
+    if (self.productOfShop.text && self.productOfShop.text.length > 0 && ![self.productOfShop.text isEqual:@" "])
+        [self addShopItem:(int) count_items];
+}
+
+- (void)checkBoxSelected:(id) sender
+{
+    checkBoxSelected = !checkBoxSelected;
+    [sender setSelected:checkBoxSelected];
 }
 
 
@@ -97,37 +96,30 @@ int rect_y_height = 29;
 //-----------
 
 
-- (void)addTextFields:(int) count {
-    UITextField* productNewTextField = [[UITextField alloc] initWithFrame:CGRectMake(20,rect_y_pos+(rect_y_height*count),252,29)];
-    productNewTextField.borderStyle = UITextBorderStyleRoundedRect;
-    productNewTextField.tag = count;
-    productNewTextField.font = [UIFont systemFontOfSize:14];
-    productNewTextField.placeholder = @"Product to buy";
-    productNewTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    productNewTextField.keyboardType = UIKeyboardTypeDefault;
-    productNewTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    productNewTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+- (void)addShopItem:(int) i
+{
+    UILabel* newLabel = [[UILabel alloc] initWithFrame:CGRectMake(56, rect_y_pos+(rect_y_height*i)+10, 242, 29)];
+    newLabel.text = self.productOfShop.text;
+    newLabel.font = [UIFont systemFontOfSize:14];
+    newLabel.textAlignment = NSTextAlignmentLeft;
+    newLabel.layer.borderColor = [UIColor grayColor].CGColor;
+    newLabel.layer.borderWidth = 1.0;
     
-    UIButton* buttonNewAddProduct = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buttonNewAddProduct.frame = CGRectMake(259,rect_y_pos+(rect_y_height*count),41,29);
-    [buttonNewAddProduct setTitle:@"+" forState:UIControlStateNormal];
-    buttonNewAddProduct.titleLabel.textColor = [UIColor blueColor];
-    buttonNewAddProduct.tag = count;
-    [buttonNewAddProduct addTarget:self action:@selector(onTouchProductAdd:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton* checkbox = [[UIButton alloc] initWithFrame:CGRectMake(20, rect_y_pos+(rect_y_height*i)+10, 29, 29)];
+    [checkbox setBackgroundImage:[UIImage imageNamed:@"notselectedcheckbox.png"] forState:UIControlStateNormal];
+    [checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"] forState:UIControlStateSelected];
+    [checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"] forState:UIControlStateHighlighted];
+    checkbox.adjustsImageWhenHighlighted = YES;
+    [checkbox addTarget:self action:@selector(checkBoxSelected:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:productNewTextField];
-    [self.view addSubview:buttonNewAddProduct];
-    
-    count_fields++;
+    [self.view addSubview:newLabel];
+    [self.view addSubview:checkbox];
+    count_items++;
 }
 
-- (void)removeTextFields:(int) count withButton:(UIButton*) button {
-    UITextField* textField = (UITextField*)[self.view viewWithTag:button.tag];
-    
-    [textField removeFromSuperview];
-    [button removeFromSuperview];
-    
-    count_fields--;
+- (void)removeShopItem:(int) i
+{
+//    [self.view removeFromSuperview];
 }
 
 @end

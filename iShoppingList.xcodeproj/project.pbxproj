@@ -26,6 +26,8 @@
 		4FD70E631A8F9429002522D9 /* iShoppingListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD70E621A8F9429002522D9 /* iShoppingListTests.m */; };
 		4FD70E6F1A8F9664002522D9 /* HomeListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD70E6D1A8F9664002522D9 /* HomeListController.m */; };
 		4FD70E701A8F9664002522D9 /* HomeListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FD70E6E1A8F9664002522D9 /* HomeListController.xib */; };
+		4FFCFE7F1A92449A002048D3 /* notselectedcheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFCFE7D1A92449A002048D3 /* notselectedcheckbox.png */; };
+		4FFCFE801A92449A002048D3 /* selectedcheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		4FD70E6C1A8F9664002522D9 /* HomeListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeListController.h; sourceTree = "<group>"; };
 		4FD70E6D1A8F9664002522D9 /* HomeListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeListController.m; sourceTree = "<group>"; };
 		4FD70E6E1A8F9664002522D9 /* HomeListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListController.xib; sourceTree = "<group>"; };
+		4FFCFE7D1A92449A002048D3 /* notselectedcheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notselectedcheckbox.png; sourceTree = "<group>"; };
+		4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedcheckbox.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +146,8 @@
 				4FC7CEC41A90E4DA005830E6 /* AddShopController.h */,
 				4FC7CEC51A90E4DA005830E6 /* AddShopController.m */,
 				4FC7CEC61A90E4DB005830E6 /* AddShopController.xib */,
+				4FFCFE7D1A92449A002048D3 /* notselectedcheckbox.png */,
+				4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */,
 				4FC7CEBB1A8FA0B4005830E6 /* ModelShop */,
 				4FD70E351A8F9428002522D9 /* Supporting Files */,
 			);
@@ -258,6 +264,8 @@
 				4FD70E451A8F9428002522D9 /* Default-568h@2x.png in Resources */,
 				4FD70E701A8F9664002522D9 /* HomeListController.xib in Resources */,
 				4FC7CEC81A90E4DB005830E6 /* AddShopController.xib in Resources */,
+				4FFCFE7F1A92449A002048D3 /* notselectedcheckbox.png in Resources */,
+				4FFCFE801A92449A002048D3 /* selectedcheckbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -240,7 +240,7 @@
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">32</int>
+					<int key="connectionID">36</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -256,9 +256,9 @@
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="968338945"/>
+							<reference ref="29370968"/>
 							<reference ref="584842606"/>
 							<reference ref="276310216"/>
-							<reference ref="29370968"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -310,7 +310,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">34</int>
+			<int key="maxID">36</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -334,7 +334,6 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="nameOfShop">UITextField</string>
 						<string key="productOfShop">UITextField</string>
-						<string key="scrollview">UIScrollView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="nameOfShop">
@@ -344,10 +343,6 @@
 						<object class="IBToOneOutletInfo" key="productOfShop">
 							<string key="name">productOfShop</string>
 							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="scrollview">
-							<string key="name">scrollview</string>
-							<string key="candidateClassName">UIScrollView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
