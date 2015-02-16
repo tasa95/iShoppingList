@@ -20,18 +20,15 @@
     
     NSMutableArray* shoplist = [NSMutableArray new];
     
-    Shop* s = [Shop new];
-    s.titleOfShop = @"Course rapide";
-    s.numberOfItems = 21;
-    [shoplist addObject:s];
-    s = [Shop new];
-    s.titleOfShop = @"Soirée St Valentin";
-    s.numberOfItems = 11;
-    [shoplist addObject:s];
-    s = [Shop new];
-    s.titleOfShop = @"Dîner avec Roger";
-    s.numberOfItems = 4;
-    [shoplist addObject:s];
+//    Shop* s = [Shop new];
+//    s.titleOfShop = @"Course rapide";
+//    [shoplist addObject:s];
+//    s = [Shop new];
+//    s.titleOfShop = @"Soirée St Armand";
+//    [shoplist addObject:s];
+//    s = [Shop new];
+//    s.titleOfShop = @"Dîner avec famille";
+//    [shoplist addObject:s];
     
     homeListController.shoplist = shoplist;
     

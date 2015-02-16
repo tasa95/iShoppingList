@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddShopController.h"
 
-@interface HomeListController : UIViewController
+
+@interface HomeListController : UIViewController <UITableViewDelegate, UITableViewDataSource, AddShopControllerDelegate>
 {
     @private
     NSMutableArray* shoplist_;
