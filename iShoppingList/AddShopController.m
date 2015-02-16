@@ -19,7 +19,6 @@
 //-----------
 
 
-BOOL checkBoxSelected;
 int count_items;
 int rect_y_pos = 135, rect_y_height = 29;
 
@@ -40,7 +39,6 @@ int rect_y_pos = 135, rect_y_height = 29;
         self.title = @"Add list";
         UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onTouchSave:)];
         self.navigationItem.rightBarButtonItem = rightButton;
-        checkBoxSelected = false;
         count_items = 0;
     }
     return self;
@@ -68,8 +66,14 @@ int rect_y_pos = 135, rect_y_height = 29;
 
 - (void)checkBoxSelected:(id) sender
 {
-    checkBoxSelected = !checkBoxSelected;
-    [sender setSelected:checkBoxSelected];
+    UIButton* check = (UIButton*) sender;
+    if (check.tag == 0) {
+        [check setSelected:true];
+        check.tag = 1;
+    } else {
+        [check setSelected:false];
+        check.tag = 0;
+    }
 }
 
 
@@ -111,6 +115,7 @@ int rect_y_pos = 135, rect_y_height = 29;
     [checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"] forState:UIControlStateHighlighted];
     checkbox.adjustsImageWhenHighlighted = YES;
     [checkbox addTarget:self action:@selector(checkBoxSelected:) forControlEvents:UIControlEventTouchUpInside];
+    checkbox.tag = 0;
     
     [self.view addSubview:newLabel];
     [self.view addSubview:checkbox];
