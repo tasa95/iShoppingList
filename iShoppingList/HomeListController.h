@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AddShopController.h"
+#import "User.h"
 
 
 @interface HomeListController : UIViewController <UITableViewDelegate, UITableViewDataSource, AddShopControllerDelegate>
@@ -18,5 +19,7 @@
 
 @property (nonatomic, strong)  NSArray* shoplist;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak,nonatomic) User* user;
 
 @end

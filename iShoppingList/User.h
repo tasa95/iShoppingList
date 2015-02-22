@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface User : NSObject
+@interface User : NSObject <NSCoding>
 {
 @private
     NSString* UserName_;
@@ -21,12 +21,15 @@
 
 -(instancetype)initWithName:(NSString*)UserName AndMailUser:(NSString*)mailUser andPassUser:(NSString*)passUser andIdIphone:(NSString*)idIphone;
 
+-(instancetype)initWithName:(NSString*)UserName AndMailUser:(NSString*)mailUser andPassUser:(NSString*)passUser;
+
 -(instancetype)initWithMailUser:(NSString*)mailUser andPassUser:(NSString*)passUser;
+
 
 @property(strong, nonatomic) NSString* UserName;
 @property(strong,nonatomic) NSString* mailUser;
 @property(strong,nonatomic) NSString* passUser;
-@property(strong,nonatomic) NSString* IdIphone;
+@property(strong,nonatomic,readonly) NSString* IdIphone;
 
 -(NSString*)description;
 

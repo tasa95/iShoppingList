@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "HomeListController.h"
 #import "Shop.h"
+#import "ConnexionViewController.h"
+#import "User.h"
 
 @implementation AppDelegate
 
@@ -16,25 +18,45 @@
 {
     CGRect screenRect = [UIScreen mainScreen].bounds;
     UIWindow* window = [[UIWindow alloc] initWithFrame:screenRect];
-    HomeListController* homeListController = [HomeListController new];
     
-    NSMutableArray* shoplist = [NSMutableArray new];
     
-//    Shop* s = [Shop new];
-//    s.titleOfShop = @"Course rapide";
-//    [shoplist addObject:s];
-//    s = [Shop new];
-//    s.titleOfShop = @"Soirée St Armand";
-//    [shoplist addObject:s];
-//    s = [Shop new];
-//    s.titleOfShop = @"Dîner avec famille";
-//    [shoplist addObject:s];
     
-    homeListController.shoplist = shoplist;
+    NSArray* documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    NSString* documentPath = [documentPaths objectAtIndex:0];
     
-    window.rootViewController = [[UINavigationController alloc] initWithRootViewController:homeListController];
-    [window makeKeyAndVisible];
-    self.window = window;
+    NSString* filePath = [[NSString alloc] initWithFormat:@"%@/user.archive",documentPath];
+    if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
+    {
+        User* user = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+        
+        HomeListController* homeListController = [HomeListController new];
+        homeListController.user = user;
+        NSMutableArray* shoplist = [NSMutableArray new];
+        
+        Shop* s = [Shop new];
+        s.titleOfShop = @"Course rapide";
+        [shoplist addObject:s];
+        s = [Shop new];
+        s.titleOfShop = @"Soirée St Armand";
+        [shoplist addObject:s];
+        s = [Shop new];
+        s.titleOfShop = @"Dîner avec famille";
+        [shoplist addObject:s];
+        
+        homeListController.shoplist = shoplist;
+        window.rootViewController = [[UINavigationController alloc] initWithRootViewController:homeListController];
+
+    }
+    else{
+        ConnexionViewController* ConnexionController = [ConnexionViewController new];
+        
+        window.rootViewController = [[UINavigationController alloc] initWithRootViewController:ConnexionController];
+      
+    }
+     [window makeKeyAndVisible];
+        self.window = window;
+  //
+  
     
     return YES;
 }
