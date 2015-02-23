@@ -9,6 +9,8 @@
 #import "ConnexionViewController.h"
 #import "JSonWebService.h"
 #import "HomeListController.h"
+#import "RouteController.h"
+
 @interface ConnexionViewController ()
 
 @end
@@ -79,7 +81,7 @@
     {
         User* user = [[User alloc] initWithMailUser:self.userEmail.text andPassUser:self.userPassword.text];
 
-        [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestGet withBody:[user description] responseBlock:^(id response, NSError *error)
+        [JSonWebService startWebserviceWithURL:[RouteController loginRoute] WithMethod:tasMethodRequestGet withBody:[user description] responseBlock:^(id response, NSError *error)
          {
              if(!error)
              {
@@ -91,7 +93,7 @@
                  // si le smartphone a changé
                  if([response objectForKey:@"device_user"]  != user.IdIphone)
                  {
-                     [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPut withBody:[user description] responseBlock:^(id response, NSError *error)
+                     [JSonWebService startWebserviceWithURL:[RouteController updateUser] WithMethod:tasMethodRequestPut withBody:[user description] responseBlock:^(id response, NSError *error)
                       {
                           if(!error)
                           {
@@ -122,8 +124,8 @@
         if(![self emptyField])
         {
             User* user = [[User alloc] initWithName:self.userName.text AndMailUser:self.userEmail.text andPassUser:self.userPassword.text];
-
-            [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPost withBody:[self description] responseBlock:^(id response, NSError *error)
+      
+            [JSonWebService startWebserviceWithURL:[RouteController signUpRoute] WithMethod:tasMethodRequestPost withBody:[user description] responseBlock:^(id response, NSError *error)
              {
                  if(!error)
                  {
@@ -131,7 +133,7 @@
                  }
                  else
                  {
-                     NSLog(@"%@", [JSonWebService getHost]);
+
                      NSLog(@"%@",  [[NSString alloc ]initWithData:response encoding:NSUTF8StringEncoding] );
                      HomeListController* homeListController = [HomeListController new];
                      homeListController.user = user;

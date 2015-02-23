@@ -72,7 +72,7 @@
 #pragma Description of user
 -(NSString*)description
 {
-    NSString* myString = [[NSMutableString alloc] initWithFormat:@"{ 'name_user' = '%@' , 'pass_user' = '%@' , 'device_user' = '%@' , 'mail_user' = '%@'", self.UserName, self.passUser, self.IdIphone,self.mailUser ];
+    NSString* myString = [[NSMutableString alloc] initWithFormat:@"{ \"name_user\" : \"%@\" ,\n \"pass_user\" : \"%@\" ,\n \"device_user\" : \"%@\" ,\n \"mail_user\" : \"%@\" }", self.UserName, self.passUser, self.IdIphone,self.mailUser ];
     
     return myString;
 

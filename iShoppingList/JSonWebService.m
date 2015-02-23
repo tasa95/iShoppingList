@@ -20,8 +20,18 @@
     dispatch_async(queue, ^{
         NSURL* URL = url;
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-        request.HTTPBody = [HTTPBody dataUsingEncoding:NSUTF8StringEncoding];
+        NSData *postData =[HTTPBody dataUsingEncoding:NSUTF8StringEncoding];
+        request.HTTPBody = postData;
+        NSLog(@"Url : %@", url);
+        NSLog(@"Envoit : %@", HTTPBody);
+
         request.HTTPMethod = [JSonWebService getStringTasMethodRequest:method];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setValue:[[NSString alloc] initWithFormat:@"%d", postData.length ] forHTTPHeaderField:@"Content-Length"];
+        
+         NSLog(@"Requete : %@", request);
+        
         NSError* error = nil;
         NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
         NSDictionary* response = nil;
