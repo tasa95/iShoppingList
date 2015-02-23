@@ -56,7 +56,9 @@
         self.UserName = [aDecoder decodeObjectForKey:@"name_user"];
         self.passUser = [aDecoder decodeObjectForKey:@"pass_user"];
         IdIphone_ = [aDecoder decodeObjectForKey:@"device_user"];
+    
     }
+    return self;
 }
 -(void) encodeWithCoder:(NSCoder *)aCoder
 {

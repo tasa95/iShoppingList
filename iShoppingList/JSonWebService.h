@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, tasMethodRequest ){
     tasMethodRequestDelete,
     tasMethodRequestGet
 };
-
+static NSURL* host;
 
 @interface JSonWebService : NSObject
 {
@@ -26,12 +26,14 @@ typedef NS_ENUM(NSInteger, tasMethodRequest ){
     
 }
 
-+ (NSURL*) host;
+
 
 + (void)startWebserviceWithURL:(NSURL*) url WithMethod:(tasMethodRequest)method withBody:(NSString*)HTTPBody responseBlock:(ResponseBlock)responseBlock;
 +(NSString*)getStringTasMethodRequest:(tasMethodRequest) methodRequest;
 
-+(void)setHost:(NSURL*) host;
++(void)setHost:(NSURL*) NewHost;
+
++(NSURL*)getHost;
 
 
 @end

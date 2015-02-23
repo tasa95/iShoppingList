@@ -11,6 +11,7 @@
 #import "Shop.h"
 #import "ConnexionViewController.h"
 #import "User.h"
+#import "JSonWebService.h"
 
 @implementation AppDelegate
 
@@ -19,7 +20,8 @@
     CGRect screenRect = [UIScreen mainScreen].bounds;
     UIWindow* window = [[UIWindow alloc] initWithFrame:screenRect];
     
-    
+    NSString* urlServer = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"URL Server"];
+    JSonWebService.host = [[NSURL alloc] initWithString:urlServer];
     
     NSArray* documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
     NSString* documentPath = [documentPaths objectAtIndex:0];

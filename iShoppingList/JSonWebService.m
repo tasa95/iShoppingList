@@ -13,13 +13,14 @@
 
 @implementation JSonWebService
 
-+ (void)startWebserviceWithURL:(NSURL *)url WithMethod:(tasMethodRequest)method responseBlock:(ResponseBlock)responseBlock
++ (void)startWebserviceWithURL:(NSURL *)url WithMethod:(tasMethodRequest)method  withBody:(NSString*)HTTPBody responseBlock:(ResponseBlock)responseBlock
 {
     
     dispatch_queue_t queue = dispatch_queue_create("JsonQueue", DISPATCH_QUEUE_SERIAL);
     dispatch_async(queue, ^{
         NSURL* URL = url;
-        NSMutableURLRequest* request = [NSURLRequest requestWithURL:URL];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+        request.HTTPBody = [HTTPBody dataUsingEncoding:NSUTF8StringEncoding];
         request.HTTPMethod = [JSonWebService getStringTasMethodRequest:method];
         NSError* error = nil;
         NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
@@ -52,9 +53,16 @@
     }
 }
 
-+(void)setHost:(NSURL*) host
++(void)setHost:(NSURL*) NewHost
 {
-    JSonWebService.host =  host;
+    if(host != NewHost) {
+        host = NewHost;
+    }
+}
+
++(NSURL*)getHost
+{
+    return host;
 }
 
 @end

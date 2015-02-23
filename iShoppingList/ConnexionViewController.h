@@ -11,22 +11,27 @@
 
 @interface ConnexionViewController : UIViewController <UITextFieldDelegate>
 {
-
 }
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 -(id) init;
 
 
-@property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (strong, nonatomic) IBOutlet UITextField *userName;
 
-@property (weak, nonatomic) IBOutlet UITextField *userPassword;
-@property (weak, nonatomic) IBOutlet UITextField *userEmail;
+@property (strong, nonatomic) IBOutlet UITextField *userPassword;
+@property (strong, nonatomic) IBOutlet UITextField *userEmail;
 
 - (IBAction)doConnexion:(id)sender;
 - (IBAction)SignUp:(id)sender;
 
 -(bool)emptyField;
 -(void) setHost;
+
+- (IBAction)dissmissKeyboard;
+-(bool)isAnEmail:(NSString*) mail;
+
+-(void)ChangeBorderOfTextFieldInRed:(UITextField*) textField;
+-(void)ChangeBorderOfTextFieldInGreen:(UITextField*) textField;
 
 @end

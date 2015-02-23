@@ -35,8 +35,17 @@
     [super viewDidLoad];
     self.userPassword.delegate = self;
     self.userEmail.delegate = self;
-    // Do any additional setup after loading the view from its nib.
+    self.userName.delegate = self;
+    UITapGestureRecognizer* tapper = [[UITapGestureRecognizer alloc]
+              initWithTarget:self action:@selector(dissmissKeyboard)];
+    tapper.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapper];
 }
+
+
+    
+    // Do any additional setup after loading the view from its nib.
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -55,16 +64,22 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    [self emptyField];
     return NO;
 }
 
 
+
+-(bool)dismissKeyboarb{
+    [self.view endEditing:YES];
+    return YES;
+}
 - (IBAction)doConnexion:(id)sender {
     if(![self emptyField])
     {
         User* user = [[User alloc] initWithMailUser:self.userEmail.text andPassUser:self.userPassword.text];
-        [self setHost];
-        [JSonWebService startWebserviceWithURL:[JSonWebService host] WithMethod:tasMethodRequestGet withBody:[user description] responseBlock:^(id response, NSError *error)
+
+        [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestGet withBody:[user description] responseBlock:^(id response, NSError *error)
          {
              if(!error)
              {
@@ -72,10 +87,11 @@
              }
              else
              {
+                  NSLog(@"%@",  [[NSString alloc ]initWithData:response encoding:NSUTF8StringEncoding] );
                  // si le smartphone a changé
                  if([response objectForKey:@"device_user"]  != user.IdIphone)
                  {
-                     [JSonWebService startWebserviceWithURL:[JSonWebService host] WithMethod:tasMethodRequestPut withBody:[user description] responseBlock:^(id response, NSError *error)
+                     [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPut withBody:[user description] responseBlock:^(id response, NSError *error)
                       {
                           if(!error)
                           {
@@ -83,6 +99,7 @@
                           }
                           else
                           {
+                              NSLog(@"%@",  [[NSString alloc ]initWithData:response encoding:NSUTF8StringEncoding] );
                               NSLog(@"Device mis à jour");
                           }
                       }
@@ -99,13 +116,14 @@
 
 - (IBAction)SignUp:(id)sender {
     
-    if(self.userName.hidden || self.userName.text.length ==0)
+    if( !self.userName.hidden || self.userName.text.length > 0)
     {
+        
         if(![self emptyField])
         {
             User* user = [[User alloc] initWithName:self.userName.text AndMailUser:self.userEmail.text andPassUser:self.userPassword.text];
-            [self setHost];
-            [JSonWebService startWebserviceWithURL:[JSonWebService host] WithMethod:tasMethodRequestPost withBody:[self description] responseBlock:^(id response, NSError *error)
+
+            [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPost withBody:[self description] responseBlock:^(id response, NSError *error)
              {
                  if(!error)
                  {
@@ -113,19 +131,28 @@
                  }
                  else
                  {
-                     
+                     NSLog(@"%@", [JSonWebService getHost]);
+                     NSLog(@"%@",  [[NSString alloc ]initWithData:response encoding:NSUTF8StringEncoding] );
                      HomeListController* homeListController = [HomeListController new];
                      homeListController.user = user;
                      [self.navigationController pushViewController:homeListController animated:YES];
                  }
              }];
         }
+        else{
+            
+        }
     }
     else{
-        NSLog(@"apparition");
- 
+        [UIView transitionWithView:self.userName
+                          duration:0.7
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:NULL
+                        completion:NULL];
         self.userName.layer.hidden = NO;
-
+        
+        
+        
     }
 }
 
@@ -133,33 +160,100 @@
     
     bool emptyField = NO;
     
-    if(self.userEmail.text.length == 0)
+    if(self.userEmail.text.length > 0 && [self isAnEmail:self.userEmail.text])
+    {
+        [self ChangeBorderOfTextFieldInGreen:self.userEmail];
+        
+    }
+    else
     {
         emptyField = YES;
-        self.userEmail.layer.borderWidth = 0.75F;
-        self.userEmail.layer.borderColor = [[UIColor redColor]CGColor];
-        self.userEmail.layer.cornerRadius = 10;
+        [self ChangeBorderOfTextFieldInRed:self.userEmail];
     }
     
-    if(self.userEmail.text.length == 0)
+    if(self.userPassword.text.length == 0)
     {
         emptyField = YES;
-        self.userPassword.layer.borderWidth = 0.75F;
-        self.userPassword.layer.borderColor = [[UIColor redColor]CGColor];
-        self.userPassword.layer.cornerRadius = 10;
+        [self ChangeBorderOfTextFieldInRed:self.userPassword];
+    }
+    else
+    {
+
+        [self ChangeBorderOfTextFieldInGreen:self.userPassword];
+
+    }
+    
+    if( !(self.userName.hidden) && self.userName.text.length  > 0)
+    {
+        [self ChangeBorderOfTextFieldInGreen:self.userName];
+      
+    }
+    else
+    {
+        emptyField = YES;
+        [self ChangeBorderOfTextFieldInRed:self.userName];
     }
     return emptyField;
 }
 
 
--(void) setHost
-{
-    if([[JSonWebService host] relativeString].length == 0)
-    {
-        NSString* urlServer = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"URL Server"];
-        NSURL* url = [[NSURL alloc] initWithString:urlServer];
-        JSonWebService.host = url;
+
+
+- (IBAction)dissmissKeyboard {
+    
+    for (UIView * txt in self.view.subviews){
+   
+        if ([txt isKindOfClass:[UITextField class]] && [txt isFirstResponder]) {
+            [self textFieldShouldReturn:txt];
+        }
     }
+}
+
+-(bool)isAnEmail:(NSString*) mail{
+    
+    
+    if(mail.length == 0)
+        return NO;
+    NSError  *error = nil;
+    NSRange range = NSMakeRange(0, mail.length);
+    NSString *pattern = @"[a-zA-Z0-9_.-]+@{1}[a-zA-Z0-9_.-]{2,}\.[a-zA-Z.]{2,5}";
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: pattern options:0 error:&error];
+    NSArray *matches = [regex matchesInString:mail options:0 range:range];
+   
+
+    if(matches.count > 0)
+        return YES;
+    else
+        return NO;
+}
+
+-(void)ChangeBorderOfTextFieldInRed:(UITextField*) textField
+{
+    [UIView transitionWithView:self.userPassword
+                      duration:0.7
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:NULL
+                    completion:NULL];
+    
+
+    textField.layer.borderWidth = 0.75F;
+    textField.layer.borderColor = [[UIColor redColor]CGColor];
+    textField.layer.cornerRadius = 10;
+}
+
+-(void)ChangeBorderOfTextFieldInGreen:(UITextField*) textField
+{
+    [UIView transitionWithView:self.userPassword
+                      duration:0.7
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:NULL
+                    completion:NULL];
+    
+    
+    textField.layer.borderWidth = 0.75F;;
+    textField.layer.borderColor = [[UIColor greenColor]CGColor];
+    textField.layer.cornerRadius = 10;
+
 }
 
 @end

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,12 @@
 		4FD70E701A8F9664002522D9 /* HomeListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FD70E6E1A8F9664002522D9 /* HomeListController.xib */; };
 		4FFCFE7F1A92449A002048D3 /* notselectedcheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFCFE7D1A92449A002048D3 /* notselectedcheckbox.png */; };
 		4FFCFE801A92449A002048D3 /* selectedcheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */; };
+		FB7D52881A99DD4300453E71 /* Webservice_iOS.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB7D52871A99DD4300453E71 /* Webservice_iOS.txt */; };
+		FB7D528B1A99DD8000453E71 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7D528A1A99DD8000453E71 /* User.m */; };
+		FB7E21F81A9BCDBD008355F8 /* TextFieldPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E21F71A9BCDBD008355F8 /* TextFieldPassword.m */; };
+		FB905CCE1A98AFF7006BA66E /* ConnexionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */; };
+		FB905CCF1A98AFF7006BA66E /* ConnexionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */; };
+		FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CD11A98B961006BA66E /* JSonWebService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +76,17 @@
 		4FD70E6E1A8F9664002522D9 /* HomeListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListController.xib; sourceTree = "<group>"; };
 		4FFCFE7D1A92449A002048D3 /* notselectedcheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notselectedcheckbox.png; sourceTree = "<group>"; };
 		4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedcheckbox.png; sourceTree = "<group>"; };
+		FB7D52871A99DD4300453E71 /* Webservice_iOS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Webservice_iOS.txt; sourceTree = "<group>"; };
+		FB7D52891A99DD8000453E71 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		FB7D528A1A99DD8000453E71 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		FB7E21F61A9BCDBD008355F8 /* TextFieldPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldPassword.h; sourceTree = "<group>"; };
+		FB7E21F71A9BCDBD008355F8 /* TextFieldPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldPassword.m; sourceTree = "<group>"; };
+		FB7E21FB1A9BCEC3008355F8 /* ProtocolMyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProtocolMyTextField.h; path = ../ProtocolMyTextField.h; sourceTree = "<group>"; };
+		FB905CCB1A98AFF7006BA66E /* ConnexionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnexionViewController.h; sourceTree = "<group>"; };
+		FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnexionViewController.m; sourceTree = "<group>"; };
+		FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnexionViewController.xib; sourceTree = "<group>"; };
+		FB905CD01A98B961006BA66E /* JSonWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSonWebService.h; sourceTree = "<group>"; };
+		FB905CD11A98B961006BA66E /* JSonWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSonWebService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +118,8 @@
 			children = (
 				4FC7CEBC1A8FA0E0005830E6 /* Shop.h */,
 				4FC7CEBD1A8FA0E0005830E6 /* Shop.m */,
+				FB7D52891A99DD8000453E71 /* User.h */,
+				FB7D528A1A99DD8000453E71 /* User.m */,
 			);
 			name = ModelShop;
 			sourceTree = "<group>";
@@ -138,7 +157,13 @@
 		4FD70E341A8F9428002522D9 /* iShoppingList */ = {
 			isa = PBXGroup;
 			children = (
+				FB7E21FC1A9BCECD008355F8 /* protocol */,
+				FB7D52871A99DD4300453E71 /* Webservice_iOS.txt */,
 				4FD70E3D1A8F9428002522D9 /* AppDelegate.h */,
+				FB905CCB1A98AFF7006BA66E /* ConnexionViewController.h */,
+				FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */,
+				FB7E21F91A9BCDCA008355F8 /* subView class */,
+				FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */,
 				4FD70E3E1A8F9428002522D9 /* AppDelegate.m */,
 				4FD70E6C1A8F9664002522D9 /* HomeListController.h */,
 				4FD70E6D1A8F9664002522D9 /* HomeListController.m */,
@@ -148,6 +173,8 @@
 				4FC7CEC61A90E4DB005830E6 /* AddShopController.xib */,
 				4FFCFE7D1A92449A002048D3 /* notselectedcheckbox.png */,
 				4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */,
+				FB905CD01A98B961006BA66E /* JSonWebService.h */,
+				FB905CD11A98B961006BA66E /* JSonWebService.m */,
 				4FC7CEBB1A8FA0B4005830E6 /* ModelShop */,
 				4FD70E351A8F9428002522D9 /* Supporting Files */,
 			);
@@ -187,6 +214,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		FB7E21F91A9BCDCA008355F8 /* subView class */ = {
+			isa = PBXGroup;
+			children = (
+				FB7E21F61A9BCDBD008355F8 /* TextFieldPassword.h */,
+				FB7E21F71A9BCDBD008355F8 /* TextFieldPassword.m */,
+			);
+			name = "subView class";
+			sourceTree = "<group>";
+		};
+		FB7E21FC1A9BCECD008355F8 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				FB7E21FB1A9BCEC3008355F8 /* ProtocolMyTextField.h */,
+			);
+			name = protocol;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -224,7 +268,7 @@
 			name = iShoppingListTests;
 			productName = iShoppingListTests;
 			productReference = 4FD70E541A8F9429002522D9 /* iShoppingListTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -232,11 +276,12 @@
 		4FD70E231A8F9427002522D9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0610;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Tasa&Fllo";
 			};
 			buildConfigurationList = 4FD70E261A8F9427002522D9 /* Build configuration list for PBXProject "iShoppingList" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -259,8 +304,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FD70E391A8F9428002522D9 /* InfoPlist.strings in Resources */,
+				FB7D52881A99DD4300453E71 /* Webservice_iOS.txt in Resources */,
 				4FD70E411A8F9428002522D9 /* Default.png in Resources */,
 				4FD70E431A8F9428002522D9 /* Default@2x.png in Resources */,
+				FB905CCF1A98AFF7006BA66E /* ConnexionViewController.xib in Resources */,
 				4FD70E451A8F9428002522D9 /* Default-568h@2x.png in Resources */,
 				4FD70E701A8F9664002522D9 /* HomeListController.xib in Resources */,
 				4FC7CEC81A90E4DB005830E6 /* AddShopController.xib in Resources */,
@@ -300,11 +347,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB7D528B1A99DD8000453E71 /* User.m in Sources */,
 				4FD70E3B1A8F9428002522D9 /* main.m in Sources */,
 				4FD70E3F1A8F9428002522D9 /* AppDelegate.m in Sources */,
+				FB905CCE1A98AFF7006BA66E /* ConnexionViewController.m in Sources */,
 				4FD70E6F1A8F9664002522D9 /* HomeListController.m in Sources */,
+				FB7E21F81A9BCDBD008355F8 /* TextFieldPassword.m in Sources */,
 				4FC7CEBE1A8FA0E0005830E6 /* Shop.m in Sources */,
 				4FC7CEC71A90E4DB005830E6 /* AddShopController.m in Sources */,
+				FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,7 +422,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -396,7 +447,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -410,7 +461,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iShoppingList/iShoppingList-Prefix.pch";
 				INFOPLIST_FILE = "iShoppingList/iShoppingList-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -423,7 +474,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iShoppingList/iShoppingList-Prefix.pch";
 				INFOPLIST_FILE = "iShoppingList/iShoppingList-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

@@ -19,13 +19,13 @@
 @interface AddShopController : UIViewController {
     @private
     Shop* shop_;
-    __weak id<AddShopControllerDelegate> delegate_;
+    id<AddShopControllerDelegate> delegate_;
 }
 
 @property (nonatomic, strong) Shop* shop;
-@property (weak, nonatomic) id<AddShopControllerDelegate> delegate;
-@property (weak, nonatomic) IBOutlet UITextField* nameOfShop;
-@property (weak, nonatomic) IBOutlet UITextField* productOfShop;
+@property (strong, nonatomic) id<AddShopControllerDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UITextField* nameOfShop;
+@property (strong, nonatomic) IBOutlet UITextField* productOfShop;
 - (IBAction)onTouchProductAdd:(id)sender;
 
 @end

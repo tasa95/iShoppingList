@@ -18,8 +18,8 @@
 }
 
 @property (nonatomic, strong)  NSArray* shoplist;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (weak,nonatomic) User* user;
+@property (strong,nonatomic) User* user;
 
 @end
