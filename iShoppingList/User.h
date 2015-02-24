@@ -32,6 +32,7 @@
 @property(strong,nonatomic,readonly) NSString* IdIphone;
 
 -(NSString*)description;
-
+-(NSData*)FormatForWebService;
+-(NSString*)testWWW;
 
 @end

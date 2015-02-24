@@ -72,10 +72,34 @@
 #pragma Description of user
 -(NSString*)description
 {
-    NSString* myString = [[NSMutableString alloc] initWithFormat:@"{ \"name_user\" : \"%@\" ,\n \"pass_user\" : \"%@\" ,\n \"device_user\" : \"%@\" ,\n \"mail_user\" : \"%@\" }", self.UserName, self.passUser, self.IdIphone,self.mailUser ];
+    NSString* myString = [[NSMutableString alloc] initWithFormat:@"{ \"name_user\" : \"%@\" ,\n \"pass_user\" : \"%@\" ,\n \"device_user\" : \"%@\" ,\n \"mail_user\" : \"%@\"}", self.UserName, self.passUser, self.IdIphone,self.mailUser ];
     
     return myString;
+}
 
+-(NSDictionary*)getDictionary
+{
+    NSMutableDictionary* dic = [[NSMutableDictionary alloc ] init];
+    [dic setValue:self.mailUser forKey:@"mail_user"];
+    [dic setValue:self.UserName forKey:@"name_user"];
+    [dic setValue:self.passUser forKey:@"pass_user"];
+    [dic setValue:IdIphone_ forKey:@"device_user"];
+    return dic;
+}
+
+-(NSData*)FormatForWebService
+{
+    NSError *error;
+    NSMutableDictionary* dictionaire = [[NSMutableDictionary alloc] init];
+    [dictionaire setValue:[self getDictionary] forKey:@"request_datas"];
+    return [NSJSONSerialization dataWithJSONObject:dictionaire options:0 error:&error];
+}
+
+-(NSString*)testWWW
+{
+    NSString* myString = [[NSMutableString alloc] initWithFormat:@"name_user=%@&pass_user=%@&device_user=%@&mail_user=%@", self.UserName, self.passUser, self.IdIphone,self.mailUser ];
+    
+    return myString;
 }
 
 

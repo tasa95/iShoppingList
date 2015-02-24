@@ -10,6 +10,7 @@
 #import "JSonWebService.h"
 #import "HomeListController.h"
 #import "RouteController.h"
+#import "MyTextField.h"
 
 @interface ConnexionViewController ()
 
@@ -66,7 +67,24 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    [self emptyField];
+    
+    if([textField isKindOfClass:[MyTextField class]])
+    {
+        
+            MyTextField *myText = (MyTextField*)textField;
+        
+         
+           if([myText isPoorlyPrepared])
+           {
+               if(myText.FieldState == 1)
+                   [myText changeState];
+           }
+           else
+           {
+               if(myText.FieldState == 0)
+                   [myText changeState];
+           }
+    }
     return NO;
 }
 
@@ -77,11 +95,11 @@
     return YES;
 }
 - (IBAction)doConnexion:(id)sender {
-    if(![self emptyField])
+    if(![self PoorlyPreparedTextFields])
     {
         User* user = [[User alloc] initWithMailUser:self.userEmail.text andPassUser:self.userPassword.text];
 
-        [JSonWebService startWebserviceWithURL:[RouteController loginRoute] WithMethod:tasMethodRequestGet withBody:[user description] responseBlock:^(id response, NSError *error)
+        [JSonWebService startWebserviceWithURL:[RouteController loginRoute] WithMethod:tasMethodRequestGet withBody:[user FormatForWebService] responseBlock:^(id response, NSError *error)
          {
              if(!error)
              {
@@ -93,7 +111,7 @@
                  // si le smartphone a changé
                  if([response objectForKey:@"device_user"]  != user.IdIphone)
                  {
-                     [JSonWebService startWebserviceWithURL:[RouteController updateUser] WithMethod:tasMethodRequestPut withBody:[user description] responseBlock:^(id response, NSError *error)
+                     [JSonWebService startWebserviceWithURL:[RouteController updateUser] WithMethod:tasMethodRequestPut withBody:[user FormatForWebService] responseBlock:^(id response, NSError *error)
                       {
                           if(!error)
                           {
@@ -121,11 +139,11 @@
     if( !self.userName.hidden || self.userName.text.length > 0)
     {
         
-        if(![self emptyField])
+        if(![self PoorlyPreparedTextFields])
         {
             User* user = [[User alloc] initWithName:self.userName.text AndMailUser:self.userEmail.text andPassUser:self.userPassword.text];
       
-            [JSonWebService startWebserviceWithURL:[RouteController signUpRoute] WithMethod:tasMethodRequestPost withBody:[user description] responseBlock:^(id response, NSError *error)
+            [JSonWebService startWebserviceWithURL:[RouteController signUpRoute] WithMethod:tasMethodRequestPost withBody:[user FormatForWebService]responseBlock:^(id response, NSError *error)
              {
                  if(!error)
                  {
@@ -158,45 +176,6 @@
     }
 }
 
--(bool)emptyField{
-    
-    bool emptyField = NO;
-    
-    if(self.userEmail.text.length > 0 && [self isAnEmail:self.userEmail.text])
-    {
-        [self ChangeBorderOfTextFieldInGreen:self.userEmail];
-        
-    }
-    else
-    {
-        emptyField = YES;
-        [self ChangeBorderOfTextFieldInRed:self.userEmail];
-    }
-    
-    if(self.userPassword.text.length == 0)
-    {
-        emptyField = YES;
-        [self ChangeBorderOfTextFieldInRed:self.userPassword];
-    }
-    else
-    {
-
-        [self ChangeBorderOfTextFieldInGreen:self.userPassword];
-
-    }
-    
-    if( !(self.userName.hidden) && self.userName.text.length  > 0)
-    {
-        [self ChangeBorderOfTextFieldInGreen:self.userName];
-      
-    }
-    else
-    {
-        emptyField = YES;
-        [self ChangeBorderOfTextFieldInRed:self.userName];
-    }
-    return emptyField;
-}
 
 
 
@@ -206,56 +185,34 @@
     for (UIView * txt in self.view.subviews){
    
         if ([txt isKindOfClass:[UITextField class]] && [txt isFirstResponder]) {
-            [self textFieldShouldReturn:txt];
+            [self textFieldShouldReturn:(UITextField*)txt];
         }
     }
 }
 
--(bool)isAnEmail:(NSString*) mail{
+-(bool)PoorlyPreparedTextFields{
     
+    bool emptyField = false;
+    NSInteger counter = 0 ;
+    UIView * txt;
+    MyTextField* myTextField;
     
-    if(mail.length == 0)
-        return NO;
-    NSError  *error = nil;
-    NSRange range = NSMakeRange(0, mail.length);
-    NSString *pattern = @"[a-zA-Z0-9_.-]+@{1}[a-zA-Z0-9_.-]{2,}\.[a-zA-Z.]{2,5}";
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: pattern options:0 error:&error];
-    NSArray *matches = [regex matchesInString:mail options:0 range:range];
-   
+    while(emptyField && counter < self.view.subviews.count  )
+    {
+        txt= self.view.subviews[counter];
+        if ([txt isKindOfClass:[MyTextField class]]) {
+            myTextField = (MyTextField*)txt;
+            if([myTextField isPoorlyPrepared])
+            {
+                emptyField = true;
+            }
+        }
 
-    if(matches.count > 0)
-        return YES;
-    else
-        return NO;
+    }
+    return emptyField;
 }
 
--(void)ChangeBorderOfTextFieldInRed:(UITextField*) textField
-{
-    [UIView transitionWithView:self.userPassword
-                      duration:0.7
-                       options:UIViewAnimationOptionTransitionCrossDissolve
-                    animations:NULL
-                    completion:NULL];
-    
 
-    textField.layer.borderWidth = 0.75F;
-    textField.layer.borderColor = [[UIColor redColor]CGColor];
-    textField.layer.cornerRadius = 10;
-}
 
--(void)ChangeBorderOfTextFieldInGreen:(UITextField*) textField
-{
-    [UIView transitionWithView:self.userPassword
-                      duration:0.7
-                       options:UIViewAnimationOptionTransitionCrossDissolve
-                    animations:NULL
-                    completion:NULL];
-    
-    
-    textField.layer.borderWidth = 0.75F;;
-    textField.layer.borderColor = [[UIColor greenColor]CGColor];
-    textField.layer.cornerRadius = 10;
-
-}
 
 @end

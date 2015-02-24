@@ -25,13 +25,8 @@
 - (IBAction)doConnexion:(id)sender;
 - (IBAction)SignUp:(id)sender;
 
--(bool)emptyField;
--(void) setHost;
-
 - (IBAction)dissmissKeyboard;
--(bool)isAnEmail:(NSString*) mail;
 
--(void)ChangeBorderOfTextFieldInRed:(UITextField*) textField;
--(void)ChangeBorderOfTextFieldInGreen:(UITextField*) textField;
+-(bool)PoorlyPreparedTextFields;
 
 @end

@@ -8,7 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+
+
+
 @protocol ProtocolMyTextField <NSObject>
--(void)wrongField;
+
+
+@property NSInteger FieldState;
+-(bool)isPoorlyPrepared;
+-(void)changeState;
+
 
 @end

@@ -30,7 +30,9 @@
 		4FFCFE801A92449A002048D3 /* selectedcheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */; };
 		FB7D52881A99DD4300453E71 /* Webservice_iOS.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB7D52871A99DD4300453E71 /* Webservice_iOS.txt */; };
 		FB7D528B1A99DD8000453E71 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7D528A1A99DD8000453E71 /* User.m */; };
-		FB7E21F81A9BCDBD008355F8 /* TextFieldPassword.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E21F71A9BCDBD008355F8 /* TextFieldPassword.m */; };
+		FB7E21FF1A9BDCAD008355F8 /* RouteController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E21FE1A9BDCAD008355F8 /* RouteController.m */; };
+		FB7E22051A9D12F6008355F8 /* MyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E22041A9D12F6008355F8 /* MyTextField.m */; };
+		FB7E22081A9D1C65008355F8 /* MyTextFieldMail.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E22071A9D1C65008355F8 /* MyTextFieldMail.m */; };
 		FB905CCE1A98AFF7006BA66E /* ConnexionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */; };
 		FB905CCF1A98AFF7006BA66E /* ConnexionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */; };
 		FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CD11A98B961006BA66E /* JSonWebService.m */; };
@@ -79,9 +81,13 @@
 		FB7D52871A99DD4300453E71 /* Webservice_iOS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Webservice_iOS.txt; sourceTree = "<group>"; };
 		FB7D52891A99DD8000453E71 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		FB7D528A1A99DD8000453E71 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		FB7E21F61A9BCDBD008355F8 /* TextFieldPassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldPassword.h; sourceTree = "<group>"; };
-		FB7E21F71A9BCDBD008355F8 /* TextFieldPassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldPassword.m; sourceTree = "<group>"; };
 		FB7E21FB1A9BCEC3008355F8 /* ProtocolMyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProtocolMyTextField.h; path = ../ProtocolMyTextField.h; sourceTree = "<group>"; };
+		FB7E21FD1A9BDCAD008355F8 /* RouteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteController.h; sourceTree = "<group>"; };
+		FB7E21FE1A9BDCAD008355F8 /* RouteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteController.m; sourceTree = "<group>"; };
+		FB7E22031A9D12F6008355F8 /* MyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTextField.h; sourceTree = "<group>"; };
+		FB7E22041A9D12F6008355F8 /* MyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTextField.m; sourceTree = "<group>"; };
+		FB7E22061A9D1C65008355F8 /* MyTextFieldMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTextFieldMail.h; sourceTree = "<group>"; };
+		FB7E22071A9D1C65008355F8 /* MyTextFieldMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTextFieldMail.m; sourceTree = "<group>"; };
 		FB905CCB1A98AFF7006BA66E /* ConnexionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnexionViewController.h; sourceTree = "<group>"; };
 		FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnexionViewController.m; sourceTree = "<group>"; };
 		FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnexionViewController.xib; sourceTree = "<group>"; };
@@ -169,12 +175,11 @@
 				4FD70E6D1A8F9664002522D9 /* HomeListController.m */,
 				4FD70E6E1A8F9664002522D9 /* HomeListController.xib */,
 				4FC7CEC41A90E4DA005830E6 /* AddShopController.h */,
+				FB7E22001A9BDE1F008355F8 /* Web Service */,
 				4FC7CEC51A90E4DA005830E6 /* AddShopController.m */,
 				4FC7CEC61A90E4DB005830E6 /* AddShopController.xib */,
 				4FFCFE7D1A92449A002048D3 /* notselectedcheckbox.png */,
 				4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */,
-				FB905CD01A98B961006BA66E /* JSonWebService.h */,
-				FB905CD11A98B961006BA66E /* JSonWebService.m */,
 				4FC7CEBB1A8FA0B4005830E6 /* ModelShop */,
 				4FD70E351A8F9428002522D9 /* Supporting Files */,
 			);
@@ -217,8 +222,10 @@
 		FB7E21F91A9BCDCA008355F8 /* subView class */ = {
 			isa = PBXGroup;
 			children = (
-				FB7E21F61A9BCDBD008355F8 /* TextFieldPassword.h */,
-				FB7E21F71A9BCDBD008355F8 /* TextFieldPassword.m */,
+				FB7E22031A9D12F6008355F8 /* MyTextField.h */,
+				FB7E22041A9D12F6008355F8 /* MyTextField.m */,
+				FB7E22061A9D1C65008355F8 /* MyTextFieldMail.h */,
+				FB7E22071A9D1C65008355F8 /* MyTextFieldMail.m */,
 			);
 			name = "subView class";
 			sourceTree = "<group>";
@@ -229,6 +236,25 @@
 				FB7E21FB1A9BCEC3008355F8 /* ProtocolMyTextField.h */,
 			);
 			name = protocol;
+			sourceTree = "<group>";
+		};
+		FB7E22001A9BDE1F008355F8 /* Web Service */ = {
+			isa = PBXGroup;
+			children = (
+				FB7E22011A9BDE40008355F8 /* Controller */,
+			);
+			name = "Web Service";
+			sourceTree = "<group>";
+		};
+		FB7E22011A9BDE40008355F8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FB905CD11A98B961006BA66E /* JSonWebService.m */,
+				FB905CD01A98B961006BA66E /* JSonWebService.h */,
+				FB7E21FD1A9BDCAD008355F8 /* RouteController.h */,
+				FB7E21FE1A9BDCAD008355F8 /* RouteController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,8 +378,10 @@
 				4FD70E3F1A8F9428002522D9 /* AppDelegate.m in Sources */,
 				FB905CCE1A98AFF7006BA66E /* ConnexionViewController.m in Sources */,
 				4FD70E6F1A8F9664002522D9 /* HomeListController.m in Sources */,
-				FB7E21F81A9BCDBD008355F8 /* TextFieldPassword.m in Sources */,
+				FB7E22081A9D1C65008355F8 /* MyTextFieldMail.m in Sources */,
 				4FC7CEBE1A8FA0E0005830E6 /* Shop.m in Sources */,
+				FB7E22051A9D12F6008355F8 /* MyTextField.m in Sources */,
+				FB7E21FF1A9BDCAD008355F8 /* RouteController.m in Sources */,
 				4FC7CEC71A90E4DB005830E6 /* AddShopController.m in Sources */,
 				FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */,
 			);

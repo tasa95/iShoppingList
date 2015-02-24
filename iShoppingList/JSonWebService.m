@@ -13,26 +13,35 @@
 
 @implementation JSonWebService
 
-+ (void)startWebserviceWithURL:(NSURL *)url WithMethod:(tasMethodRequest)method  withBody:(NSString*)HTTPBody responseBlock:(ResponseBlock)responseBlock
++ (void)startWebserviceWithURL:(NSURL *)url WithMethod:(tasMethodRequest)method  withBody:(NSData*)HTTPBody responseBlock:(ResponseBlock)responseBlock
 {
     
     dispatch_queue_t queue = dispatch_queue_create("JsonQueue", DISPATCH_QUEUE_SERIAL);
     dispatch_async(queue, ^{
         NSURL* URL = url;
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-        NSData *postData =[HTTPBody dataUsingEncoding:NSUTF8StringEncoding];
-        request.HTTPBody = postData;
-        NSLog(@"Url : %@", url);
-        NSLog(@"Envoit : %@", HTTPBody);
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+        
 
         request.HTTPMethod = [JSonWebService getStringTasMethodRequest:method];
+        
+        
+        
+        NSData * JsonData =HTTPBody;
+        request.HTTPBody = HTTPBody;
+       
+        [request setValue:[[NSString alloc] initWithFormat:@"%d", JsonData.length ] forHTTPHeaderField:@"Content-length"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [request setValue:[[NSString alloc] initWithFormat:@"%d", postData.length ] forHTTPHeaderField:@"Content-Length"];
-        
-         NSLog(@"Requete : %@", request);
-        
         NSError* error = nil;
+        [request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
+        
+  
+        NSLog(@"request : %@\n", request);
+        NSLog(@"Method : %@\n", request.HTTPMethod);
+        NSLog(@"url : %@\n", request.URL);
+        NSLog(@"Body data : %@\n", request.HTTPBody);
+        NSLog(@"Body inclear : %@\n", [[NSString alloc ]initWithData:JsonData encoding:NSUTF8StringEncoding]);
+        NSLog(@"httpHeaderFields : %@\n", request.allHTTPHeaderFields);
+        
         NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
         NSDictionary* response = nil;
         if(!error)

@@ -28,7 +28,7 @@ static NSURL* host;
 
 
 
-+ (void)startWebserviceWithURL:(NSURL*) url WithMethod:(tasMethodRequest)method withBody:(NSString*)HTTPBody responseBlock:(ResponseBlock)responseBlock;
++ (void)startWebserviceWithURL:(NSURL*) url WithMethod:(tasMethodRequest)method withBody:(NSData*) HTTPBody responseBlock:(ResponseBlock)responseBlock;
 +(NSString*)getStringTasMethodRequest:(tasMethodRequest) methodRequest;
 
 +(void)setHost:(NSURL*) NewHost;
