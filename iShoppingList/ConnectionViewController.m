@@ -7,15 +7,15 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "ConnexionViewController.h"
+#import "ConnectionViewController.h"
 #import "JSonWebService.h"
 #import "HomeListController.h"
 
-@interface ConnexionViewController ()
+@interface ConnectionViewController ()
 
 @end
 
-@implementation ConnexionViewController
+@implementation ConnectionViewController
 
 -(id) init{
     if(self =[super init])
@@ -125,9 +125,9 @@
     }
     else{
         NSLog(@"apparition");
- 
+        
         self.userName.layer.hidden = NO;
-
+        
     }
 }
 

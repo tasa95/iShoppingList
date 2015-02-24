@@ -58,6 +58,7 @@
         IdIphone_ = [aDecoder decodeObjectForKey:@"device_user"];
     }
 }
+
 -(void) encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.mailUser forKey:@"mail_user"];

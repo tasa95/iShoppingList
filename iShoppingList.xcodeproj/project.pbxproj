@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F0285DF1A9D2F0D00BAB8DC /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0285DD1A9D2F0D00BAB8DC /* ConnectionViewController.m */; };
+		4F0285E01A9D2F0D00BAB8DC /* ConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F0285DE1A9D2F0D00BAB8DC /* ConnectionViewController.xib */; };
+		4FB291BD1A9A25F0005DD39D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FB291B51A9A25F0005DD39D /* InfoPlist.strings */; };
+		4FB291BE1A9A25F0005DD39D /* JSonWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB291B81A9A25F0005DD39D /* JSonWebService.m */; };
+		4FB291BF1A9A25F0005DD39D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB291BA1A9A25F0005DD39D /* User.m */; };
 		4FC7CEBE1A8FA0E0005830E6 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC7CEBD1A8FA0E0005830E6 /* Shop.m */; };
 		4FC7CEC71A90E4DB005830E6 /* AddShopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC7CEC51A90E4DA005830E6 /* AddShopController.m */; };
 		4FC7CEC81A90E4DB005830E6 /* AddShopController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FC7CEC61A90E4DB005830E6 /* AddShopController.xib */; };
@@ -41,6 +46,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F0285DC1A9D2F0D00BAB8DC /* ConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionViewController.h; sourceTree = "<group>"; };
+		4F0285DD1A9D2F0D00BAB8DC /* ConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionViewController.m; sourceTree = "<group>"; };
+		4F0285DE1A9D2F0D00BAB8DC /* ConnectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectionViewController.xib; sourceTree = "<group>"; };
+		4FB291B61A9A25F0005DD39D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		4FB291B71A9A25F0005DD39D /* JSonWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSonWebService.h; sourceTree = "<group>"; };
+		4FB291B81A9A25F0005DD39D /* JSonWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSonWebService.m; sourceTree = "<group>"; };
+		4FB291B91A9A25F0005DD39D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		4FB291BA1A9A25F0005DD39D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		4FC7CEBC1A8FA0E0005830E6 /* Shop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shop.h; sourceTree = "<group>"; };
 		4FC7CEBD1A8FA0E0005830E6 /* Shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shop.m; sourceTree = "<group>"; };
 		4FC7CEC41A90E4DA005830E6 /* AddShopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShopController.h; sourceTree = "<group>"; };
@@ -96,6 +109,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4FB291B41A9A25F0005DD39D /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				4FB291B51A9A25F0005DD39D /* InfoPlist.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
 		4FC7CEBB1A8FA0B4005830E6 /* ModelShop */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +159,13 @@
 		4FD70E341A8F9428002522D9 /* iShoppingList */ = {
 			isa = PBXGroup;
 			children = (
+				4F0285DC1A9D2F0D00BAB8DC /* ConnectionViewController.h */,
+				4F0285DD1A9D2F0D00BAB8DC /* ConnectionViewController.m */,
+				4F0285DE1A9D2F0D00BAB8DC /* ConnectionViewController.xib */,
+				4FB291B71A9A25F0005DD39D /* JSonWebService.h */,
+				4FB291B81A9A25F0005DD39D /* JSonWebService.m */,
+				4FB291B91A9A25F0005DD39D /* User.h */,
+				4FB291BA1A9A25F0005DD39D /* User.m */,
 				4FD70E3D1A8F9428002522D9 /* AppDelegate.h */,
 				4FD70E3E1A8F9428002522D9 /* AppDelegate.m */,
 				4FD70E6C1A8F9664002522D9 /* HomeListController.h */,
@@ -148,6 +176,7 @@
 				4FC7CEC61A90E4DB005830E6 /* AddShopController.xib */,
 				4FFCFE7D1A92449A002048D3 /* notselectedcheckbox.png */,
 				4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */,
+				4FB291B41A9A25F0005DD39D /* en.lproj */,
 				4FC7CEBB1A8FA0B4005830E6 /* ModelShop */,
 				4FD70E351A8F9428002522D9 /* Supporting Files */,
 			);
@@ -266,6 +295,8 @@
 				4FC7CEC81A90E4DB005830E6 /* AddShopController.xib in Resources */,
 				4FFCFE7F1A92449A002048D3 /* notselectedcheckbox.png in Resources */,
 				4FFCFE801A92449A002048D3 /* selectedcheckbox.png in Resources */,
+				4FB291BD1A9A25F0005DD39D /* InfoPlist.strings in Resources */,
+				4F0285E01A9D2F0D00BAB8DC /* ConnectionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +336,9 @@
 				4FD70E6F1A8F9664002522D9 /* HomeListController.m in Sources */,
 				4FC7CEBE1A8FA0E0005830E6 /* Shop.m in Sources */,
 				4FC7CEC71A90E4DB005830E6 /* AddShopController.m in Sources */,
+				4FB291BE1A9A25F0005DD39D /* JSonWebService.m in Sources */,
+				4FB291BF1A9A25F0005DD39D /* User.m in Sources */,
+				4F0285DF1A9D2F0D00BAB8DC /* ConnectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +361,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4FB291B51A9A25F0005DD39D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4FB291B61A9A25F0005DD39D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		4FD70E371A8F9428002522D9 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
