@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "HomeListController.h"
 #import "Shop.h"
-#import "ConnexionViewController.h"
+#import "ConnectionViewController.h"
 #import "User.h"
 #import "JSonWebService.h"
 
@@ -50,7 +50,7 @@
 
     }
     else{
-        ConnexionViewController* ConnexionController = [ConnexionViewController new];
+        ConnectionViewController* ConnexionController = [ConnectionViewController new];
         
         window.rootViewController = [[UINavigationController alloc] initWithRootViewController:ConnexionController];
       

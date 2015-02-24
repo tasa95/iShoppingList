@@ -60,6 +60,7 @@
     }
     return self;
 }
+
 -(void) encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.mailUser forKey:@"mail_user"];
