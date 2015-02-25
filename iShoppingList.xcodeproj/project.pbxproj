@@ -33,6 +33,8 @@
 		FB7E21FF1A9BDCAD008355F8 /* RouteController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E21FE1A9BDCAD008355F8 /* RouteController.m */; };
 		FB7E22051A9D12F6008355F8 /* MyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E22041A9D12F6008355F8 /* MyTextField.m */; };
 		FB7E22081A9D1C65008355F8 /* MyTextFieldMail.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E22071A9D1C65008355F8 /* MyTextFieldMail.m */; };
+		FB7E220C1A9D4C1A008355F8 /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E220A1A9D4C1A008355F8 /* ConnectionViewController.m */; };
+		FB7E220D1A9D4C1A008355F8 /* ConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB7E220B1A9D4C1A008355F8 /* ConnectionViewController.xib */; };
 		FB905CCE1A98AFF7006BA66E /* ConnexionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */; };
 		FB905CCF1A98AFF7006BA66E /* ConnexionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */; };
 		FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CD11A98B961006BA66E /* JSonWebService.m */; };
@@ -88,6 +90,9 @@
 		FB7E22041A9D12F6008355F8 /* MyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTextField.m; sourceTree = "<group>"; };
 		FB7E22061A9D1C65008355F8 /* MyTextFieldMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTextFieldMail.h; sourceTree = "<group>"; };
 		FB7E22071A9D1C65008355F8 /* MyTextFieldMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTextFieldMail.m; sourceTree = "<group>"; };
+		FB7E22091A9D4C1A008355F8 /* ConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionViewController.h; sourceTree = "<group>"; };
+		FB7E220A1A9D4C1A008355F8 /* ConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionViewController.m; sourceTree = "<group>"; };
+		FB7E220B1A9D4C1A008355F8 /* ConnectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectionViewController.xib; sourceTree = "<group>"; };
 		FB905CCB1A98AFF7006BA66E /* ConnexionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnexionViewController.h; sourceTree = "<group>"; };
 		FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnexionViewController.m; sourceTree = "<group>"; };
 		FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnexionViewController.xib; sourceTree = "<group>"; };
@@ -165,6 +170,9 @@
 			children = (
 				FB7E21FC1A9BCECD008355F8 /* protocol */,
 				FB7D52871A99DD4300453E71 /* Webservice_iOS.txt */,
+				FB7E22091A9D4C1A008355F8 /* ConnectionViewController.h */,
+				FB7E220A1A9D4C1A008355F8 /* ConnectionViewController.m */,
+				FB7E220B1A9D4C1A008355F8 /* ConnectionViewController.xib */,
 				4FD70E3D1A8F9428002522D9 /* AppDelegate.h */,
 				FB905CCB1A98AFF7006BA66E /* ConnexionViewController.h */,
 				FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */,
@@ -335,6 +343,7 @@
 				4FD70E431A8F9428002522D9 /* Default@2x.png in Resources */,
 				FB905CCF1A98AFF7006BA66E /* ConnexionViewController.xib in Resources */,
 				4FD70E451A8F9428002522D9 /* Default-568h@2x.png in Resources */,
+				FB7E220D1A9D4C1A008355F8 /* ConnectionViewController.xib in Resources */,
 				4FD70E701A8F9664002522D9 /* HomeListController.xib in Resources */,
 				4FC7CEC81A90E4DB005830E6 /* AddShopController.xib in Resources */,
 				4FFCFE7F1A92449A002048D3 /* notselectedcheckbox.png in Resources */,
@@ -381,6 +390,7 @@
 				FB7E22081A9D1C65008355F8 /* MyTextFieldMail.m in Sources */,
 				4FC7CEBE1A8FA0E0005830E6 /* Shop.m in Sources */,
 				FB7E22051A9D12F6008355F8 /* MyTextField.m in Sources */,
+				FB7E220C1A9D4C1A008355F8 /* ConnectionViewController.m in Sources */,
 				FB7E21FF1A9BDCAD008355F8 /* RouteController.m in Sources */,
 				4FC7CEC71A90E4DB005830E6 /* AddShopController.m in Sources */,
 				FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */,
