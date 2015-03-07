@@ -99,19 +99,19 @@
     {
         User* user = [[User alloc] initWithMailUser:self.userEmail.text andPassUser:self.userPassword.text];
 
-        [JSonWebService startWebserviceWithURL:[RouteController loginRoute] WithMethod:tasMethodRequestGet withBody:[user FormatForWebService] responseBlock:^(id response, NSError *error)
+        [JSonWebService startWebserviceWithURL:[RouteController loginRoute] WithMethod:tasMethodRequestGet withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
          {
              if(!error)
              {
-                 NSLog(@"%@", error.description);
+                 NSLog(@"%@", [error description]);
              }
              else
              {
-                  NSLog(@"%@",  [[NSString alloc ]initWithData:response encoding:NSUTF8StringEncoding] );
+                  NSLog(@"%@",  [response description] );
                  // si le smartphone a changé
                  if([response objectForKey:@"device_user"]  != user.IdIphone)
                  {
-                     [JSonWebService startWebserviceWithURL:[RouteController updateUser] WithMethod:tasMethodRequestPut withBody:[user FormatForWebService] responseBlock:^(id response, NSError *error)
+                     [JSonWebService startWebserviceWithURL:[RouteController updateUser] WithMethod:tasMethodRequestPut withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
                       {
                           if(!error)
                           {
@@ -142,8 +142,11 @@
         if(![self PoorlyPreparedTextFields])
         {
             User* user = [[User alloc] initWithName:self.userName.text AndMailUser:self.userEmail.text andPassUser:self.userPassword.text];
-      
-            [JSonWebService startWebserviceWithURL:[RouteController signUpRoute] WithMethod:tasMethodRequestPost withBody:[user FormatForWebService]responseBlock:^(id response, NSError *error)
+            
+            
+            
+            
+            [JSonWebService startWebserviceWithURL:[RouteController signUpRoute] WithMethod:tasMethodRequestPost withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
              {
                  if(!error)
                  {
@@ -152,12 +155,13 @@
                  else
                  {
 
-                     NSLog(@"%@",  [[NSString alloc ]initWithData:response encoding:NSUTF8StringEncoding] );
+                     NSLog(@"%@",  [response description]);
                      HomeListController* homeListController = [HomeListController new];
                      homeListController.user = user;
                      [self.navigationController pushViewController:homeListController animated:YES];
                  }
              }];
+            
         }
         else{
             
@@ -212,6 +216,47 @@
     return emptyField;
 }
 
+
+#pragma mark NSURLConnection Delegate Methods
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    // A response has been received, this is where we initialize the instance var you created
+    // so that we can append data to it in the didReceiveData method
+    // Furthermore, this method is called each time there is a redirect so reinitializing it
+    // also serves to clear it
+    responseData_ = [[NSMutableData alloc] init];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    // Append the new data to the instance variable you declared
+    [responseData_ appendData:data];
+    
+}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    // Return nil to indicate not necessary to store a cached response for this connection
+    return nil;
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    // The request is complete and data has been received
+    // You can parse the stuff in your instance variable now
+    
+    NSError* error = nil;
+    NSDictionary* response = [NSJSONSerialization JSONObjectWithData:responseData_ options:0 error:&error];
+    NSLog([response description]);
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    // The request has failed for some reason!
+    // Check the error var
+    if(error)
+    {
+        NSLog( [error description]);
+    }
+}
 
 
 

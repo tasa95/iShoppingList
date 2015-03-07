@@ -18,10 +18,10 @@
 -(id) init;
 
 
-@property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (strong, nonatomic) IBOutlet UITextField *userName;
 
-@property (weak, nonatomic) IBOutlet UITextField *userPassword;
-@property (weak, nonatomic) IBOutlet UITextField *userEmail;
+@property (strong, nonatomic) IBOutlet UITextField *userPassword;
+@property (strong, nonatomic) IBOutlet UITextField *userEmail;
 
 - (IBAction)doConnexion:(id)sender;
 - (IBAction)SignUp:(id)sender;

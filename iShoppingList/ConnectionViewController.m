@@ -66,7 +66,7 @@
     {
         User* user = [[User alloc] initWithMailUser:self.userEmail.text andPassUser:self.userPassword.text];
         [self setHost];
-        [JSonWebService startWebserviceWithURL:[JSonWebService host] WithMethod:tasMethodRequestGet withBody:[user description] responseBlock:^(id response, NSError *error)
+        [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestGet withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
          {
              if(!error)
              {
@@ -77,7 +77,7 @@
                  // si le smartphone a changé
                  if([response objectForKey:@"device_user"]  != user.IdIphone)
                  {
-                     [JSonWebService startWebserviceWithURL:[JSonWebService host] WithMethod:tasMethodRequestPut withBody:[user description] responseBlock:^(id response, NSError *error)
+                     [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPut withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
                       {
                           if(!error)
                           {
@@ -107,15 +107,17 @@
         {
             User* user = [[User alloc] initWithName:self.userName.text AndMailUser:self.userEmail.text andPassUser:self.userPassword.text];
             [self setHost];
-            [JSonWebService startWebserviceWithURL:[JSonWebService host] WithMethod:tasMethodRequestPost withBody:[self description] responseBlock:^(id response, NSError *error)
+            [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPost withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
              {
+   
+                 NSLog([response description]);
                  if(!error)
                  {
-                     NSLog(@"%@", error.description);
+                     NSLog(@"Error : %@", error.description);
                  }
                  else
                  {
-                     
+                     NSLog(response);
                      HomeListController* homeListController = [HomeListController new];
                      homeListController.user = user;
                      [self.navigationController pushViewController:homeListController animated:YES];
@@ -156,12 +158,14 @@
 
 -(void) setHost
 {
-    if([[JSonWebService host] relativeString].length == 0)
+    if([[JSonWebService getHost] relativeString].length == 0)
     {
         NSString* urlServer = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"URL Server"];
         NSURL* url = [[NSURL alloc] initWithString:urlServer];
         JSonWebService.host = url;
     }
 }
+
+
 
 @end

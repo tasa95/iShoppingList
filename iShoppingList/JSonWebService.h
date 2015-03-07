@@ -19,8 +19,9 @@ typedef NS_ENUM(NSInteger, tasMethodRequest ){
     tasMethodRequestGet
 };
 static NSURL* host;
+static  NSMutableData *responseData_;
 
-@interface JSonWebService : NSObject
+@interface JSonWebService : NSObject <NSURLConnectionDelegate>
 {
     
     
@@ -28,7 +29,7 @@ static NSURL* host;
 
 
 
-+ (void)startWebserviceWithURL:(NSURL*) url WithMethod:(tasMethodRequest)method withBody:(NSData*) HTTPBody responseBlock:(ResponseBlock)responseBlock;
++ (void)startWebserviceWithURL:(NSURL*) url WithMethod:(tasMethodRequest)method withBody:(NSData*) HTTPBody Withdelegate: (id)delegate responseBlock:(ResponseBlock)responseBlock;
 +(NSString*)getStringTasMethodRequest:(tasMethodRequest) methodRequest;
 
 +(void)setHost:(NSURL*) NewHost;

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 
-@interface ConnexionViewController : UIViewController <UITextFieldDelegate>
+@interface ConnexionViewController : UIViewController <UITextFieldDelegate,NSURLConnectionDelegate>
 {
+    NSMutableData * responseData_;
 }
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;

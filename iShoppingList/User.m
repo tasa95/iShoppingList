@@ -81,10 +81,12 @@
 -(NSDictionary*)getDictionary
 {
     NSMutableDictionary* dic = [[NSMutableDictionary alloc ] init];
-    [dic setValue:self.mailUser forKey:@"mail_user"];
-    [dic setValue:self.UserName forKey:@"name_user"];
-    [dic setValue:self.passUser forKey:@"pass_user"];
+    [dic setValue:self.mailUser forKey:@"mail"];
+    [dic setValue:self.UserName forKey:@"name"];
+    [dic setValue:self.passUser forKey:@"password"];
     [dic setValue:IdIphone_ forKey:@"device_user"];
+    
+    // changer key
     return dic;
 }
 
@@ -93,7 +95,10 @@
     NSError *error;
     NSMutableDictionary* dictionaire = [[NSMutableDictionary alloc] init];
     [dictionaire setValue:[self getDictionary] forKey:@"request_datas"];
-    return [NSJSONSerialization dataWithJSONObject:dictionaire options:0 error:&error];
+    return [NSJSONSerialization dataWithJSONObject:[self getDictionary] options:0 error:&error];
+    
+    
+    //mettre dictionnaire
 }
 
 -(NSString*)testWWW
