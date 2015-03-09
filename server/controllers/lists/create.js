@@ -16,7 +16,7 @@ module.exports = function(app) {
 		function createList(req, res) {
 			var list = {};
 			list.name_list = req.body.name_list;
-			list.user_id = req.body.user_id;
+			list.id_user = req.body.id_user;
 			// list.id_user = req.session.userId;   <=== get user session 
 
 			list = new app.models.List(list);
@@ -26,7 +26,22 @@ module.exports = function(app) {
 				if (err) {
 					res.status(500).send(err.toString());
 				} else {
-					res.status(200).send(list.toJSON());
+					var items = req.body.items;
+
+					for (i=0; i<items.length; i++) {
+						var item = {};
+						item.text_item = items[i].text_item;
+						item.nb_item = items[i].nb_item;
+
+						itemModel = new app.models.Item(item);
+						itemModel.save(function(err, saved) {
+							if (err) {
+								res.status(500).send("An error occurred in items creation: "+err.toString());
+							} else if (saved && i == items.length-1) {
+								res.status(200).send("The list is well created");
+							}
+						});
+					}
 				}
 			}
 		});

@@ -1,4 +1,4 @@
-var sha1 = require('./sha1');
+var sha1 = require('sha1');
 
 module.exports = function(app){
     app.server.get('/user/:id',
