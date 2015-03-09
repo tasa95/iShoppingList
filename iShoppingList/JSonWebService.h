@@ -27,7 +27,7 @@ static  NSMutableData *responseData_;
     
 }
 
-
++ (void)startWebserviceWithURL:(NSURL *)url  withParameter:(NSString*)parameter  responseBlock:(ResponseBlock)responseBlock;
 
 + (void)startWebserviceWithURL:(NSURL*) url WithMethod:(tasMethodRequest)method withBody:(NSData*) HTTPBody Withdelegate: (id)delegate responseBlock:(ResponseBlock)responseBlock;
 +(NSString*)getStringTasMethodRequest:(tasMethodRequest) methodRequest;

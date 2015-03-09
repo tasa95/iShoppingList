@@ -71,10 +71,65 @@
        
      
     });
-
-
-      
 }
+
+
+
++ (void)startWebserviceWithURL:(NSURL *)url  withParameter:(NSString*)parameter  responseBlock:(ResponseBlock)responseBlock
+{
+    
+    
+    
+    dispatch_queue_t queue = dispatch_queue_create("JsonQueue", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(queue, ^{
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+        
+       
+        request.HTTPMethod = [JSonWebService getStringTasMethodRequest:tasMethodRequestGet];
+ 
+        NSMutableString *myUrl = [[NSMutableString alloc] initWithFormat: @"%@%@", [url absoluteString ] ,parameter];
+        NSURL* URL = [[NSURL alloc] initWithString:myUrl];
+        
+        NSError* error = nil;
+
+        NSHTTPURLResponse * theResponse = [[NSHTTPURLResponse alloc] init];
+        NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&theResponse error:&error];
+        
+        
+        NSDictionary* response = nil;
+        if(error)
+        {
+            NSLog(@"Error : %@", [error description]);
+        }
+        else
+        {
+            NSError *jsonParsingError = nil;
+            
+            response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&jsonParsingError];
+            if(jsonParsingError)
+            {
+                NSLog([jsonParsingError description]);
+            }
+            
+            if( [theResponse statusCode] < 100 ||  [theResponse statusCode] >= 400)
+                error = [[NSError alloc] initWithDomain:[theResponse URL] code:[theResponse statusCode] userInfo:response];
+            
+            
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            responseBlock(response,error , (int)[theResponse statusCode]);
+        });
+        
+        
+        
+        
+    });
+}
+
+
 
 +(NSString*)getStringTasMethodRequest:(tasMethodRequest) methodRequest
 {
