@@ -10,7 +10,7 @@
 
 
 typedef void(^ResponseBlock)(id response,	NSError*
-                             error);
+                             error,int codeResponse);
 typedef NS_ENUM(NSInteger, tasMethodRequest ){
     
     tasMethodRequestPost,
