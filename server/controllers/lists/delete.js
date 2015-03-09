@@ -12,14 +12,23 @@ module.exports = function(app) {
 					res.status(404).send("List not found");
 					return;
 				} else {
-					app.models.List.remove({ id_list: req.params.id }, onUserRemoved);
+					app.models.List.remove({ id_list: req.params.id }, onListRemoved);
 
-					function onUserRemoved(err, removed) {
+					function onListRemoved(err, removed) {
 						if (err) {
 							res.status(500).send(err.toString());
 							return;
 						} else {
-							res.status(200).send("List removed with success");
+							app.models.Item.remove({ id_list: req.params.id }, onItemsRemoved);
+
+							function onListRemoved(err, removed) {
+								if (err) {
+									res.status(500).send(err.toString());
+									return;
+								} else {
+									res.status(200).send("List removed with success");
+								}
+							}
 						}
 					}
 				}
