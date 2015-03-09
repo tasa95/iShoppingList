@@ -1,13 +1,13 @@
 var express = require('express');
+var http = require('http');
 
 (function init(){
-    var app = {
-        server: express()
-    };
+    var exp = express();
+    var app = http.createServer(exp);
 
     require('./settings')(app);
     require('./models')(app);
     require('./controllers')(app);
 
-    app.server.listen(app.settings.port);
+    app.listen(app.settings.port);
 }());

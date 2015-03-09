@@ -10,9 +10,10 @@ module.exports = function(app) {
 					res.status(404).send("List not found");
 					return;
 				} else {
-					res.status(200).send(list);
+					//res.status(200).send(list);
 
 					// Retrieve all items related
+					app.models.Item.
 				}
 			});
         });
