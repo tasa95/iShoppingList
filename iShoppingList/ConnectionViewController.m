@@ -109,15 +109,16 @@
             [self setHost];
             [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPost withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
              {
-   
-                 NSLog([response description]);
-                 if(!error)
+                
+
+                 if(error != nil)
                  {
                      NSLog(@"Error : %@", error.description);
                  }
                  else
                  {
-                     NSLog(response);
+                     if([response isKindOfClass:[NSDictionary class]])
+                         NSLog(@"ID = %@ ",[response objectForKey:@"_id"]);
                      HomeListController* homeListController = [HomeListController new];
                      homeListController.user = user;
                      [self.navigationController pushViewController:homeListController animated:YES];

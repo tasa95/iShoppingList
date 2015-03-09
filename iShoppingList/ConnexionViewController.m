@@ -40,14 +40,14 @@
     self.userEmail.delegate = self;
     self.userName.delegate = self;
     UITapGestureRecognizer* tapper = [[UITapGestureRecognizer alloc]
-              initWithTarget:self action:@selector(dissmissKeyboard)];
+                                      initWithTarget:self action:@selector(dissmissKeyboard)];
     tapper.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapper];
 }
 
 
-    
-    // Do any additional setup after loading the view from its nib.
+
+// Do any additional setup after loading the view from its nib.
 
 
 - (void)didReceiveMemoryWarning {
@@ -71,19 +71,19 @@
     if([textField isKindOfClass:[MyTextField class]])
     {
         
-            MyTextField *myText = (MyTextField*)textField;
+        MyTextField *myText = (MyTextField*)textField;
         
-         
-           if([myText isPoorlyPrepared])
-           {
-               if(myText.FieldState == 1)
-                   [myText changeState];
-           }
-           else
-           {
-               if(myText.FieldState == 0)
-                   [myText changeState];
-           }
+        
+        if([myText isPoorlyPrepared])
+        {
+            if(myText.FieldState == 1)
+                [myText changeState];
+        }
+        else
+        {
+            if(myText.FieldState == 0)
+                [myText changeState];
+        }
     }
     return NO;
 }
@@ -98,7 +98,7 @@
     if(![self PoorlyPreparedTextFields])
     {
         User* user = [[User alloc] initWithMailUser:self.userEmail.text andPassUser:self.userPassword.text];
-
+        
         [JSonWebService startWebserviceWithURL:[RouteController loginRoute] WithMethod:tasMethodRequestGet withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
          {
              if(!error)
@@ -107,7 +107,8 @@
              }
              else
              {
-                  NSLog(@"%@",  [response description] );
+                 
+                 NSLog(@"%@",  [response description] );
                  // si le smartphone a changé
                  if([response objectForKey:@"device_user"]  != user.IdIphone)
                  {
@@ -148,18 +149,24 @@
             
             [JSonWebService startWebserviceWithURL:[RouteController signUpRoute] WithMethod:tasMethodRequestPost withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
              {
-                 if(!error)
-                 {
-                     NSLog(@"%@", error.description);
-                 }
-                 else
-                 {
-
-                     NSLog(@"%@",  [response description]);
-                     HomeListController* homeListController = [HomeListController new];
-                     homeListController.user = user;
-                     [self.navigationController pushViewController:homeListController animated:YES];
-                 }
+                 
+                 
+               
+                 NSLog(@"error : %@ \n",[error description]);
+                 
+                     if(error != nil)
+                     {
+                         NSLog(@"error : %@", error.description);
+                     }
+                     else
+                     {
+                         
+                         NSLog(@"Dictionnary : %@",  [response description]);
+                         HomeListController* homeListController = [HomeListController new];
+                         homeListController.user = user;
+                         [self.navigationController pushViewController:homeListController animated:YES];
+                     }
+                 
              }];
             
         }
@@ -187,7 +194,7 @@
 - (IBAction)dissmissKeyboard {
     
     for (UIView * txt in self.view.subviews){
-   
+        
         if ([txt isKindOfClass:[UITextField class]] && [txt isFirstResponder]) {
             [self textFieldShouldReturn:(UITextField*)txt];
         }
@@ -211,7 +218,7 @@
                 emptyField = true;
             }
         }
-
+        
     }
     return emptyField;
 }

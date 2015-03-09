@@ -10,6 +10,7 @@
 #import "HomeListController.h"
 #import "Shop.h"
 #import "ConnectionViewController.h"
+#import "ConnexionViewController.h"
 #import "User.h"
 #import "JSonWebService.h"
 
@@ -20,7 +21,7 @@
     CGRect screenRect = [UIScreen mainScreen].bounds;
     UIWindow* window = [[UIWindow alloc] initWithFrame:screenRect];
     
-    NSString* urlServer = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"URL Server"];
+    NSString* urlServer = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"URL Test"];
     JSonWebService.host = [[NSURL alloc] initWithString:urlServer];
     
     NSArray* documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
@@ -50,7 +51,7 @@
 
     }
     else{
-        ConnectionViewController* ConnexionController = [ConnectionViewController new];
+        ConnexionViewController* ConnexionController = [ConnexionViewController new];
         
         window.rootViewController = [[UINavigationController alloc] initWithRootViewController:ConnexionController];
       
