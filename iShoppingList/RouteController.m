@@ -18,7 +18,7 @@
 +(NSURL*) signUpRoute
 {
     NSMutableString* string = [NSMutableString new];
-    [string appendFormat:@"%@/signup",[JSonWebService getHost]];
+    [string appendFormat:@"%@/signup.php",[JSonWebService getHost]];
     return [RouteController returnNSURLFromString:string];
 }
 

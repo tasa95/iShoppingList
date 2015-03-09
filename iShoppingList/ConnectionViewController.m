@@ -66,7 +66,7 @@
     {
         User* user = [[User alloc] initWithMailUser:self.userEmail.text andPassUser:self.userPassword.text];
         [self setHost];
-        [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestGet withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
+        [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestGet withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error, int codeResponse)
          {
              if(!error)
              {
@@ -77,7 +77,7 @@
                  // si le smartphone a changé
                  if([response objectForKey:@"device_user"]  != user.IdIphone)
                  {
-                     [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPut withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
+                     [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPut withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error, int codeResponse)
                       {
                           if(!error)
                           {
@@ -107,7 +107,7 @@
         {
             User* user = [[User alloc] initWithName:self.userName.text AndMailUser:self.userEmail.text andPassUser:self.userPassword.text];
             [self setHost];
-            [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPost withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error)
+            [JSonWebService startWebserviceWithURL:[JSonWebService getHost] WithMethod:tasMethodRequestPost withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error, int codeResponse)
              {
                 
 

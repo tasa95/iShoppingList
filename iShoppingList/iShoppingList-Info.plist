@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>URL Server</key>
-	<string>http://webdefllo.com/Application/Apple/iShoppingList</string>
+	<string>http://webdefllo.com/Application/Apple/iShoppingList/</string>
 	<key>URL Test</key>
 	<string>http://127.0.0.1:3000</string>
 	<key>CFBundleDevelopmentRegion</key>
