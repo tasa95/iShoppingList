@@ -21,7 +21,7 @@
     CGRect screenRect = [UIScreen mainScreen].bounds;
     UIWindow* window = [[UIWindow alloc] initWithFrame:screenRect];
     
-    NSString* urlServer = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"URL Server"];
+    NSString* urlServer = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"URL prod"];
     JSonWebService.host = [[NSURL alloc] initWithString:urlServer];
     
     NSArray* documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);

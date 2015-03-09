@@ -101,9 +101,9 @@
     //mettre dictionnaire
 }
 
--(NSString*)testWWW
+-(NSString*)FormatForGet
 {
-    NSString* myString = [[NSMutableString alloc] initWithFormat:@"?name_user=%@&pass_user=%@&device_user=%@&mail_user=%@", self.UserName, self.passUser, self.IdIphone,self.mailUser ];
+    NSString* myString = [[NSMutableString alloc] initWithFormat:@"?firstname=%@&password=%@&device_user=%@&email=%@", self.UserName, self.passUser, self.IdIphone,self.mailUser ];
     
     return myString;
 }

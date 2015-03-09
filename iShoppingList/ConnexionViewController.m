@@ -99,28 +99,28 @@
     {
         User* user = [[User alloc] initWithMailUser:self.userEmail.text andPassUser:self.userPassword.text];
         
-        [JSonWebService startWebserviceWithURL:[RouteController loginRoute] WithMethod:tasMethodRequestGet withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error, int codeResponse)
+        [JSonWebService startWebserviceWithURL:[RouteController loginRoute]  withParameter:[user FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
          {
              if(!error)
              {
-                 NSLog(@"%@", [error description]);
+                 NSLog(@" error : %@ \n", [error description]);
              }
              else
              {
                  
-                 NSLog(@"%@",  [response description] );
+                 NSLog(@"response : %@ \n",  [response description] );
                  // si le smartphone a changé
                  if([response objectForKey:@"device_user"]  != user.IdIphone)
                  {
-                     [JSonWebService startWebserviceWithURL:[RouteController updateUser] WithMethod:tasMethodRequestPut withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error,int codeResponse)
+                      [JSonWebService startWebserviceWithURL:[RouteController updateUser]  withParameter:[user FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
                       {
                           if(!error)
                           {
-                              NSLog(@"%@", error.description);
+                              NSLog(@"error : %@ \n", error.description);
                           }
                           else
                           {
-                              NSLog(@"%@",  [[NSString alloc ]initWithData:response encoding:NSUTF8StringEncoding] );
+                              NSLog(@"response : %@",  [[NSString alloc ]initWithData:response encoding:NSUTF8StringEncoding] );
                               NSLog(@"Device mis à jour");
                           }
                       }
@@ -146,22 +146,20 @@
             
             
             
-            
-            [JSonWebService startWebserviceWithURL:[RouteController signUpRoute] WithMethod:tasMethodRequestPost withBody:[user FormatForWebService] Withdelegate:self responseBlock:^(id response, NSError *error, int codeResponse)
+            [JSonWebService startWebserviceWithURL:[RouteController signUpRoute]  withParameter:[user FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
              {
                  
                  
                
-                 NSLog(@"error : %@ \n",[error description]);
                  
                      if(error != nil)
                      {
-                         NSLog(@"error : %@", error.description);
+                         NSLog(@"error : %@ \n", error.description);
                      }
                      else
                      {
                          
-                         NSLog(@"Dictionnary : %@",  [response description]);
+                         NSLog(@"Dictionnary : %@ \n",  [response description]);
                          HomeListController* homeListController = [HomeListController new];
                          homeListController.user = user;
                          [self.navigationController pushViewController:homeListController animated:YES];

@@ -42,7 +42,7 @@
 
    
         NSDictionary* response = nil;
-        if(error)
+        if(error != nil)
         {
             NSLog(@"Error : %@", [error description]);
         }
@@ -53,12 +53,11 @@
                 response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&jsonParsingError];
             if(jsonParsingError)
             {
-                NSLog([jsonParsingError description]);
+                NSLog(@"ErrorJsonParsing : %@" ,[jsonParsingError description]);
             }
             
-            if( [theResponse statusCode] < 100 ||  [theResponse statusCode] >= 400)
-                error = [[NSError alloc] initWithDomain:[theResponse URL] code:[theResponse statusCode] userInfo:response];
-            
+            if( [theResponse statusCode] < 100 ||  [theResponse statusCode]> 399 )
+                error = [[NSError alloc] initWithDomain:[[theResponse URL] absoluteString] code:[theResponse statusCode] userInfo:response];
             
         }
         
@@ -83,22 +82,31 @@
     dispatch_queue_t queue = dispatch_queue_create("JsonQueue", DISPATCH_QUEUE_SERIAL);
     dispatch_async(queue, ^{
         
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
         
-       
-        request.HTTPMethod = [JSonWebService getStringTasMethodRequest:tasMethodRequestGet];
- 
-        NSMutableString *myUrl = [[NSMutableString alloc] initWithFormat: @"%@%@", [url absoluteString ] ,parameter];
+        NSMutableString *myUrl = [[NSMutableString alloc] initWithFormat: @"%@", [url absoluteString]];
+        [myUrl appendFormat:parameter];
         NSURL* URL = [[NSURL alloc] initWithString:myUrl];
         
+        
+        
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+        
+    
+        request.HTTPMethod = [JSonWebService getStringTasMethodRequest:tasMethodRequestGet];
+        
+       
+    
+        
         NSError* error = nil;
+
 
         NSHTTPURLResponse * theResponse = [[NSHTTPURLResponse alloc] init];
         NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&theResponse error:&error];
         
         
         NSDictionary* response = nil;
-        if(error)
+        if(error != nil)
         {
             NSLog(@"Error : %@", [error description]);
         }
@@ -109,11 +117,12 @@
             response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&jsonParsingError];
             if(jsonParsingError)
             {
-                NSLog([jsonParsingError description]);
+                NSLog(@"ErrorJsonParsing : %@" ,[jsonParsingError description]);
+
             }
             
-            if( [theResponse statusCode] < 100 ||  [theResponse statusCode] >= 400)
-                error = [[NSError alloc] initWithDomain:[theResponse URL] code:[theResponse statusCode] userInfo:response];
+            if( [theResponse statusCode] < 100 ||  [theResponse statusCode]> 399 )
+                error = [[NSError alloc] initWithDomain:[[theResponse URL] absoluteString] code:[theResponse statusCode] userInfo:response];
             
             
         }

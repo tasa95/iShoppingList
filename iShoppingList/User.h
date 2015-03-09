@@ -33,6 +33,6 @@
 
 -(NSString*)description;
 -(NSData*)FormatForWebService;
--(NSString*)testWWW;
+-(NSString*)FormatForGet;
 
 @end
