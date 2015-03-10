@@ -11,6 +11,7 @@
 #import "HomeListController.h"
 #import "RouteController.h"
 #import "MyTextField.h"
+#import "RouteController.h"
 
 @interface ConnexionViewController ()
 
@@ -99,7 +100,7 @@
     {
         User* user = [[User alloc] initWithMailUser:self.userEmail.text andPassUser:self.userPassword.text];
         
-        [JSonWebService startWebserviceWithURL:[RouteController loginRoute]  withParameter:[user FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
+        [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteLogin]  withParameter:[user FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
          {
              if(!error)
              {
@@ -107,25 +108,9 @@
              }
              else
              {
-                 
+                    
                  NSLog(@"response : %@ \n",  [response description] );
                  // si le smartphone a changé
-                 if([response objectForKey:@"device_user"]  != user.IdIphone)
-                 {
-                      [JSonWebService startWebserviceWithURL:[RouteController updateUser]  withParameter:[user FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
-                      {
-                          if(!error)
-                          {
-                              NSLog(@"error : %@ \n", error.description);
-                          }
-                          else
-                          {
-                              NSLog(@"response : %@",  [[NSString alloc ]initWithData:response encoding:NSUTF8StringEncoding] );
-                              NSLog(@"Device mis à jour");
-                          }
-                      }
-                      ];
-                 }
                  HomeListController* homeListController = [HomeListController new];
                  homeListController.user = user;
                  [self.navigationController pushViewController:homeListController animated:YES];
@@ -146,7 +131,7 @@
             
             
             
-            [JSonWebService startWebserviceWithURL:[RouteController signUpRoute]  withParameter:[user FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
+            [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteSignup]  withParameter:[user FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
              {
                  
                  
@@ -220,7 +205,7 @@
     }
     return emptyField;
 }
-
+/*
 
 #pragma mark NSURLConnection Delegate Methods
 
@@ -263,6 +248,6 @@
     }
 }
 
-
+*/
 
 @end

@@ -8,11 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, RouteWebService ){
+    
+    RouteSignup,
+    RouteLogin,
+    RouteCreateShoppingList,
+    RouteGetShoppingList,
+    RouteEditShoppingList,
+    RouteRemoveShoppingList,
+    RouteCreateProduct,
+    RouteListProduct,
+    RouteEditProduct,
+    RouteRemoveProduct,
+};
+
+
 @interface RouteController : NSObject
 
 +(NSURL*) signUpRoute;
 +(NSURL*) loginRoute;
 +(NSURL*) updateUser;
 +(NSURL*) returnNSURLFromString:(NSString*) string;
++(NSURL*) getRoute:(RouteWebService)route;
 
 @end

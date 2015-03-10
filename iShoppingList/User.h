@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import <objc/runtime.h>
+#import <CommonCrypto/CommonDigest.h>
 
 @interface User : NSObject <NSCoding>
 {
@@ -33,11 +34,12 @@
 @property(strong,nonatomic) NSString* lastName;
 @property(strong, nonatomic) NSString* firstname;
 @property(strong,nonatomic) NSString* email;
-@property(strong,nonatomic) NSString* password;
+@property(strong,nonatomic,setter=setPassword:) NSString* password;
 @property(strong,nonatomic,readonly) NSString* IdIphone;
 
 -(NSString*)description;
 -(NSData*)FormatForWebService;
 -(NSString*)FormatForGet;
-
+-(void)setPassword: (NSString*) password;
+-(NSString*)getSha1:(NSString*) word;
 @end
