@@ -53,7 +53,13 @@ int rect_y_pos = 135, rect_y_height = 29;
     // Save the shop, and pop to previous list
     Shop* newshop = [Shop new];
     newshop.titleOfShop = self.nameOfShop.text;
+    
+
+    
+    
+    
     if ([self.delegate respondsToSelector:@selector(addShoppingControllerDidCreateShop:)]) {
+        NSLog( @"@newshop : %@", [newshop description]);
         [self.delegate addShoppingControllerDidCreateShop:newshop];
     }
 }

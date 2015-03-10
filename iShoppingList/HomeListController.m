@@ -23,6 +23,7 @@
 @dynamic shoplist;
 
 
+
 //-----------
 
 
@@ -36,6 +37,8 @@
 - (void) setShoplist:(NSArray *)shoplist {
     shoplist_ = [[NSMutableArray alloc] initWithArray:shoplist];
 }
+
+
 
 
 //-----------
@@ -62,6 +65,7 @@
     AddShopController* addShop = [AddShopController new];
     addShop.delegate = self;
     [self.navigationController pushViewController:addShop animated:YES];
+    [self.tableView reloadData];
 }
 
 - (void) onTouchEdit {
@@ -72,9 +76,38 @@
 //-----------
 
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    
+    
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSMutableArray* rightButtons = [NSMutableArray new];
+    [rightButtons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(onTouchAdd)]];
+    [rightButtons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit)]];
+    self.navigationItem.rightBarButtonItems = rightButtons;
+    
+    [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteGetShoppingList]  withParameter:[[self.user getToken] FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
+     {
+         
+         if(error)
+         {
+             NSLog(@"error : %@", [error description]);
+         }
+         else{
+             NSLog(@"response : %@", [response description]);
+             self.shoplist = [response objectForKey:@"result"];
+             
+         }
+         
+     }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,7 +131,7 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kShoppingCellId];
     }
     
-    Shop* s = [self.shoplist objectAtIndex:indexPath.row];
+    Shop* s = [shoplist_ objectAtIndex:indexPath.row];
     cell.textLabel.text = s.titleOfShop;
     cell.textLabel.textColor = [UIColor blueColor];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ : %lu", @"Nb de produits", (long)indexPath.row]; //(long)s.numberOfItems];
@@ -142,39 +175,16 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 
 
 - (void) addShoppingControllerDidCreateShop:(Shop *)s {
-    NSLog(@"Methode create called");
     [shoplist_ addObject:s];
+    self.shoplist = shoplist_;
+
     [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
 }
 
 
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    NSMutableArray* rightButtons = [NSMutableArray new];
-    [rightButtons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(onTouchAdd)]];
-    [rightButtons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit)]];
-    self.navigationItem.rightBarButtonItems = rightButtons;
-    
-    [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteSignup]  withParameter:[[self.user getToken] FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
-     {
-         
-         if(error)
-         {
-             NSLog(@"error : ", [error description]);
-         }
-         else{
 
-             self.shoplist = [response objectForKey:@"result"];
-             
-         }
-         
-     }];
-    
-}
 
 //- (void) addShoppingControllerDidEditShop:(Shop *)s {
 //    NSLog(@"Methode edit called");

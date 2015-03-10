@@ -27,5 +27,6 @@
 @property (strong, nonatomic) IBOutlet UITextField* nameOfShop;
 @property (strong, nonatomic) IBOutlet UITextField* productOfShop;
 - (IBAction)onTouchProductAdd:(id)sender;
+- (IBAction)onTouchSave:(id) sender;
 
 @end
