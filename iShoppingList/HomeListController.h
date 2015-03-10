@@ -17,6 +17,8 @@
     NSMutableArray* shoplist_;
 }
 
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andUser:(User*) user andShoplist:(NSArray*)shoplist;
+
 @property (nonatomic, strong)  NSArray* shoplist;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 

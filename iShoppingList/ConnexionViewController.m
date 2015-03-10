@@ -12,6 +12,7 @@
 #import "RouteController.h"
 #import "MyTextField.h"
 #import "RouteController.h"
+#import "Token.h"
 
 @interface ConnexionViewController ()
 
@@ -102,7 +103,7 @@
         
         [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteLogin]  withParameter:[user FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
          {
-             if(!error)
+             if(error != nil)
              {
                  NSLog(@" error : %@ \n", [error description]);
              }
@@ -110,10 +111,8 @@
              {
                     
                  NSLog(@"response : %@ \n",  [response description] );
-                 // si le smartphone a changé
-                 HomeListController* homeListController = [HomeListController new];
-                 homeListController.user = user;
-                 [self.navigationController pushViewController:homeListController animated:YES];
+                [user setToken: [Token BuildTokenWithText: [[response objectForKey:@"result"] objectForKey :@"token" ]]];
+                 [self initializeHomeListController:user];
              }
          }];
     }
@@ -128,14 +127,9 @@
         if(![self PoorlyPreparedTextFields])
         {
             User* user = [[User alloc] initWithName:self.userName.text AndMailUser:self.userEmail.text andPassUser:self.userPassword.text];
-            
-            
-            
+
             [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteSignup]  withParameter:[user FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
              {
-                 
-                 
-               
                  
                      if(error != nil)
                      {
@@ -143,11 +137,9 @@
                      }
                      else
                      {
-                         
-                         NSLog(@"Dictionnary : %@ \n",  [response description]);
-                         HomeListController* homeListController = [HomeListController new];
-                         homeListController.user = user;
-                         [self.navigationController pushViewController:homeListController animated:YES];
+                         NSLog(@"response : %@ \n", [response description]);
+                         [user setToken: [Token BuildTokenWithText: [[response objectForKey:@"result"] objectForKey :@"token" ]]];
+                         [self initializeHomeListController:user];
                      }
                  
              }];
@@ -169,9 +161,6 @@
         
     }
 }
-
-
-
 
 
 - (IBAction)dissmissKeyboard {
@@ -204,6 +193,21 @@
         
     }
     return emptyField;
+}
+
+-(void)initializeHomeListController:(User*)user
+{
+    
+    
+    
+    
+    HomeListController* homeListController = [HomeListController new];
+    homeListController.user = user;
+    [self.navigationController pushViewController:homeListController animated:YES];
+   
+    
+   
+    
 }
 /*
 

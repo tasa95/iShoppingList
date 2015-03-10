@@ -30,4 +30,7 @@
 
 -(bool)PoorlyPreparedTextFields;
 
+
+-(void)initializeHomeListController:(User*)user;
+
 @end

@@ -30,7 +30,7 @@
         self.firstname = firstname;
         self.lastName = lastName;
         self.email = mailUser;
-        self.password = passUser;
+        self.password = [self getSha1: passUser];
         IdIphone_ = idIphone;
     }
     return self;
@@ -140,10 +140,7 @@
     return parameter;
 }
 
--(void)setPassword: (NSString*) password
-{
-        self.password = [self getSha1:password];
-}
+
 
 
 -(NSString*)getSha1:(NSString*) word
@@ -162,6 +159,17 @@
         [output appendFormat:@"%02x", digest[i]];
     
     return output;
+}
+
+
+-(Token*)getToken
+{
+    return token_;
+}
+
+-(void)setToken:(Token*) token
+{
+    token_ = token;
 }
 
 

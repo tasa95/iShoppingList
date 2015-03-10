@@ -9,6 +9,9 @@
 #import "Shop.h"
 #import "HomeListController.h"
 #import "AddShopController.h"
+#import "JSonWebService.h"
+#import "RouteController.h"
+#import "User.h"
 
 
 @interface HomeListController ()
@@ -38,13 +41,14 @@
 //-----------
 
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andUser:(User*) user  andShoplist:(NSArray*)shoplist
+{
     if((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         self.title = @"Shopping List";
-        NSMutableArray* rightButtons = [NSMutableArray new];
-        [rightButtons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(onTouchAdd)]];
-        [rightButtons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit)]];
-        self.navigationItem.rightBarButtonItems = rightButtons;
+        self.user = user;
+        self.shoplist = shoplist;
+        
+
         
     }
     return self;
@@ -142,6 +146,34 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
     [shoplist_ addObject:s];
     [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
+}
+
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSMutableArray* rightButtons = [NSMutableArray new];
+    [rightButtons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(onTouchAdd)]];
+    [rightButtons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit)]];
+    self.navigationItem.rightBarButtonItems = rightButtons;
+    
+    [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteSignup]  withParameter:[[self.user getToken] FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
+     {
+         
+         if(error)
+         {
+             NSLog(@"error : ", [error description]);
+         }
+         else{
+
+             self.shoplist = [response objectForKey:@"result"];
+             
+         }
+         
+     }];
+    
 }
 
 //- (void) addShoppingControllerDidEditShop:(Shop *)s {
