@@ -8,27 +8,32 @@
 
 #import <Foundation/Foundation.h>
 
+#import <objc/runtime.h>
+
 @interface User : NSObject <NSCoding>
 {
 @private
-    NSString* UserName_;
-    NSString* mailUser_;
-    NSString* passUser_;
+    NSString* firstname_;
+    NSString* email_;
+    NSString* password_;
     NSString* IdIphone_;
+    NSString* token_;
+    NSString* lastName_;
+    
 }
 
 -(instancetype)init;
 
--(instancetype)initWithName:(NSString*)UserName AndMailUser:(NSString*)mailUser andPassUser:(NSString*)passUser andIdIphone:(NSString*)idIphone;
+-(instancetype)initWithName:(NSString*)firstname  andLastName :(NSString*)lastName AndMailUser:(NSString*)email andPassUser:(NSString*)password andIdIphone:(NSString*)idIphone;
 
--(instancetype)initWithName:(NSString*)UserName AndMailUser:(NSString*)mailUser andPassUser:(NSString*)passUser;
+-(instancetype)initWithName:(NSString*)firstname AndMailUser:(NSString*)email andPassUser:(NSString*)password;
 
--(instancetype)initWithMailUser:(NSString*)mailUser andPassUser:(NSString*)passUser;
+-(instancetype)initWithMailUser:(NSString*)email andPassUser:(NSString*)password;
 
-
-@property(strong, nonatomic) NSString* UserName;
-@property(strong,nonatomic) NSString* mailUser;
-@property(strong,nonatomic) NSString* passUser;
+@property(strong,nonatomic) NSString* lastName;
+@property(strong, nonatomic) NSString* firstname;
+@property(strong,nonatomic) NSString* email;
+@property(strong,nonatomic) NSString* password;
 @property(strong,nonatomic,readonly) NSString* IdIphone;
 
 -(NSString*)description;

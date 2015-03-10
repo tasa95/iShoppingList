@@ -89,7 +89,7 @@
         
         
         
-        
+        NSLog(@"URL : %@" , URL);
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
         
     

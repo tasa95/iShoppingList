@@ -10,25 +10,27 @@
 
 @implementation User
 
-@synthesize mailUser = mailUser_;
-@synthesize UserName = UserName_;
-@synthesize passUser = passUser_;
+@synthesize email = email_;
+@synthesize firstname = firstname_;
+@synthesize password = password_;
 @synthesize IdIphone = IdIphone_;
+@synthesize lastName = lastName_;
 
 
 #pragma instanciation of User
 -(instancetype)init
 {
-    return [[User alloc] initWithName:@"" AndMailUser:@"" andPassUser:@"" andIdIphone:[[[UIDevice currentDevice] identifierForVendor] UUIDString]];
+    return [[User alloc] initWithName:@"" andLastName:@"" AndMailUser:@"" andPassUser:@"" andIdIphone:[[[UIDevice currentDevice] identifierForVendor] UUIDString]];
 }
 
--(instancetype)initWithName:(NSString*)UserName AndMailUser:(NSString*)mailUser andPassUser:(NSString*)passUser andIdIphone:(NSString*)idIphone
+-(instancetype)initWithName:(NSString*)firstname andLastName :(NSString*)lastName  AndMailUser:(NSString*)mailUser andPassUser:(NSString*)passUser andIdIphone:(NSString*)idIphone
 {
     if(self = [super init])
     {
-        self.UserName = UserName;
-        self.mailUser = mailUser;
-        self.passUser = passUser;
+        self.firstname = firstname;
+        self.lastName = lastName;
+        self.email = mailUser;
+        self.password = passUser;
         IdIphone_ = idIphone;
     }
     return self;
@@ -42,7 +44,7 @@
 
 -(instancetype)initWithName:(NSString*)UserName AndMailUser:(NSString*)mailUser andPassUser:(NSString*)passUser
 {
-    return [[User alloc] initWithName:UserName AndMailUser:mailUser andPassUser:passUser andIdIphone:[[[UIDevice currentDevice] identifierForVendor] UUIDString]];
+    return [[User alloc] initWithName:UserName andLastName:@"" AndMailUser:mailUser andPassUser:passUser andIdIphone:[[[UIDevice currentDevice] identifierForVendor] UUIDString]];
 }
 
 
@@ -52,10 +54,11 @@
 {
     if(self = [super init])
     {
-        self.mailUser = [aDecoder decodeObjectForKey:@"mail_user"];
-        self.UserName = [aDecoder decodeObjectForKey:@"name_user"];
-        self.passUser = [aDecoder decodeObjectForKey:@"pass_user"];
-        IdIphone_ = [aDecoder decodeObjectForKey:@"device_user"];
+        self.firstname = [aDecoder decodeObjectForKey:@"firstname"];
+        self.email = [aDecoder decodeObjectForKey:@"email"];
+        self.password = [aDecoder decodeObjectForKey:@"password"];
+        self.password = [aDecoder decodeObjectForKey:@"device_user"];
+        token_ = [aDecoder decodeObjectForKey:@"token"];
     
     }
     return self;
@@ -63,37 +66,49 @@
 
 -(void) encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.mailUser forKey:@"mail_user"];
-    [aCoder encodeObject:self.UserName forKey:@"name_user"];
-    [aCoder encodeObject:self.passUser forKey:@"pass_user"];
+    [aCoder encodeObject:self.firstname forKey:@"firstname"];
+    [aCoder encodeObject:self.email forKey:@"email"];
+    [aCoder encodeObject:self.password forKey:@"password"];
     [aCoder encodeObject:IdIphone_ forKey:@"device_user"];
+    [aCoder encodeObject:token_ forKey:@"token"];
 }
 
 
 #pragma Description of user
 -(NSString*)description
 {
-    NSString* myString = [[NSMutableString alloc] initWithFormat:@"{ \"name_user\" : \"%@\" ,\n \"pass_user\" : \"%@\" ,\n \"device_user\" : \"%@\" ,\n \"mail_user\" : \"%@\"}", self.UserName, self.passUser, self.IdIphone,self.mailUser ];
+
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithDictionary:[self getDictionary]];
+    NSMutableString * parameter = [[NSMutableString alloc] init];
     
-    return myString;
+    for( NSString * key in dictionary)
+    {
+        [parameter appendFormat: @"%@ = %@ \n",key,[dictionary valueForKey:key]];
+    }
+    
+    return parameter;
 }
 
 -(NSDictionary*)getDictionary
 {
-    NSMutableDictionary* dic = [[NSMutableDictionary alloc ] init];
-    [dic setValue:self.mailUser forKey:@"mail_user"];
-    [dic setValue:self.UserName forKey:@"name_user"];
-    [dic setValue:self.passUser forKey:@"pass_user"];
-    [dic setValue:IdIphone_ forKey:@"device_user"];
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    unsigned count;
+    objc_property_t *properties = class_copyPropertyList([self class ], &count);
     
-    // changer key
-    return dic;
+    for (int i = 0; i < count; i++) {
+        NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
+        [dict setObject:[self valueForKey:key] forKey:key];
+    }
+
+    free(properties);
+    return dict;
 }
 
 -(NSData*)FormatForWebService
 {
     NSError *error;
-    NSMutableDictionary* dictionaire = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dictionaire = [[NSMutableDictionary alloc] init];
+
     [dictionaire setValue:[self getDictionary] forKey:@"request_datas"];
     return [NSJSONSerialization dataWithJSONObject:dictionaire options:0 error:&error];
     
@@ -103,9 +118,26 @@
 
 -(NSString*)FormatForGet
 {
-    NSString* myString = [[NSMutableString alloc] initWithFormat:@"?firstname=%@&password=%@&device_user=%@&email=%@", self.UserName, self.passUser, self.IdIphone,self.mailUser ];
     
-    return myString;
+    int count = 0;
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithDictionary:[self getDictionary]];
+    NSMutableString * parameter = [[NSMutableString alloc] init];
+    
+    for( NSString * key in dictionary)
+    {
+        if(count == 0)
+        {
+            [parameter appendString:@"?"];
+        }
+        [parameter appendFormat: @"%@=%@",key,[dictionary valueForKey:key]];
+        count++;
+        if(count < ([dictionary count] ))
+        {
+            [parameter appendString:@"&"];
+        }
+        
+    }
+    return parameter;
 }
 
 
