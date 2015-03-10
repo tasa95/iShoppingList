@@ -57,7 +57,7 @@
         self.firstname = [aDecoder decodeObjectForKey:@"firstname"];
         self.email = [aDecoder decodeObjectForKey:@"email"];
         self.password = [aDecoder decodeObjectForKey:@"password"];
-        self.password = [aDecoder decodeObjectForKey:@"device_user"];
+        IdIphone_ = [aDecoder decodeObjectForKey:@"device_user"];
         token_ = [aDecoder decodeObjectForKey:@"token"];
     
     }

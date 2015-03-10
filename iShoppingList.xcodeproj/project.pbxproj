@@ -38,6 +38,8 @@
 		FB905CCE1A98AFF7006BA66E /* ConnexionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */; };
 		FB905CCF1A98AFF7006BA66E /* ConnexionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */; };
 		FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CD11A98B961006BA66E /* JSonWebService.m */; };
+		FBD823911AAF71B3006D56F2 /* ShoppingList.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD823901AAF71B3006D56F2 /* ShoppingList.m */; };
+		FBD823941AAF759E006D56F2 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD823931AAF759E006D56F2 /* Product.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,10 @@
 		FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnexionViewController.xib; sourceTree = "<group>"; };
 		FB905CD01A98B961006BA66E /* JSonWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSonWebService.h; sourceTree = "<group>"; };
 		FB905CD11A98B961006BA66E /* JSonWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSonWebService.m; sourceTree = "<group>"; };
+		FBD8238F1AAF71B3006D56F2 /* ShoppingList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingList.h; sourceTree = "<group>"; };
+		FBD823901AAF71B3006D56F2 /* ShoppingList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingList.m; sourceTree = "<group>"; };
+		FBD823921AAF759E006D56F2 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		FBD823931AAF759E006D56F2 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +137,10 @@
 				4FC7CEBD1A8FA0E0005830E6 /* Shop.m */,
 				FB7D52891A99DD8000453E71 /* User.h */,
 				FB7D528A1A99DD8000453E71 /* User.m */,
+				FBD8238F1AAF71B3006D56F2 /* ShoppingList.h */,
+				FBD823901AAF71B3006D56F2 /* ShoppingList.m */,
+				FBD823921AAF759E006D56F2 /* Product.h */,
+				FBD823931AAF759E006D56F2 /* Product.m */,
 			);
 			name = ModelShop;
 			sourceTree = "<group>";
@@ -389,8 +399,10 @@
 				4FD70E6F1A8F9664002522D9 /* HomeListController.m in Sources */,
 				FB7E22081A9D1C65008355F8 /* MyTextFieldMail.m in Sources */,
 				4FC7CEBE1A8FA0E0005830E6 /* Shop.m in Sources */,
+				FBD823941AAF759E006D56F2 /* Product.m in Sources */,
 				FB7E22051A9D12F6008355F8 /* MyTextField.m in Sources */,
 				FB7E220C1A9D4C1A008355F8 /* ConnectionViewController.m in Sources */,
+				FBD823911AAF71B3006D56F2 /* ShoppingList.m in Sources */,
 				FB7E21FF1A9BDCAD008355F8 /* RouteController.m in Sources */,
 				4FC7CEC71A90E4DB005830E6 /* AddShopController.m in Sources */,
 				FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */,
