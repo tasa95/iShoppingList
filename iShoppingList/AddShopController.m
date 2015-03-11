@@ -32,6 +32,8 @@ int rect_y_pos = 135, rect_y_height = 29;
 
 //-----------
 
+static NSString* const kShoppingCellId = @"shoppingItemId";
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +41,9 @@ int rect_y_pos = 135, rect_y_height = 29;
         self.title = @"Add list";
         UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onTouchSave:)];
         self.navigationItem.rightBarButtonItem = rightButton;
+        self.listProduct = [[NSMutableArray alloc] init];
+        self.testTableView.delegate = self;
+        self.testTableView.dataSource = self;
         count_items = 0;
     }
     return self;
@@ -129,10 +134,12 @@ int rect_y_pos = 135, rect_y_height = 29;
 - (void)addShopItem:(int) i
 {
     // Parent view contains checkbox and label
-    UIView* newGroup = [[UIView alloc] initWithFrame:CGRectMake(20, rect_y_pos+(rect_y_height*i)+10, 280, 29)];
+   // UIView* newGroup = [[UIView alloc] initWithFrame:CGRectMake(20, rect_y_pos+(rect_y_height*i)+10, 280, 29)];
     
     // First child contains checkbox
-    UIButton* checkbox = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 29, newGroup.frame.size.height)];
+    
+    /*
+    UIButton* checkbox = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 29, self.testScrollView.frame.size.height)];
     [checkbox setBackgroundImage:[UIImage imageNamed:@"notselectedcheckbox.png"] forState:UIControlStateNormal];
     [checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"] forState:UIControlStateSelected];
     [checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"] forState:UIControlStateHighlighted];
@@ -141,7 +148,7 @@ int rect_y_pos = 135, rect_y_height = 29;
     checkbox.tag = 0;
     
     // Second child group contains padding to the label
-    UIView* newSubGroup = [[UIView alloc] initWithFrame:CGRectMake(38, 0, 242, newGroup.frame.size.height)];
+    UIView* newSubGroup = [[UIView alloc] initWithFrame:CGRectMake(38, 0, 242, self.testScrollView.frame.size.height)];
     newSubGroup.layer.borderColor = [UIColor grayColor].CGColor;
     newSubGroup.layer.borderWidth = 1.0;
     // Create label into second child group
@@ -152,12 +159,54 @@ int rect_y_pos = 135, rect_y_height = 29;
     
     [newSubGroup addSubview:newLabel];
     
-    [newGroup addSubview:checkbox];
-    [newGroup addSubview:newSubGroup];
+    [self.testScrollView addSubview:checkbox];
+    [self.testScrollView addSubview:newSubGroup];
     
-    [self.view addSubview:newGroup];
+   // [self.view addSubview:newGroup];
     count_items++;
+     
+     */
+    [self.listProduct  addObject:self.productOfShop.text];
+    [self.testTableView reloadData];
+    
+    
+    
 }
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:kShoppingCellId];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kShoppingCellId];
+    }
+    
+    NSString* s = [self.listProduct objectAtIndex:indexPath.row];
+    cell.textLabel.text = s;
+    cell.textLabel.textColor = [UIColor blueColor];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ : %lu", @"Nb de produits", (long)indexPath.row]; //(long)s.numberOfItems];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.listProduct count];
+}
+
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.listProduct removeObjectAtIndex:indexPath.row];
+        [self.testTableView reloadData];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Click at Index Path %lu", (long)indexPath.row);
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath { }
 
 - (void)removeShopItem:(int) i
 {
