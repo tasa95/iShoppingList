@@ -171,6 +171,53 @@
 }
 
 
++(bool)reactionToHTTPCode:(int)codeRetour
+{
+    bool DoSomething = false;
+
+    NSString * alert ;
+    switch(codeRetour)
+    {
+        case 0: DoSomething = true;
+            break;
+        case 1 : alert = [[NSString alloc] initWithFormat:@"un paramètre est manquant. \nCode :%d",codeRetour ];
+            break;
+        case 2:  alert = [[NSString alloc] initWithFormat:@"Compte déja existant code :%d",codeRetour ];
+            
+            break;
+        case 3 : alert = [[NSString alloc] initWithFormat:@"connection échoué vérifiez vos identifiants code : %d",codeRetour ];
+            break;
+        case 4 :   alert = [[NSString alloc] initWithFormat:@"Erreur de connexion  code : %d",codeRetour ];
+            break;
+        case 5 : alert = [[NSString alloc] initWithFormat:@"un probleme est survenue sur nos serveurs \nVeuillez réessayer dans un moment code : %d",codeRetour ];
+            break;
+        case 6 :   [[NSString alloc] initWithFormat:@"un probleme est survenue sur nos serveurs \nVeuillez réessayer dans un moment code : %d",codeRetour ];
+            break;
+    }
+    
+    if(DoSomething == false)
+    {
+        [JSonWebService Alert:alert];
+    }
+    
+    
+    return DoSomething;
+
+    
+}
+
+
+
++(void )Alert:(NSString*) stringAlert
+{
+    UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Erreur"
+                                                     message:stringAlert
+                                                    delegate:self
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles: nil];
+
+    [alert show];
+}
 
 
 @end

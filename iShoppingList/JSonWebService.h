@@ -35,6 +35,7 @@ static  NSMutableData *responseData_;
 +(void)setHost:(NSURL*) NewHost;
 
 +(NSURL*)getHost;
-
++(bool)reactionToHTTPCode:(int)codeRetour;
++(void )Alert:(NSString*) stringAlert;
 
 @end

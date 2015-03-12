@@ -33,4 +33,6 @@
 
 -(void)initializeHomeListController:(User*)user;
 
+-(void)goToHomeListController:(id)response withUser:(User*)user;
+
 @end

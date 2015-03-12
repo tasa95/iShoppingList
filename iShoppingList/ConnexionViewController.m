@@ -22,18 +22,14 @@
 
 -(id) init{
     if(self =[super init])
-    {
-        
-    }
+    {}
     return self;
 }
 
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
-    {
-        
-    }
+    {}
     return self;
 }
 - (void)viewDidLoad {
@@ -57,15 +53,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -109,35 +97,8 @@
              }
              else
              {
-                    
-                 NSLog(@"responseeeeee : %@ \n",  [response description] );
-                [user setToken: [Token BuildTokenWithText: [[response objectForKey:@"result"] objectForKey :@"token" ]]];
-                 [self initializeHomeListController:user];
                  
-                 int codeRetour =  (int)[response objectForKey:@"code"];
-
-                 if(codeRetour == 0)
-                 {
-                     NSLog(@"tout va biennnnnnnnnn");
-                 }
-                 if(codeRetour == 1)
-                 {
-                     NSLog(@"un paramètre est manquant");
-                 }
-                 if(codeRetour == 3)
-                 {
-                     NSLog(@"connection échoué vérifiez vos identifiants");
-                 }
-                 if(codeRetour == 5)
-                 {
-                     NSLog(@"probleme sur nos serveurs interne");
-                 }
-                 if(codeRetour == 6)
-                 {
-                     NSLog(@"action non autorisé");
-                 }
-
-                 
+                 [self goToHomeListController:(id)response withUser:(User*)user];
              }
          }];
     }
@@ -162,13 +123,10 @@
                      }
                      else
                      {
-                         NSLog(@"response : %@ \n", [response description]);
-                         [user setToken: [Token BuildTokenWithText: [[response objectForKey:@"result"] objectForKey :@"token" ]]];
-                         [self initializeHomeListController:user];
+                         [self goToHomeListController:(id)response withUser:(User*)user];
+
                      }
-                 
              }];
-            
         }
         else{
             
@@ -181,9 +139,6 @@
                         animations:NULL
                         completion:NULL];
         self.userName.layer.hidden = NO;
-        
-        
-        
     }
 }
 
@@ -222,61 +177,24 @@
 
 -(void)initializeHomeListController:(User*)user
 {
-    
-    
-    
-    
     HomeListController* homeListController = [HomeListController new];
     homeListController.user = user;
     [self.navigationController pushViewController:homeListController animated:YES];
    
-    
-   
-    
-}
-/*
-
-#pragma mark NSURLConnection Delegate Methods
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    // A response has been received, this is where we initialize the instance var you created
-    // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
-    // also serves to clear it
-    responseData_ = [[NSMutableData alloc] init];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the new data to the instance variable you declared
-    [responseData_ appendData:data];
+-(void)goToHomeListController:(id)response withUser:(User*)user
+{
+ 
     
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    
-    NSError* error = nil;
-    NSDictionary* response = [NSJSONSerialization JSONObjectWithData:responseData_ options:0 error:&error];
-    NSLog([response description]);
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
-    if(error)
+    int codeRetour =  [[response objectForKey :@"code" ] intValue];
+    if([JSonWebService reactionToHTTPCode:codeRetour])
     {
-        NSLog( [error description]);
+        [user setToken: [Token BuildTokenWithText: [[response objectForKey:@"result"] objectForKey :@"token" ]]];
+        [self initializeHomeListController:user];
     }
 }
 
-*/
+
 
 @end
