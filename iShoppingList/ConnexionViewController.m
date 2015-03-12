@@ -110,9 +110,34 @@
              else
              {
                     
-                 NSLog(@"response : %@ \n",  [response description] );
+                 NSLog(@"responseeeeee : %@ \n",  [response description] );
                 [user setToken: [Token BuildTokenWithText: [[response objectForKey:@"result"] objectForKey :@"token" ]]];
                  [self initializeHomeListController:user];
+                 
+                 int codeRetour =  (int)[response objectForKey:@"code"];
+
+                 if(codeRetour == 0)
+                 {
+                     NSLog(@"tout va biennnnnnnnnn");
+                 }
+                 if(codeRetour == 1)
+                 {
+                     NSLog(@"un paramètre est manquant");
+                 }
+                 if(codeRetour == 3)
+                 {
+                     NSLog(@"connection échoué vérifiez vos identifiants");
+                 }
+                 if(codeRetour == 5)
+                 {
+                     NSLog(@"probleme sur nos serveurs interne");
+                 }
+                 if(codeRetour == 6)
+                 {
+                     NSLog(@"action non autorisé");
+                 }
+
+                 
              }
          }];
     }
