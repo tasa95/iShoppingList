@@ -37,13 +37,13 @@
         NSMutableArray* shoplist = [NSMutableArray new];
         
         Shop* s = [Shop new];
-        s.titleOfShop = @"Course rapide";
+        s.name = @"Course rapide";
+        [shoplist addObject:s];
+        s = [Shop new] ;
+        s.name = @"Soirée St Armand";
         [shoplist addObject:s];
         s = [Shop new];
-        s.titleOfShop = @"Soirée St Armand";
-        [shoplist addObject:s];
-        s = [Shop new];
-        s.titleOfShop = @"Dîner avec famille";
+        s.name = @"Dîner avec famille";
         [shoplist addObject:s];
         
         homeListController.shoplist = shoplist;

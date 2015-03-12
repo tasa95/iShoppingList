@@ -29,7 +29,7 @@
 
 - (NSArray *) shoplist {
     if (!shoplist_) {
-        self.shoplist = [NSKeyedUnarchiver unarchiveObjectWithFile:[self filePath]];
+       // self.shoplist = [NSKeyedUnarchiver unarchiveObjectWithFile:[self filePath]];
     }
     return shoplist_;
 }
@@ -51,7 +51,7 @@
         self.user = user;
         self.shoplist = shoplist;
         
-
+        
         
     }
     return self;
@@ -69,7 +69,7 @@
 }
 
 - (void) onTouchEdit {
-    self.tableView.editing = !self.tableView.editing;	
+    self.tableView.editing = !self.tableView.editing;
 }
 
 
@@ -132,9 +132,11 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
     }
     
     Shop* s = [shoplist_ objectAtIndex:indexPath.row];
-    cell.textLabel.text = s.titleOfShop;
+    cell.textLabel.text = s.name;
     cell.textLabel.textColor = [UIColor blueColor];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ : %lu", @"Nb de produits", (long)indexPath.row]; //(long)s.numberOfItems];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEEE dd MMMMM yyyy 'à' HH:mm"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ ", [dateFormatter stringFromDate:s.created_date]];
     return cell;
 }
 
@@ -154,7 +156,14 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Click at Index Path %lu", (long)indexPath.row);
+
+  
+        Shop *shop =[self.shoplist objectAtIndex:indexPath.row];
+          AddShopController* shopController =[[AddShopController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]  andWithName:shop.name andWithShop:shop];
+    
+        [self.navigationController pushViewController:shopController animated:YES];
+    
+    
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath { }
@@ -177,7 +186,7 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 - (void) addShoppingControllerDidCreateShop:(Shop *)s {
     [shoplist_ addObject:s];
     self.shoplist = shoplist_;
-
+    
     [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
 }

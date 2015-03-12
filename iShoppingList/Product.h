@@ -17,6 +17,10 @@
     NSString* shopping_list_id_;
 }
 
+-(instancetype)initWithId :(NSString*)id andWithName:(NSString*)name andWithQuantity:(int)quantity andWithPrice:(double)price andWithShoppingListId:(NSString*)shopping_list_id;
+
+
+-(instancetype)initWithName:(NSString*)name andWithQuantity:(int)quantity andWithPrice:(double)price;
 
 @property (strong,nonatomic) NSString* id;
 @property (strong,nonatomic) NSString* name;

@@ -10,7 +10,33 @@
 
 @implementation Product
 
+@synthesize name = name_;
+@synthesize id = id_;
+@synthesize quantity = quantity_;
+@synthesize price = price_;
+@synthesize shopping_list_id = shopping_list_id_;
 
+
+-(instancetype)initWithId :(NSString*)id andWithName:(NSString*)name andWithQuantity:(int)quantity andWithPrice:(double)price andWithShoppingListId:(NSString*)shopping_list_id
+{
+    if(self = [super init])
+    {
+        self.id = id;
+        self.name = name;
+        self.quantity = quantity;
+        self.price = price;
+        self.shopping_list_id = shopping_list_id;
+    }
+    return self;
+}
+
+
+
+
+-(instancetype)initWithName:(NSString*)name andWithQuantity:(int)quantity andWithPrice:(double)price
+{
+    return [self initWithId:@"" andWithName:name andWithQuantity:quantity andWithPrice:price andWithShoppingListId:@""];
+}
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder
 {

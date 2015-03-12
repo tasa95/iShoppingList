@@ -8,6 +8,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "AddShopController.h"
+#import "Product.h"
+#import "ProductCell.h"
 
 @interface AddShopController ()
 
@@ -32,21 +34,33 @@ int rect_y_pos = 135, rect_y_height = 29;
 
 //-----------
 
-static NSString* const kShoppingCellId = @"shoppingItemId";
+static NSString* const kShoppingCellId = @"ProductCell";
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithName:(NSString*)name andWithShop:(Shop*)shop
 {
     if ([super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         self.title = @"Add list";
         UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onTouchSave:)];
         self.navigationItem.rightBarButtonItem = rightButton;
-        self.listProduct = [[NSMutableArray alloc] init];
+        self.shop = shop;
+        self.nameOfShop.text = name;
         self.testTableView.delegate = self;
         self.testTableView.dataSource = self;
+        
+        
         count_items = 0;
     }
     return self;
+}
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    
+    
+    return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil andWithName:@"" andWithShop: [[Shop alloc] InitWithName:@""]];
+    
 }
 
 
@@ -55,17 +69,15 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 
 - (IBAction)onTouchSave:(id) sender
 {
-    // Save the shop, and pop to previous list
-    Shop* newshop = [Shop new];
-    newshop.titleOfShop = self.nameOfShop.text;
-    
-
-    
-    
-    
-    if ([self.delegate respondsToSelector:@selector(addShoppingControllerDidCreateShop:)]) {
-        NSLog( @"@newshop : %@", [newshop description]);
-        [self.delegate addShoppingControllerDidCreateShop:newshop];
+    if([self.nameOfShop.text length] >0)
+    {
+        // Save the shop, and pop to previous list
+        self.shop.name = self.nameOfShop.text;
+        Shop* newshop = self.shop;
+        if ([self.delegate respondsToSelector:@selector(addShoppingControllerDidCreateShop:)]) {
+         
+            [self.delegate addShoppingControllerDidCreateShop:newshop];
+        }
     }
 }
 
@@ -114,6 +126,10 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.nameOfShop.text = self.shop.name;
+    
+    NSLog(@"%@",[self.shop.productList description]);
+     [self.testTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -134,39 +150,39 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 - (void)addShopItem:(int) i
 {
     // Parent view contains checkbox and label
-   // UIView* newGroup = [[UIView alloc] initWithFrame:CGRectMake(20, rect_y_pos+(rect_y_height*i)+10, 280, 29)];
+    // UIView* newGroup = [[UIView alloc] initWithFrame:CGRectMake(20, rect_y_pos+(rect_y_height*i)+10, 280, 29)];
     
     // First child contains checkbox
     
     /*
-    UIButton* checkbox = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 29, self.testScrollView.frame.size.height)];
-    [checkbox setBackgroundImage:[UIImage imageNamed:@"notselectedcheckbox.png"] forState:UIControlStateNormal];
-    [checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"] forState:UIControlStateSelected];
-    [checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"] forState:UIControlStateHighlighted];
-    checkbox.adjustsImageWhenHighlighted = YES;
-    [checkbox addTarget:self action:@selector(checkBoxSelected:) forControlEvents:UIControlEventTouchUpInside];
-    checkbox.tag = 0;
-    
-    // Second child group contains padding to the label
-    UIView* newSubGroup = [[UIView alloc] initWithFrame:CGRectMake(38, 0, 242, self.testScrollView.frame.size.height)];
-    newSubGroup.layer.borderColor = [UIColor grayColor].CGColor;
-    newSubGroup.layer.borderWidth = 1.0;
-    // Create label into second child group
-    UILabel* newLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, newSubGroup.frame.size.width - 5, newSubGroup.frame.size.height)];
-    newLabel.text = self.productOfShop.text;
-    newLabel.font = [UIFont systemFontOfSize:14];
-    newLabel.textAlignment = NSTextAlignmentLeft;
-    
-    [newSubGroup addSubview:newLabel];
-    
-    [self.testScrollView addSubview:checkbox];
-    [self.testScrollView addSubview:newSubGroup];
-    
-   // [self.view addSubview:newGroup];
-    count_items++;
+     UIButton* checkbox = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 29, self.testScrollView.frame.size.height)];
+     [checkbox setBackgroundImage:[UIImage imageNamed:@"notselectedcheckbox.png"] forState:UIControlStateNormal];
+     [checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"] forState:UIControlStateSelected];
+     [checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"] forState:UIControlStateHighlighted];
+     checkbox.adjustsImageWhenHighlighted = YES;
+     [checkbox addTarget:self action:@selector(checkBoxSelected:) forControlEvents:UIControlEventTouchUpInside];
+     checkbox.tag = 0;
+     
+     // Second child group contains padding to the label
+     UIView* newSubGroup = [[UIView alloc] initWithFrame:CGRectMake(38, 0, 242, self.testScrollView.frame.size.height)];
+     newSubGroup.layer.borderColor = [UIColor grayColor].CGColor;
+     newSubGroup.layer.borderWidth = 1.0;
+     // Create label into second child group
+     UILabel* newLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, newSubGroup.frame.size.width - 5, newSubGroup.frame.size.height)];
+     newLabel.text = self.productOfShop.text;
+     newLabel.font = [UIFont systemFontOfSize:14];
+     newLabel.textAlignment = NSTextAlignmentLeft;
+     
+     [newSubGroup addSubview:newLabel];
+     
+     [self.testScrollView addSubview:checkbox];
+     [self.testScrollView addSubview:newSubGroup];
+     
+     // [self.view addSubview:newGroup];
+     count_items++;
      
      */
-    [self.listProduct  addObject:self.productOfShop.text];
+    [self.shop.productList addObject:[[Product alloc] initWithName:self.productOfShop.text andWithQuantity:0 andWithPrice:0.00]];
     [self.testTableView reloadData];
     
     
@@ -175,34 +191,45 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:kShoppingCellId];
+    
+    
+    
+    ProductCell* cell = (ProductCell *)[tableView dequeueReusableCellWithIdentifier:kShoppingCellId];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kShoppingCellId];
+        
+        NSArray *nib =  [[NSBundle mainBundle] loadNibNamed:@"ProductCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
     
-    NSString* s = [self.listProduct objectAtIndex:indexPath.row];
-    cell.textLabel.text = s;
-    cell.textLabel.textColor = [UIColor blueColor];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ : %lu", @"Nb de produits", (long)indexPath.row]; //(long)s.numberOfItems];
+    Product *p = [self.shop.productList  objectAtIndex:indexPath.row];
+    cell.name.text =  p.name;
+    cell.price.text = [[NSString alloc] initWithFormat:@"%f€",p.price];
+    cell.qte.text = [[NSString alloc] initWithFormat:@"%d",p.quantity ];
+    cell.imageView.image = [UIImage imageNamed:@"notselectedcheckbox.png"];
+    
+    
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.listProduct count];
+    return [self.shop.productList count];
 }
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.listProduct removeObjectAtIndex:indexPath.row];
+        [self.shop.productList removeObjectAtIndex:indexPath.row];
         [self.testTableView reloadData];
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    return 78;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
     NSLog(@"Click at Index Path %lu", (long)indexPath.row);
 }
 
@@ -210,7 +237,21 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 
 - (void)removeShopItem:(int) i
 {
-//    [self.view removeFromSuperview];
+    [self.shop.productList removeObjectAtIndex:i];
+    //    [self.view removeFromSuperview];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    return YES;
+}
+
+// It is important for you to hide kwyboard
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

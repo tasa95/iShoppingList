@@ -10,11 +10,29 @@
 
 @interface Shop: NSObject <NSCoding> {
     @private
-    NSString* titleOfShop_;
-    NSInteger numberOfItems_;
+    NSString* id_;
+    NSString* name_;
+    NSDate* created_date_;
+    bool completed_;
 }
 
-@property (nonatomic, strong) NSString* titleOfShop;
-@property (nonatomic, assign) NSInteger numberOfItems;
+@property (strong,nonatomic) NSString* id;
+@property (strong,nonatomic) NSString* name;
+@property (strong,nonatomic) NSDate* created_date;
+@property bool completed;
+@property (strong, nonatomic) NSMutableArray* productList;
+
+-(instancetype) init;
+
+-(instancetype) initWithId:(NSString*)id andWithName :(NSString*) name andWithCreatedDate:(NSDate*) created_date andIsCompleted:(bool) completed andWithProductList:(NSMutableArray*) productList;
+
+
+-(instancetype) InitWithName :(NSString*) name andWithCreatedDate:(NSDate*) created_date andIsCompleted:(bool) completed;
+
+
+-(instancetype) InitWithName :(NSString*) name andWithCreatedDate:(NSDate*) created_date;
+
+
+-(instancetype) InitWithName :(NSString*) name;
 
 @end

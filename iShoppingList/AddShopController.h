@@ -11,7 +11,7 @@
 #import "Product.h"
 
 
-@protocol AddShopControllerDelegate <NSObject, UITableViewDelegate,UITableViewDataSource>
+@protocol AddShopControllerDelegate <NSObject, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @optional
 - (void) addShoppingControllerDidCreateShop:(Shop*)s;
 - (void) addShoppingControllerDidEditShop:(Shop *)s;
@@ -23,8 +23,8 @@
     id<AddShopControllerDelegate> delegate_;
     
 }
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithName:(NSString*)name andWithShop:(Shop*)shop;
 
-@property (strong,nonatomic) NSMutableArray *listProduct;
 @property (nonatomic, strong) Shop* shop;
 @property (strong, nonatomic) id<AddShopControllerDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UITextField* nameOfShop;
@@ -33,5 +33,5 @@
 
 - (IBAction)onTouchProductAdd:(id)sender;
 - (IBAction)onTouchSave:(id) sender;
-
+- (bool)dissmissKeyboard;
 @end

@@ -1,0 +1,6 @@
+violet : 582A72
+rose : 892E61
+
+autre violet : 3E1256
+
+violet plus claire : 9774AB
