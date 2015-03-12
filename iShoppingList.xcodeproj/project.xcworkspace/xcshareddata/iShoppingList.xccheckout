@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4483F4B5-22BC-4B01-BC24-FA16140232AB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>iShoppingList</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>15785CCD-6DCB-4481-BDCC-C8DD3F350561</key>
+		<string>https://bitbucket.org/Fllo/ishoppinglist.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iShoppingList.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>15785CCD-6DCB-4481-BDCC-C8DD3F350561</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/Fllo/ishoppinglist.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>15785CCD-6DCB-4481-BDCC-C8DD3F350561</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>15785CCD-6DCB-4481-BDCC-C8DD3F350561</string>
+			<key>IDESourceControlWCCName</key>
+			<string>git</string>
+		</dict>
+	</array>
+</dict>
+</plist>
