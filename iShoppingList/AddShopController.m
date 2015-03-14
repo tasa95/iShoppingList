@@ -10,6 +10,7 @@
 #import "AddShopController.h"
 #import "Product.h"
 #import "ProductCell.h"
+#import "DetailProductViewController.h"
 
 @interface AddShopController ()
 
@@ -47,6 +48,7 @@ static NSString* const kShoppingCellId = @"ProductCell";
         self.nameOfShop.text = name;
         self.testTableView.delegate = self;
         self.testTableView.dataSource = self;
+    
         
         
         count_items = 0;
@@ -84,6 +86,10 @@ static NSString* const kShoppingCellId = @"ProductCell";
 - (IBAction)onTouchProductAdd:(id) sender
 {
     if (self.productOfShop.text && self.productOfShop.text.length > 0 && ![self.productOfShop.text isEqual:@" "]) {
+        
+        
+       
+     
         [self addShopItem:(int) count_items];
         self.productOfShop.text = @"";
     }
@@ -130,6 +136,7 @@ static NSString* const kShoppingCellId = @"ProductCell";
     
     NSLog(@"%@",[self.shop.productList description]);
      [self.testTableView reloadData];
+    self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%f", TotalPrice_ ];
 }
 
 - (void)didReceiveMemoryWarning
@@ -202,6 +209,8 @@ static NSString* const kShoppingCellId = @"ProductCell";
     }
     
     Product *p = [self.shop.productList  objectAtIndex:indexPath.row];
+    
+    TotalPrice_ += p.price;
     cell.name.text =  p.name;
     cell.price.text = [[NSString alloc] initWithFormat:@"%f€",p.price];
     cell.qte.text = [[NSString alloc] initWithFormat:@"%d",p.quantity ];
@@ -228,9 +237,9 @@ static NSString* const kShoppingCellId = @"ProductCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    DetailProductViewController *productView = [[DetailProductViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle] andWithProduct:[self.shop.productList objectAtIndex:indexPath.row]];
     
-    
-    NSLog(@"Click at Index Path %lu", (long)indexPath.row);
+     [self.navigationController pushViewController:productView animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath { }

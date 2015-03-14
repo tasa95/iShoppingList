@@ -38,9 +38,13 @@
 		FB905CCE1A98AFF7006BA66E /* ConnexionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */; };
 		FB905CCF1A98AFF7006BA66E /* ConnexionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */; };
 		FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CD11A98B961006BA66E /* JSonWebService.m */; };
-		FBD823911AAF71B3006D56F2 /* ShoppingList.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD823901AAF71B3006D56F2 /* ShoppingList.m */; };
 		FBD823941AAF759E006D56F2 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD823931AAF759E006D56F2 /* Product.m */; };
 		FBD823971AAF80BE006D56F2 /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD823961AAF80BE006D56F2 /* Token.m */; };
+		FBD8239B1AB23623006D56F2 /* color.txt in Resources */ = {isa = PBXBuildFile; fileRef = FBD8239A1AB23623006D56F2 /* color.txt */; };
+		FBD8239D1AB236FC006D56F2 /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBD8239C1AB236FC006D56F2 /* ProductCell.xib */; };
+		FBD823A01AB239AE006D56F2 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD8239F1AB239AE006D56F2 /* ProductCell.m */; };
+		FBD823A41AB3AA30006D56F2 /* DetailProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD823A21AB3AA30006D56F2 /* DetailProductViewController.m */; };
+		FBD823A51AB3AA30006D56F2 /* DetailProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBD823A31AB3AA30006D56F2 /* DetailProductViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,12 +105,17 @@
 		FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnexionViewController.xib; sourceTree = "<group>"; };
 		FB905CD01A98B961006BA66E /* JSonWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSonWebService.h; sourceTree = "<group>"; };
 		FB905CD11A98B961006BA66E /* JSonWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSonWebService.m; sourceTree = "<group>"; };
-		FBD8238F1AAF71B3006D56F2 /* ShoppingList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingList.h; sourceTree = "<group>"; };
-		FBD823901AAF71B3006D56F2 /* ShoppingList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingList.m; sourceTree = "<group>"; };
 		FBD823921AAF759E006D56F2 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
 		FBD823931AAF759E006D56F2 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		FBD823951AAF80BE006D56F2 /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
 		FBD823961AAF80BE006D56F2 /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
+		FBD8239A1AB23623006D56F2 /* color.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = color.txt; sourceTree = "<group>"; };
+		FBD8239C1AB236FC006D56F2 /* ProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCell.xib; sourceTree = "<group>"; };
+		FBD8239E1AB239AE006D56F2 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
+		FBD8239F1AB239AE006D56F2 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
+		FBD823A11AB3AA30006D56F2 /* DetailProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailProductViewController.h; sourceTree = "<group>"; };
+		FBD823A21AB3AA30006D56F2 /* DetailProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailProductViewController.m; sourceTree = "<group>"; };
+		FBD823A31AB3AA30006D56F2 /* DetailProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailProductViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,8 +149,6 @@
 				4FC7CEBD1A8FA0E0005830E6 /* Shop.m */,
 				FB7D52891A99DD8000453E71 /* User.h */,
 				FB7D528A1A99DD8000453E71 /* User.m */,
-				FBD8238F1AAF71B3006D56F2 /* ShoppingList.h */,
-				FBD823901AAF71B3006D56F2 /* ShoppingList.m */,
 				FBD823921AAF759E006D56F2 /* Product.h */,
 				FBD823931AAF759E006D56F2 /* Product.m */,
 				FBD823951AAF80BE006D56F2 /* Token.h */,
@@ -187,12 +194,13 @@
 				FB7E21FC1A9BCECD008355F8 /* protocol */,
 				FB7D52871A99DD4300453E71 /* Webservice_iOS.txt */,
 				4FD70E3D1A8F9428002522D9 /* AppDelegate.h */,
-				FB7E21F91A9BCDCA008355F8 /* subView class */,
 				4FD70E3E1A8F9428002522D9 /* AppDelegate.m */,
+				FB7E21F91A9BCDCA008355F8 /* subView class */,
 				FB7E22001A9BDE1F008355F8 /* Web Service */,
 				FBD823991AAFA1C3006D56F2 /* View */,
 				4FC7CEBB1A8FA0B4005830E6 /* ModelShop */,
 				4FD70E351A8F9428002522D9 /* Supporting Files */,
+				FBD8239A1AB23623006D56F2 /* color.txt */,
 			);
 			path = iShoppingList;
 			sourceTree = "<group>";
@@ -237,6 +245,9 @@
 				FB7E22041A9D12F6008355F8 /* MyTextField.m */,
 				FB7E22061A9D1C65008355F8 /* MyTextFieldMail.h */,
 				FB7E22071A9D1C65008355F8 /* MyTextFieldMail.m */,
+				FBD8239C1AB236FC006D56F2 /* ProductCell.xib */,
+				FBD8239E1AB239AE006D56F2 /* ProductCell.h */,
+				FBD8239F1AB239AE006D56F2 /* ProductCell.m */,
 			);
 			name = "subView class";
 			sourceTree = "<group>";
@@ -284,6 +295,9 @@
 				FB7E220A1A9D4C1A008355F8 /* ConnectionViewController.m */,
 				FB7E220B1A9D4C1A008355F8 /* ConnectionViewController.xib */,
 				FB905CCB1A98AFF7006BA66E /* ConnexionViewController.h */,
+				FBD823A11AB3AA30006D56F2 /* DetailProductViewController.h */,
+				FBD823A21AB3AA30006D56F2 /* DetailProductViewController.m */,
+				FBD823A31AB3AA30006D56F2 /* DetailProductViewController.xib */,
 				FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */,
 				FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */,
 				4FD70E6C1A8F9664002522D9 /* HomeListController.h */,
@@ -368,13 +382,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBD8239D1AB236FC006D56F2 /* ProductCell.xib in Resources */,
 				4FD70E391A8F9428002522D9 /* InfoPlist.strings in Resources */,
 				FB7D52881A99DD4300453E71 /* Webservice_iOS.txt in Resources */,
 				4FD70E411A8F9428002522D9 /* Default.png in Resources */,
 				4FD70E431A8F9428002522D9 /* Default@2x.png in Resources */,
 				FB905CCF1A98AFF7006BA66E /* ConnexionViewController.xib in Resources */,
 				4FD70E451A8F9428002522D9 /* Default-568h@2x.png in Resources */,
+				FBD8239B1AB23623006D56F2 /* color.txt in Resources */,
 				FB7E220D1A9D4C1A008355F8 /* ConnectionViewController.xib in Resources */,
+				FBD823A51AB3AA30006D56F2 /* DetailProductViewController.xib in Resources */,
 				4FD70E701A8F9664002522D9 /* HomeListController.xib in Resources */,
 				4FC7CEC81A90E4DB005830E6 /* AddShopController.xib in Resources */,
 				4FFCFE7F1A92449A002048D3 /* notselectedcheckbox.png in Resources */,
@@ -414,6 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB7D528B1A99DD8000453E71 /* User.m in Sources */,
+				FBD823A01AB239AE006D56F2 /* ProductCell.m in Sources */,
 				4FD70E3B1A8F9428002522D9 /* main.m in Sources */,
 				4FD70E3F1A8F9428002522D9 /* AppDelegate.m in Sources */,
 				FB905CCE1A98AFF7006BA66E /* ConnexionViewController.m in Sources */,
@@ -423,8 +441,8 @@
 				4FC7CEBE1A8FA0E0005830E6 /* Shop.m in Sources */,
 				FBD823941AAF759E006D56F2 /* Product.m in Sources */,
 				FB7E22051A9D12F6008355F8 /* MyTextField.m in Sources */,
+				FBD823A41AB3AA30006D56F2 /* DetailProductViewController.m in Sources */,
 				FB7E220C1A9D4C1A008355F8 /* ConnectionViewController.m in Sources */,
-				FBD823911AAF71B3006D56F2 /* ShoppingList.m in Sources */,
 				FB7E21FF1A9BDCAD008355F8 /* RouteController.m in Sources */,
 				4FC7CEC71A90E4DB005830E6 /* AddShopController.m in Sources */,
 				FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */,

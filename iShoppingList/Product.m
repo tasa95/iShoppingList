@@ -17,6 +17,11 @@
 @synthesize shopping_list_id = shopping_list_id_;
 
 
+-(instancetype)init
+{
+      return [self initWithId:@"" andWithName:@"" andWithQuantity:0 andWithPrice:0 andWithShoppingListId:@""];
+}
+
 -(instancetype)initWithId :(NSString*)id andWithName:(NSString*)name andWithQuantity:(int)quantity andWithPrice:(double)price andWithShoppingListId:(NSString*)shopping_list_id
 {
     if(self = [super init])

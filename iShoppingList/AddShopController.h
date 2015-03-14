@@ -21,9 +21,11 @@
     @private
     Shop* shop_;
     id<AddShopControllerDelegate> delegate_;
+    double TotalPrice_;
     
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithName:(NSString*)name andWithShop:(Shop*)shop;
+@property (strong, nonatomic) IBOutlet UILabel *totalPriceLabel;
 
 @property (nonatomic, strong) Shop* shop;
 @property (strong, nonatomic) id<AddShopControllerDelegate> delegate;

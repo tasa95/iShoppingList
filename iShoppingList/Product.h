@@ -17,6 +17,8 @@
     NSString* shopping_list_id_;
 }
 
+-(instancetype)init;
+
 -(instancetype)initWithId :(NSString*)id andWithName:(NSString*)name andWithQuantity:(int)quantity andWithPrice:(double)price andWithShoppingListId:(NSString*)shopping_list_id;
 
 
