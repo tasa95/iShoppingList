@@ -16,13 +16,14 @@
 
 
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithProduct:(Product*)produit
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithProduct:(Product*)produit andWithDelegate:(id)delegate
 {
     if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
         self.product = produit;
         self.LabelPrix.delegate = self;
         self.LabelQte.delegate = self;
+        delegate_ = delegate;
     }
     
     return self;
@@ -70,9 +71,24 @@
 }
 
 - (IBAction)Modify:(id)sender {
-    self.product.price = [self.LabelPrix.text floatValue];
-    self.product.quantity = [self.LabelQte.text integerValue];
-    [self.navigationController popViewControllerAnimated:YES];
+   
+    
+    
+    if([self.LabelPrix.text length] >0 && [self.LabelQte.text length] > 0)
+    {
+        // Save the shop, and pop to previous list
+        if ([delegate_ respondsToSelector:@selector(DetailProductControllerModifyProduct:)]) {
+            
+            
+            self.product.price = [self.LabelPrix.text floatValue];
+            self.product.quantity = [self.LabelQte.text integerValue];
+            
+            
+            [delegate_ DetailProductControllerModifyProduct:self.product];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+   
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

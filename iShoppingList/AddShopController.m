@@ -210,17 +210,19 @@ static NSString* const kShoppingCellId = @"ProductCell";
     
     Product *p = [self.shop.productList  objectAtIndex:indexPath.row];
     
-    TotalPrice_ += p.price;
+    TotalPrice_ += p.price * p.quantity;
     cell.name.text =  p.name;
     cell.price.text = [[NSString alloc] initWithFormat:@"%f€",p.price];
     cell.qte.text = [[NSString alloc] initWithFormat:@"%d",p.quantity ];
     cell.imageView.image = [UIImage imageNamed:@"notselectedcheckbox.png"];
+    self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%f", TotalPrice_ ];
     
     
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    TotalPrice_ = 0; 
     return [self.shop.productList count];
 }
 
@@ -237,7 +239,7 @@ static NSString* const kShoppingCellId = @"ProductCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    DetailProductViewController *productView = [[DetailProductViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle] andWithProduct:[self.shop.productList objectAtIndex:indexPath.row]];
+    DetailProductViewController *productView = [[DetailProductViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle] andWithProduct:[self.shop.productList objectAtIndex:indexPath.row] andWithDelegate:self];
     
      [self.navigationController pushViewController:productView animated:YES];
 }
@@ -262,5 +264,25 @@ static NSString* const kShoppingCellId = @"ProductCell";
     [textField resignFirstResponder];
     return YES;
 }
+
+- (void) DetailProductControllerModifyProduct:(Product*)p
+{
+    int i =[self.shop.productList indexOfObject:p];
+    if(i >= 0)
+    {
+        NSLog(@"trouver");
+    }
+    else{
+        NSLog(@" pas trouver");
+
+    }
+    
+    [self.testTableView reloadData];
+    
+}
+
+
+
+
 
 @end

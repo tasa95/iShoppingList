@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Shop.h"
 #import "Product.h"
+#import "DetailProductViewController.h"
 
 
 @protocol AddShopControllerDelegate <NSObject, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
@@ -17,7 +18,8 @@
 - (void) addShoppingControllerDidEditShop:(Shop *)s;
 @end
 
-@interface AddShopController : UIViewController {
+@interface AddShopController : UIViewController <DetailProductViewDelegate>
+{
     @private
     Shop* shop_;
     id<AddShopControllerDelegate> delegate_;

@@ -9,9 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "Product.h"
 
-@interface DetailProductViewController : UIViewController <UITextViewDelegate>
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithProduct:(Product*)produit;
+@protocol DetailProductViewDelegate <NSObject, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@optional
+- (void) DetailProductControllerModifyProduct:(Product*)p;
+
+
+
+@end
+
+@interface DetailProductViewController : UIViewController <UITextViewDelegate>
+{
+    @private
+    id<DetailProductViewDelegate> delegate_;
+}
+
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithProduct:(Product*)produit andWithDelegate:(id)delegate;
 
 @property (strong, nonatomic) IBOutlet UITextField *LabelPrix;
 @property (strong, nonatomic) IBOutlet UITextField *LabelQte;
