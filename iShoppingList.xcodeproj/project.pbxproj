@@ -38,6 +38,8 @@
 		FB905CCE1A98AFF7006BA66E /* ConnexionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CCC1A98AFF7006BA66E /* ConnexionViewController.m */; };
 		FB905CCF1A98AFF7006BA66E /* ConnexionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */; };
 		FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = FB905CD11A98B961006BA66E /* JSonWebService.m */; };
+		FBA7C9881AB3C489004D2A22 /* ShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA7C9871AB3C489004D2A22 /* ShopCell.xib */; };
+		FBA7C98B1AB3C604004D2A22 /* ShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA7C98A1AB3C604004D2A22 /* ShopCell.m */; };
 		FBD823941AAF759E006D56F2 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD823931AAF759E006D56F2 /* Product.m */; };
 		FBD823971AAF80BE006D56F2 /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD823961AAF80BE006D56F2 /* Token.m */; };
 		FBD8239B1AB23623006D56F2 /* color.txt in Resources */ = {isa = PBXBuildFile; fileRef = FBD8239A1AB23623006D56F2 /* color.txt */; };
@@ -105,6 +107,9 @@
 		FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnexionViewController.xib; sourceTree = "<group>"; };
 		FB905CD01A98B961006BA66E /* JSonWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSonWebService.h; sourceTree = "<group>"; };
 		FB905CD11A98B961006BA66E /* JSonWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSonWebService.m; sourceTree = "<group>"; };
+		FBA7C9871AB3C489004D2A22 /* ShopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCell.xib; sourceTree = "<group>"; };
+		FBA7C9891AB3C604004D2A22 /* ShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCell.h; sourceTree = "<group>"; };
+		FBA7C98A1AB3C604004D2A22 /* ShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCell.m; sourceTree = "<group>"; };
 		FBD823921AAF759E006D56F2 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
 		FBD823931AAF759E006D56F2 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		FBD823951AAF80BE006D56F2 /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
@@ -248,6 +253,9 @@
 				FBD8239C1AB236FC006D56F2 /* ProductCell.xib */,
 				FBD8239E1AB239AE006D56F2 /* ProductCell.h */,
 				FBD8239F1AB239AE006D56F2 /* ProductCell.m */,
+				FBA7C9871AB3C489004D2A22 /* ShopCell.xib */,
+				FBA7C9891AB3C604004D2A22 /* ShopCell.h */,
+				FBA7C98A1AB3C604004D2A22 /* ShopCell.m */,
 			);
 			name = "subView class";
 			sourceTree = "<group>";
@@ -390,6 +398,7 @@
 				FB905CCF1A98AFF7006BA66E /* ConnexionViewController.xib in Resources */,
 				4FD70E451A8F9428002522D9 /* Default-568h@2x.png in Resources */,
 				FBD8239B1AB23623006D56F2 /* color.txt in Resources */,
+				FBA7C9881AB3C489004D2A22 /* ShopCell.xib in Resources */,
 				FB7E220D1A9D4C1A008355F8 /* ConnectionViewController.xib in Resources */,
 				FBD823A51AB3AA30006D56F2 /* DetailProductViewController.xib in Resources */,
 				4FD70E701A8F9664002522D9 /* HomeListController.xib in Resources */,
@@ -446,6 +455,7 @@
 				FB7E21FF1A9BDCAD008355F8 /* RouteController.m in Sources */,
 				4FC7CEC71A90E4DB005830E6 /* AddShopController.m in Sources */,
 				FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */,
+				FBA7C98B1AB3C604004D2A22 /* ShopCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

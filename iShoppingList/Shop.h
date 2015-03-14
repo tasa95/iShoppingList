@@ -14,6 +14,7 @@
     NSString* name_;
     NSDate* created_date_;
     bool completed_;
+    double total_price_ ;
 }
 
 @property (strong,nonatomic) NSString* id;
@@ -34,5 +35,9 @@
 
 
 -(instancetype) InitWithName :(NSString*) name;
+
+-(void) setTotal_price:(double)total_price;
+
+-(double)getTotal_price;
 
 @end

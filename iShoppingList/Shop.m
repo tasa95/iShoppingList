@@ -55,6 +55,7 @@
         self.created_date = created_date;
         self.completed = completed;
         self.productList = productList;
+        total_price_ = 0;
     }
     return self;
 }
@@ -136,6 +137,17 @@
     [aCoder encodeObject:self.created_date forKey:@"created_date"];
     [aCoder encodeBool:self.completed forKey:@"completed"];
     
+}
+
+-(void) setTotal_price:(double)total_price
+{
+    total_price_ = total_price;
+}
+
+-(double)getTotal_price
+{
+
+    return total_price_;
 }
 
 

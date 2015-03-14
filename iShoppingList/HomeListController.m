@@ -12,7 +12,7 @@
 #import "JSonWebService.h"
 #import "RouteController.h"
 #import "User.h"
-
+#import "ShopCell.h"
 
 @interface HomeListController ()
 
@@ -123,17 +123,47 @@
 static NSString* const kShoppingCellId = @"shoppingItemId";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:kShoppingCellId];
+    ShopCell* cell = (ShopCell*)[tableView dequeueReusableCellWithIdentifier:kShoppingCellId];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kShoppingCellId];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ShopCell" owner:self options:nil];
+        cell = [ nib objectAtIndex:0];
     }
     
     Shop* s = [shoplist_ objectAtIndex:indexPath.row];
-    cell.textLabel.text = s.name;
+    cell.NameShopLabel.text = s.name;
     cell.textLabel.textColor = [UIColor blueColor];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEEE dd MMMMM yyyy 'à' HH:mm"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ ", [dateFormatter stringFromDate:s.created_date]];
+    
+    cell.TotalPriceOfShop.text = [[NSString alloc] initWithFormat:@"%.02f€",[s getTotal_price]];
+    cell.DateCreationLabel.text = [NSString stringWithFormat:@"%@ ", [dateFormatter stringFromDate:s.created_date]];
+    
+    
+    /*
+     
+     
+     ProductCell* cell = (ProductCell *)[tableView dequeueReusableCellWithIdentifier:kShoppingCellId];
+     if (!cell) {
+     
+     NSArray *nib =  [[NSBundle mainBundle] loadNibNamed:@"ProductCell" owner:self options:nil];
+     cell = [nib objectAtIndex:0];
+     }
+     
+     Product *p = [self.shop.productList  objectAtIndex:indexPath.row];
+     
+     TotalPrice_ += p.price * p.quantity;
+     cell.name.text =  p.name;
+     cell.price.text = [[NSString alloc] initWithFormat:@"%.02f€",p.price];
+     cell.qte.text = [[NSString alloc] initWithFormat:@"%d",p.quantity ];
+     cell.imageView.image = [UIImage imageNamed:@"notselectedcheckbox.png"];
+     self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%.02f", TotalPrice_ ];
+
+     
+     
+     */
+    
+    
+    
     return cell;
 }
 
@@ -149,7 +179,7 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    return 88;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -187,6 +217,7 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
     [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
 }
+
 
 
 

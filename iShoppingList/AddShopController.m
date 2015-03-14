@@ -76,6 +76,7 @@ static NSString* const kShoppingCellId = @"ProductCell";
         // Save the shop, and pop to previous list
         self.shop.name = self.nameOfShop.text;
         Shop* newshop = self.shop;
+        [newshop setTotal_price:[self.totalPriceLabel.text doubleValue]];
         if ([self.delegate respondsToSelector:@selector(addShoppingControllerDidCreateShop:)]) {
          
             [self.delegate addShoppingControllerDidCreateShop:newshop];
@@ -136,7 +137,7 @@ static NSString* const kShoppingCellId = @"ProductCell";
     
     NSLog(@"%@",[self.shop.productList description]);
      [self.testTableView reloadData];
-    self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%f", TotalPrice_ ];
+    self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%.02f", TotalPrice_ ];
 }
 
 - (void)didReceiveMemoryWarning
@@ -212,10 +213,16 @@ static NSString* const kShoppingCellId = @"ProductCell";
     
     TotalPrice_ += p.price * p.quantity;
     cell.name.text =  p.name;
-    cell.price.text = [[NSString alloc] initWithFormat:@"%f€",p.price];
+    if(p.price !=0)
+        cell.price.text = [[NSString alloc] initWithFormat:@"%.2f€",p.price];
+    else
+        cell.price.text = [[NSString alloc] initWithFormat:@"%.2f€",0.00];
     cell.qte.text = [[NSString alloc] initWithFormat:@"%d",p.quantity ];
     cell.imageView.image = [UIImage imageNamed:@"notselectedcheckbox.png"];
-    self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%f", TotalPrice_ ];
+    if(TotalPrice_ !=0)
+        self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%.2f€", TotalPrice_ ];
+    else
+        self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%.2f€", 0.00 ];
     
     
     return cell;
@@ -268,14 +275,6 @@ static NSString* const kShoppingCellId = @"ProductCell";
 - (void) DetailProductControllerModifyProduct:(Product*)p
 {
     int i =[self.shop.productList indexOfObject:p];
-    if(i >= 0)
-    {
-        NSLog(@"trouver");
-    }
-    else{
-        NSLog(@" pas trouver");
-
-    }
     
     [self.testTableView reloadData];
     
