@@ -62,14 +62,17 @@
 
 
 - (void) onTouchAdd {
-    AddShopController* addShop = [AddShopController new];
+    AddShopController* addShop = [[AddShopController alloc] initWithNibName:nil bundle:[NSBundle mainBundle] andWithName:@"" andWithShop:[[Shop alloc] init] andWithMode:0];
     addShop.delegate = self;
     [self.navigationController pushViewController:addShop animated:YES];
     [self.tableView reloadData];
 }
 
 - (void) onTouchEdit {
-    self.tableView.editing = !self.tableView.editing;
+    if(self.tableView.editing)
+        [self.tableView setEditing:NO animated:YES];
+    else
+        [self.tableView setEditing:YES animated:YES];
 }
 
 
@@ -133,7 +136,7 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
     cell.NameShopLabel.text = s.name;
     cell.textLabel.textColor = [UIColor blueColor];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEEE dd MMMMM yyyy 'à' HH:mm"];
+    [dateFormatter setDateFormat:@"EEEE dd MMMM yyyy 'à' HH:mm"];
     
     cell.TotalPriceOfShop.text = [[NSString alloc] initWithFormat:@"%.02f€",[s getTotal_price]];
     cell.DateCreationLabel.text = [NSString stringWithFormat:@"%@ ", [dateFormatter stringFromDate:s.created_date]];
@@ -186,14 +189,17 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 
   
         Shop *shop =[self.shoplist objectAtIndex:indexPath.row];
-          AddShopController* shopController =[[AddShopController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]  andWithName:shop.name andWithShop:shop];
+    
+
+    AddShopController* shopController =[[AddShopController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]  andWithName:shop.name andWithShop:shop andWithMode:1];
+        shopController.delegate = self;
     
         [self.navigationController pushViewController:shopController animated:YES];
     
     
 }
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath { }
+
 
 
 //-----------
@@ -211,6 +217,8 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 
 
 - (void) addShoppingControllerDidCreateShop:(Shop *)s {
+    
+
     [shoplist_ addObject:s];
     self.shoplist = shoplist_;
     
@@ -221,13 +229,27 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 
 
 
+// Drag'n'Drop des items de la liste
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+      toIndexPath:(NSIndexPath *)destinationIndexPath {
+    // On enlève l'item déplacé et remet à sa nouvelle position
+    id obj = [shoplist_ objectAtIndex:sourceIndexPath.row];
+    [shoplist_ removeObjectAtIndex:sourceIndexPath.row];
+    [shoplist_ insertObject:obj atIndex:destinationIndexPath.row];
+}
 
-
-//- (void) addShoppingControllerDidEditShop:(Shop *)s {
-//    NSLog(@"Methode edit called");
-//    [self.tableView reloadData];
-//    [self.navigationController popToViewController:self animated:YES];
-//}
+- (void) addShoppingControllerDidEditShop:(Shop *)s {
+   /* int i = [shoplist_ indexOfObjectIdenticalTo:s];
+    if(i >= 0)
+    {
+        [shoplist_ removeObjectAtIndex:i];
+        [shoplist_ insertObject:s atIndex:i];
+    }
+    */
+        
+    [self.tableView reloadData];
+    [self.navigationController popToViewController:self animated:YES];
+}
 
 
 @end

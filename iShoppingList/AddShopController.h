@@ -24,9 +24,12 @@
     Shop* shop_;
     id<AddShopControllerDelegate> delegate_;
     double TotalPrice_;
+    int mode ;
+                //0 creation
+                //1 edition
     
 }
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithName:(NSString*)name andWithShop:(Shop*)shop;
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithName:(NSString*)name andWithShop:(Shop*)shop andWithMode:(int) mode;
 @property (strong, nonatomic) IBOutlet UILabel *totalPriceLabel;
 
 @property (nonatomic, strong) Shop* shop;

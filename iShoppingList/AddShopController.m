@@ -38,12 +38,23 @@ int rect_y_pos = 135, rect_y_height = 29;
 static NSString* const kShoppingCellId = @"ProductCell";
 
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithName:(NSString*)name andWithShop:(Shop*)shop
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithName:(NSString*)name andWithShop:(Shop*)shop andWithMode:(int)mode
 {
     if ([super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         self.title = @"Add list";
-        UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onTouchSave:)];
-        self.navigationItem.rightBarButtonItem = rightButton;
+        
+        if(mode == 0)
+        {
+            UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onTouchSave:)];
+            self.navigationItem.rightBarButtonItem = rightButton;
+            
+        }
+        else{
+            UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit:)];
+            self.navigationItem.rightBarButtonItem = rightButton;
+            
+        }
+        
         self.shop = shop;
         self.nameOfShop.text = name;
         self.testTableView.delegate = self;
@@ -59,10 +70,7 @@ static NSString* const kShoppingCellId = @"ProductCell";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    
-    
-    return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil andWithName:@"" andWithShop: [[Shop alloc] InitWithName:@""]];
-    
+    return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil andWithName:@"" andWithShop: [[Shop alloc] InitWithName:@""] andWithMode:0];
 }
 
 
@@ -75,14 +83,32 @@ static NSString* const kShoppingCellId = @"ProductCell";
     {
         // Save the shop, and pop to previous list
         self.shop.name = self.nameOfShop.text;
-        Shop* newshop = self.shop;
-        [newshop setTotal_price:[self.totalPriceLabel.text doubleValue]];
+        [self.shop setTotal_price:[self.totalPriceLabel.text doubleValue]];
         if ([self.delegate respondsToSelector:@selector(addShoppingControllerDidCreateShop:)]) {
          
-            [self.delegate addShoppingControllerDidCreateShop:newshop];
+            [self.delegate addShoppingControllerDidCreateShop:self.shop];
         }
     }
 }
+
+
+//-----------
+- (IBAction)onTouchEdit:(id) sender
+{
+    if([self.nameOfShop.text length] >0)
+    {
+        // Save the shop, and pop to previous list
+        self.shop.name = self.nameOfShop.text;
+        Shop* newshop = self.shop;
+        [newshop setTotal_price:[self.totalPriceLabel.text doubleValue]];
+        if ([self.delegate respondsToSelector:@selector(addShoppingControllerDidEditShop:)]) {
+            
+            [self.delegate addShoppingControllerDidEditShop:newshop];
+        }
+    }
+}
+
+
 
 - (IBAction)onTouchProductAdd:(id) sender
 {
