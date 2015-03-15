@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import "ParamsURL.h"
 
-@interface Token : NSObject
+@interface Token : ParamsURL
 {
   
     NSString* token_;

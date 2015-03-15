@@ -28,6 +28,7 @@
 		4FD70E701A8F9664002522D9 /* HomeListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FD70E6E1A8F9664002522D9 /* HomeListController.xib */; };
 		4FFCFE7F1A92449A002048D3 /* notselectedcheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFCFE7D1A92449A002048D3 /* notselectedcheckbox.png */; };
 		4FFCFE801A92449A002048D3 /* selectedcheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */; };
+		9194C47B1AB48E77008C5707 /* ParamsURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 9194C47A1AB48E77008C5707 /* ParamsURL.m */; };
 		FB7D52881A99DD4300453E71 /* Webservice_iOS.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB7D52871A99DD4300453E71 /* Webservice_iOS.txt */; };
 		FB7D528B1A99DD8000453E71 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7D528A1A99DD8000453E71 /* User.m */; };
 		FB7E21FF1A9BDCAD008355F8 /* RouteController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7E21FE1A9BDCAD008355F8 /* RouteController.m */; };
@@ -89,6 +90,8 @@
 		4FD70E6E1A8F9664002522D9 /* HomeListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeListController.xib; sourceTree = "<group>"; };
 		4FFCFE7D1A92449A002048D3 /* notselectedcheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notselectedcheckbox.png; sourceTree = "<group>"; };
 		4FFCFE7E1A92449A002048D3 /* selectedcheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedcheckbox.png; sourceTree = "<group>"; };
+		9194C4791AB48E77008C5707 /* ParamsURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParamsURL.h; sourceTree = "<group>"; };
+		9194C47A1AB48E77008C5707 /* ParamsURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParamsURL.m; sourceTree = "<group>"; };
 		FB7D52871A99DD4300453E71 /* Webservice_iOS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Webservice_iOS.txt; sourceTree = "<group>"; };
 		FB7D52891A99DD8000453E71 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		FB7D528A1A99DD8000453E71 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -158,6 +161,8 @@
 				FBD823931AAF759E006D56F2 /* Product.m */,
 				FBD823951AAF80BE006D56F2 /* Token.h */,
 				FBD823961AAF80BE006D56F2 /* Token.m */,
+				9194C4791AB48E77008C5707 /* ParamsURL.h */,
+				9194C47A1AB48E77008C5707 /* ParamsURL.m */,
 			);
 			name = ModelShop;
 			sourceTree = "<group>";
@@ -454,6 +459,7 @@
 				FB7E220C1A9D4C1A008355F8 /* ConnectionViewController.m in Sources */,
 				FB7E21FF1A9BDCAD008355F8 /* RouteController.m in Sources */,
 				4FC7CEC71A90E4DB005830E6 /* AddShopController.m in Sources */,
+				9194C47B1AB48E77008C5707 /* ParamsURL.m in Sources */,
 				FB905CD21A98B961006BA66E /* JSonWebService.m in Sources */,
 				FBA7C98B1AB3C604004D2A22 /* ShopCell.m in Sources */,
 			);

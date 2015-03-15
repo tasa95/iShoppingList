@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ParamsURL.h"
 
-@interface Shop: NSObject <NSCoding> {
+@interface Shop: ParamsURL{
     @private
     NSString* id_;
     NSString* name_;
