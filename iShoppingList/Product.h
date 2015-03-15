@@ -30,5 +30,10 @@
 @property (nonatomic) double price;
 @property (strong, nonatomic) NSString* shopping_list_id;
 
+-(NSDictionary*)getDictionary;
+-(NSData*)FormatForWebService;
 
+- (NSString*) filePath;
+-(void) saveObject;
+-(NSString*)FormatForGet;
 @end

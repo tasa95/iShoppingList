@@ -40,4 +40,13 @@
 
 -(double)getTotal_price;
 
+- (NSString*) filePath ;
+
+-(void) saveObject;
+-(NSString*)FormatForGet;
+-(NSData*)FormatForWebService;
+-(NSDictionary*)getDictionary;
+
+-(void) calculateTotalPrice;
+
 @end

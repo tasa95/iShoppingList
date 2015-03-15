@@ -18,10 +18,16 @@
 }
 
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andUser:(User*) user andShoplist:(NSArray*)shoplist;
+-(instancetype)init;
+
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 @property (nonatomic, strong)  NSArray* shoplist;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong,nonatomic) User* user;
 
+
+-(void)goToAddShopViewWithMode:(int)Mode andWithShop:(Shop*)s;
+-(void)SaveNewProducts:(Shop*)s;
 @end

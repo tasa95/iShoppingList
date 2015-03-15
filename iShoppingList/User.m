@@ -173,4 +173,16 @@
 }
 
 
+- (NSString*) filePath {
+    NSArray* docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* docPath = [docPaths objectAtIndex:0];
+    NSLog(@"%@/%@", docPath , @"user.archive");
+    return [docPath stringByAppendingPathComponent:@"user.archive"];
+}
+
+-(void) saveObject {
+    [NSKeyedArchiver archiveRootObject:self toFile:[self filePath]];
+}
+
+
 @end

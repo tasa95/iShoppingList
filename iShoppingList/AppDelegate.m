@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "HomeListController.h"
 #import "Shop.h"
-#import "ConnectionViewController.h"
+
 #import "ConnexionViewController.h"
 #import "User.h"
 #import "JSonWebService.h"
@@ -28,6 +28,7 @@
     NSString* documentPath = [documentPaths objectAtIndex:0];
     
     NSString* filePath = [[NSString alloc] initWithFormat:@"%@/user.archive",documentPath];
+   // NSLog(@"filePath chargement : %@",filePath);
     if([[NSFileManager defaultManager] fileExistsAtPath:filePath])
     {
         User* user = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
@@ -36,7 +37,7 @@
         homeListController.user = user;
         NSMutableArray* shoplist = [NSMutableArray new];
         
-        Shop* s = [Shop new];
+       /* Shop* s = [Shop new];
         s.name = @"Course rapide";
         [shoplist addObject:s];
         s = [Shop new] ;
@@ -45,7 +46,7 @@
         s = [Shop new];
         s.name = @"Dîner avec famille";
         [shoplist addObject:s];
-        
+        */
         homeListController.shoplist = shoplist;
         window.rootViewController = [[UINavigationController alloc] initWithRootViewController:homeListController];
 

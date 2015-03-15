@@ -12,6 +12,7 @@
 @interface ConnexionViewController : UIViewController <UITextFieldDelegate,NSURLConnectionDelegate>
 {
     NSMutableData * responseData_;
+
 }
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
@@ -22,6 +23,7 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *userPassword;
 @property (strong, nonatomic) IBOutlet UITextField *userEmail;
+
 
 - (IBAction)doConnexion:(id)sender;
 - (IBAction)SignUp:(id)sender;

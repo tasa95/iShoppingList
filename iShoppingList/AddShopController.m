@@ -11,7 +11,8 @@
 #import "Product.h"
 #import "ProductCell.h"
 #import "DetailProductViewController.h"
-
+#import "RouteController.h"
+#import "JSonWebService.h"
 @interface AddShopController ()
 
 @end
@@ -42,24 +43,25 @@ static NSString* const kShoppingCellId = @"ProductCell";
 {
     if ([super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         self.title = @"Add list";
-        
-        if(mode == 0)
-        {
-            UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onTouchSave:)];
-            self.navigationItem.rightBarButtonItem = rightButton;
-            
-        }
-        else{
-            UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit:)];
-            self.navigationItem.rightBarButtonItem = rightButton;
-            
-        }
-        
         self.shop = shop;
         self.nameOfShop.text = name;
         self.testTableView.delegate = self;
         self.testTableView.dataSource = self;
-    
+        mode_ = mode;
+        
+        if(mode == 0 )          //Creation
+        {
+        
+        UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onTouchSave:)];
+        self.navigationItem.rightBarButtonItem = rightButton;
+        }
+        else
+        {
+            
+            UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit:)];
+            self.navigationItem.rightBarButtonItem = rightButton;
+            
+        }
         
         
         count_items = 0;
@@ -85,8 +87,13 @@ static NSString* const kShoppingCellId = @"ProductCell";
         self.shop.name = self.nameOfShop.text;
         [self.shop setTotal_price:[self.totalPriceLabel.text doubleValue]];
         if ([self.delegate respondsToSelector:@selector(addShoppingControllerDidCreateShop:)]) {
-         
+            
             [self.delegate addShoppingControllerDidCreateShop:self.shop];
+            [self.shop saveObject];
+            
+            
+            
+            
         }
     }
 }
@@ -99,11 +106,11 @@ static NSString* const kShoppingCellId = @"ProductCell";
     {
         // Save the shop, and pop to previous list
         self.shop.name = self.nameOfShop.text;
-        Shop* newshop = self.shop;
-        [newshop setTotal_price:[self.totalPriceLabel.text doubleValue]];
+        [self.shop setTotal_price:[self.totalPriceLabel.text doubleValue]];
         if ([self.delegate respondsToSelector:@selector(addShoppingControllerDidEditShop:)]) {
             
-            [self.delegate addShoppingControllerDidEditShop:newshop];
+            [self.delegate addShoppingControllerDidEditShop:self.shop];
+            [self.shop saveObject];
         }
     }
 }
@@ -114,9 +121,6 @@ static NSString* const kShoppingCellId = @"ProductCell";
 {
     if (self.productOfShop.text && self.productOfShop.text.length > 0 && ![self.productOfShop.text isEqual:@" "]) {
         
-        
-       
-     
         [self addShopItem:(int) count_items];
         self.productOfShop.text = @"";
     }
@@ -161,8 +165,8 @@ static NSString* const kShoppingCellId = @"ProductCell";
     [super viewDidLoad];
     self.nameOfShop.text = self.shop.name;
     
-    NSLog(@"%@",[self.shop.productList description]);
-     [self.testTableView reloadData];
+    //NSLog(@"%@",[self.shop.productList description]);
+    [self.testTableView reloadData];
     self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%.02f", TotalPrice_ ];
 }
 
@@ -217,6 +221,9 @@ static NSString* const kShoppingCellId = @"ProductCell";
      
      */
     [self.shop.productList addObject:[[Product alloc] initWithName:self.productOfShop.text andWithQuantity:0 andWithPrice:0.00]];
+    
+    
+    
     [self.testTableView reloadData];
     
     
@@ -255,14 +262,48 @@ static NSString* const kShoppingCellId = @"ProductCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    TotalPrice_ = 0; 
+    TotalPrice_ = 0;
     return [self.shop.productList count];
 }
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.shop.productList removeObjectAtIndex:indexPath.row];
-        [self.testTableView reloadData];
+        
+        Product *p =[self.shop.productList objectAtIndex:indexPath.row];
+        
+        if(p.id)
+        {
+            NSString *token =[[[self getUser] getToken] FormatForGet];
+            NSMutableString *productString = [[NSMutableString alloc] initWithString:[p FormatForGet]];
+            [productString replaceCharactersInRange : NSMakeRange(0,1) withString:@"&"];
+            
+            
+            NSString *parameter = [[NSString alloc] initWithFormat:@"%@%@",token,productString];
+            [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteRemoveProduct]  withParameter:parameter responseBlock:^(id response, NSError *error, int codeResponse)
+             {
+                 if(error)
+                 {
+                     NSLog(@"error : %@", [error description]);
+                 }
+                 else{
+                     NSLog(@"response : %@", [response description]);
+                     if([JSonWebService ManageError:response])
+                     {
+                         [self.shop.productList removeObjectAtIndex:indexPath.row];
+                     }
+                     [self.testTableView reloadData];
+                 }
+             }];
+        }
+        else{
+            [self.shop.productList removeObjectAtIndex:indexPath.row];
+            [self.testTableView reloadData];
+        }
+        
+        
+        
+        
+        
     }
 }
 
@@ -272,9 +313,9 @@ static NSString* const kShoppingCellId = @"ProductCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    DetailProductViewController *productView = [[DetailProductViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle] andWithProduct:[self.shop.productList objectAtIndex:indexPath.row] andWithDelegate:self];
+    DetailProductViewController *productView = [[DetailProductViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle] andWithProduct:[self.shop.productList objectAtIndex:indexPath.row] andWithDelegate:self andWithMode:1];
+    [self.navigationController pushViewController:productView animated:YES];
     
-     [self.navigationController pushViewController:productView animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath { }
@@ -300,12 +341,45 @@ static NSString* const kShoppingCellId = @"ProductCell";
 
 - (void) DetailProductControllerModifyProduct:(Product*)p
 {
-    int i =[self.shop.productList indexOfObject:p];
+   // int i =[self.shop.productList indexOfObject:p];
     
-    [self.testTableView reloadData];
+    if(p.id && [p.id length] > 0 &&  p.shopping_list_id && [p.shopping_list_id length] > 0)
+    {
+        NSString *token =[[self. getUser getToken] FormatForGet];
+        NSMutableString *productString = [[NSMutableString alloc ] initWithString:[p FormatForGet]];
+        
+        [productString replaceCharactersInRange : NSMakeRange(0,1) withString:@"&"];
+        NSString *parameter = [[NSString alloc] initWithFormat:@"%@%@",token,productString];
+        
+        [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteEditProduct]  withParameter:parameter responseBlock:^(id response, NSError *error, int codeResponse)
+         {
+             if(error)
+             {
+                 NSLog(@"error : %@", [error description]);
+             }
+             else{
+                 NSLog(@"response : %@", [error description]);
+                 [JSonWebService ManageError:response];
+             }   
+         }];
+        
+    }
+    else{
+        [self.testTableView reloadData];
+    }
+    
+    
     
 }
 
+-(void) setUser:(User*) user
+{
+    user_ =user;
+}
+-(User*) getUser
+{
+    return user_;
+}
 
 
 

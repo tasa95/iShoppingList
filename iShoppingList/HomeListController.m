@@ -29,7 +29,7 @@
 
 - (NSArray *) shoplist {
     if (!shoplist_) {
-       // self.shoplist = [NSKeyedUnarchiver unarchiveObjectWithFile:[self filePath]];
+        // self.shoplist = [NSKeyedUnarchiver unarchiveObjectWithFile:[self filePath]];
     }
     return shoplist_;
 }
@@ -50,22 +50,30 @@
         self.title = @"Shopping List";
         self.user = user;
         self.shoplist = shoplist;
-        
+        shoplist_ = [[NSMutableArray alloc] initWithArray:shoplist];
         
         
     }
     return self;
 }
 
+-(instancetype)init
+{
+    return [self initWithNibName:nil bundle:[NSBundle mainBundle] andUser:[User new] andShoplist:[NSArray new]];
+}
+
+
+
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil andUser:[User new] andShoplist:[NSArray new]];
+}
 
 //-----------
 
 
 - (void) onTouchAdd {
-    AddShopController* addShop = [[AddShopController alloc] initWithNibName:nil bundle:[NSBundle mainBundle] andWithName:@"" andWithShop:[[Shop alloc] init] andWithMode:0];
-    addShop.delegate = self;
-    [self.navigationController pushViewController:addShop animated:YES];
-    [self.tableView reloadData];
+    [self goToAddShopViewWithMode:1 andWithShop:[[Shop alloc] init]];
 }
 
 - (void) onTouchEdit {
@@ -94,19 +102,91 @@
     [rightButtons addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onTouchEdit)]];
     self.navigationItem.rightBarButtonItems = rightButtons;
     
+    
+    
+    
     [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteGetShoppingList]  withParameter:[[self.user getToken] FormatForGet] responseBlock:^(id response, NSError *error, int codeResponse)
      {
-         
          if(error)
          {
              NSLog(@"error : %@", [error description]);
          }
          else{
              NSLog(@"response : %@", [response description]);
-             self.shoplist = [response objectForKey:@"result"];
+             NSArray* array=[response objectForKey:@"result"];
+             if([JSonWebService ManageError:response])
+             {
+                 
+                 for(int i = 0 ; i < [array count] ; i++)
+                 {
+                     
+                     NSDictionary* tempDictionary = [array objectAtIndex:i];
+                     
+                     NSString* name = [tempDictionary objectForKey:@"name"];
+                     NSString* newId = [tempDictionary objectForKey:@"id"];
+                     NSString *date = [tempDictionary objectForKey:@"created_date"];
+                     
+                     
+                     NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                     [df setDateFormat:@"yyyy-MM-dd HH:mm:ss "];
+                     
+                     
+                     bool completed = [[tempDictionary  objectForKey:@"completed"] integerValue];
+                     Shop *s = [[Shop alloc] initWithId:newId andWithName:name andWithCreatedDate:[df dateFromString: date] andIsCompleted:completed andWithProductList:[NSMutableArray new]];
+                     
+                     
+                     //NSLog(NSStringFromClass([shoplist_ class]));
+                     [shoplist_ addObject:s];
+                     
+                     NSString *token =[[self.user getToken] FormatForGet];
+                     // NSMutableString *shopString = [s FormatForGet];
+                     
+                     
+                     
+                     //[shopString replaceCharactersInRange : NSMakeRange(0,1) withString:@"&"];
+                     NSString *parameter = [[NSString alloc] initWithFormat:@"%@&shopping_list_id=%@",token,s.id];
+                     
+                     
+                     
+                     [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteListProduct]  withParameter:parameter responseBlock:^(id response, NSError *error, int codeResponse)
+                      {
+                          if(error)
+                          {
+                              NSLog(@"error : %@", [error description]);
+                          }
+                          else{
+                              if([JSonWebService ManageError:response])
+                              {
+                                  NSLog(@"response : %@", [response description]);
+                                  NSArray* array=[response objectForKey:@"result"];
+                                  
+                                  for(int i = 0 ; i < [array count] ; i++)
+                                  {
+                                      
+                                      
+                                      NSDictionary* tempDictionary = [array objectAtIndex:i];
+                                      NSString* name = [tempDictionary objectForKey:@"name"];
+                                      NSString* newId = [tempDictionary objectForKey:@"id"];
+                                      int quantity = [[tempDictionary objectForKey:@"quantity"] intValue];
+                                      double price = [[tempDictionary objectForKey:@"price"] doubleValue];
+                                      NSString* shopping_list_id = [tempDictionary objectForKey:@"shopping_list_id"];
+                                      Product *product = [[Product alloc] initWithId:newId andWithName:name andWithQuantity:quantity andWithPrice:price andWithShoppingListId:shopping_list_id];
+                                      [s.productList addObject:product];
+                                  }
+                                  
+                                  [self.tableView reloadData];
+                              }
+                          }
+                      }];
+                     
+                 }
+                 
+                 
+                 
+             }
              
+             [self.tableView reloadData];
          }
-         
      }];
 }
 
@@ -116,7 +196,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [NSKeyedArchiver archiveRootObject:self.shoplist toFile:[self filePath]];
+    [self.user saveObject];
 }
 
 
@@ -133,13 +213,18 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
     }
     
     Shop* s = [shoplist_ objectAtIndex:indexPath.row];
-    cell.NameShopLabel.text = s.name;
-    cell.textLabel.textColor = [UIColor blueColor];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEEE dd MMMM yyyy 'à' HH:mm"];
     
-    cell.TotalPriceOfShop.text = [[NSString alloc] initWithFormat:@"%.02f€",[s getTotal_price]];
-    cell.DateCreationLabel.text = [NSString stringWithFormat:@"%@ ", [dateFormatter stringFromDate:s.created_date]];
+    if(s)
+    {
+        [s calculateTotalPrice];
+        cell.NameShopLabel.text = s.name;
+        cell.textLabel.textColor = [UIColor blueColor];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEEE dd MMMM yyyy 'à' HH:mm"];
+        
+        cell.TotalPriceOfShop.text = [[NSString alloc] initWithFormat:@"%.02f€",[s getTotal_price]];
+        cell.DateCreationLabel.text = [NSString stringWithFormat:@"%@ ", [dateFormatter stringFromDate:s.created_date]];
+    }
     
     
     /*
@@ -160,7 +245,7 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
      cell.qte.text = [[NSString alloc] initWithFormat:@"%d",p.quantity ];
      cell.imageView.image = [UIImage imageNamed:@"notselectedcheckbox.png"];
      self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%.02f", TotalPrice_ ];
-
+     
      
      
      */
@@ -176,8 +261,72 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [shoplist_ removeObjectAtIndex:indexPath.row];
-        [self.tableView reloadData];
+        
+        
+        Shop *s = [shoplist_ objectAtIndex:indexPath.row ];
+        
+        if(s.id || [s.id length] > 0 )
+        {
+            for(int i = 0 ; i < [s.productList count] ; i++)
+            {
+                Product *p = s.productList[i];
+                
+                NSString *token =[[self.user getToken] FormatForGet];
+                NSMutableString *productString = [[NSMutableString alloc] initWithString:[p FormatForGet]];
+                
+                
+                [productString replaceCharactersInRange : NSMakeRange(0,1) withString:@"&"];
+                NSString *parameter = [[NSString alloc] initWithFormat:@"%@%@",token,productString];
+                
+                
+                [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteRemoveProduct]  withParameter:parameter responseBlock:^(id response, NSError *error, int codeResponse)
+                 {
+                     if(error)
+                     {
+                         NSLog(@"error : %@", [error description]);
+                     }
+                     else{
+                         NSLog(@"response : %@", [response description]);
+                         if([JSonWebService ManageError:response])
+                         {
+                             NSLog(@"error : ");
+                         }
+                     }
+                 }];
+            }
+            
+            NSString *token =[[self.user getToken] FormatForGet];
+            NSMutableString *shopString = [[NSMutableString alloc] initWithString:[s FormatForGet]];
+            
+            
+            [shopString replaceCharactersInRange : NSMakeRange(0,1) withString:@"&"];
+            NSString *parameter = [[NSString alloc] initWithFormat:@"%@%@",token,shopString];
+            
+            
+            [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteRemoveShoppingList]  withParameter:parameter responseBlock:^(id response, NSError *error, int codeResponse)
+             {
+                 if(error)
+                 {
+                     NSLog(@"error : %@", [error description]);
+                 }
+                 else{
+                     NSLog(@"response : %@", [response description]);
+                     
+                     if([JSonWebService ManageError:response])
+                     {
+                         [shoplist_ removeObjectAtIndex:indexPath.row];
+                         [self.tableView reloadData];
+                     }
+                 }
+             }];
+        }
+        else{
+            [shoplist_ removeObjectAtIndex:indexPath.row];
+            [self.tableView reloadData];
+        }
+        
+        
+        
     }
 }
 
@@ -186,18 +335,12 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-  
-        Shop *shop =[self.shoplist objectAtIndex:indexPath.row];
     
-
-    AddShopController* shopController =[[AddShopController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]  andWithName:shop.name andWithShop:shop andWithMode:1];
-        shopController.delegate = self;
-    
-        [self.navigationController pushViewController:shopController animated:YES];
-    
-    
+    [self goToAddShopViewWithMode:1 andWithShop:[self.shoplist objectAtIndex:indexPath.row]];
 }
+
+
+
 
 
 
@@ -205,12 +348,7 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 //-----------
 
 
-- (NSString*) filePath {
-    NSArray* docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* docPath = [docPaths objectAtIndex:0];
-    NSLog(@"%@", docPath);
-    return [docPath stringByAppendingPathComponent:@"shoplist.archive"];
-}
+
 
 
 //-----------
@@ -218,12 +356,42 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 
 - (void) addShoppingControllerDidCreateShop:(Shop *)s {
     
-
+    
     [shoplist_ addObject:s];
     self.shoplist = shoplist_;
     
+    
+    
+    NSString *token =[[self.user getToken] FormatForGet];
+    NSMutableString *shopString = [s FormatForGet];
+    
+    
+    [shopString replaceCharactersInRange : NSMakeRange(0,1) withString:@"&"];
+    NSString *parameter = [[NSString alloc] initWithFormat:@"%@%@",token,shopString];
+    
     [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
+    
+    ///SAUVEGARDE ShopList sur le webService
+    
+    [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteCreateShoppingList]  withParameter:parameter responseBlock:^(id response, NSError *error, int codeResponse)
+     {
+         if(error)
+         {
+             NSLog(@"error : %@", [error description]);
+         }
+         else{
+             NSLog(@"response : %@", [response description]);
+             //int codeRetour =  [[response objectForKey :@"code" ] intValue];
+             if([JSonWebService ManageError:response])
+             {
+                 s.id = [ [response objectForKey:@"result"] objectForKey:@"id" ];
+                 [self SaveNewProducts:s];
+             }
+         }
+     }];
+    
+    
 }
 
 
@@ -239,17 +407,91 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
 }
 
 - (void) addShoppingControllerDidEditShop:(Shop *)s {
-   /* int i = [shoplist_ indexOfObjectIdenticalTo:s];
-    if(i >= 0)
-    {
-        [shoplist_ removeObjectAtIndex:i];
-        [shoplist_ insertObject:s atIndex:i];
-    }
-    */
-        
+    /* int i = [shoplist_ indexOfObjectIdenticalTo:s];
+     if(i >= 0)
+     {
+     [shoplist_ removeObjectAtIndex:i];
+     [shoplist_ insertObject:s atIndex:i];
+     }
+     */
+    
+    
+    NSString *token =[[self.user getToken] FormatForGet];
+    NSMutableString *shopString = [s FormatForGet];
+    
+    
+    [shopString replaceCharactersInRange : NSMakeRange(0,1) withString:@"&"];
+    NSString *parameter = [[NSString alloc] initWithFormat:@"%@%@",token,shopString];
+    
     [self.tableView reloadData];
     [self.navigationController popToViewController:self animated:YES];
+    [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteEditShoppingList]  withParameter:parameter responseBlock:^(id response, NSError *error, int codeResponse)
+     {
+         
+         if(error)
+         {
+             NSLog(@"error : %@", [error description]);
+         }
+         else{
+             NSLog(@"response : %@", [response description]);
+             if([JSonWebService ManageError:response])
+                 [self SaveNewProducts:s];
+             [self.tableView reloadData];
+             
+             [self.navigationController popToViewController:self animated:YES];
+         }
+         
+     }];
 }
 
+-(void)goToAddShopViewWithMode:(int)Mode andWithShop:(Shop*)s;
+{
+    
+    AddShopController* shopController =[[AddShopController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]  andWithName:s.name andWithShop:s andWithMode:Mode];
+    shopController.delegate = self;
+    [shopController setUser:self.user];
+    [self.navigationController pushViewController:shopController animated:YES];
+}
+
+-(void)SaveNewProducts:(Shop*)s
+{
+    
+    for(int i = 0; i < [s.productList count] ; i++)
+    {
+        
+        //sauvegarde shopListe
+        if( (![s.productList[i] id]) || ([[s.productList[i] id]  length] == 0) ||  (![s.productList[i]shopping_list_id]) || ([[s.productList[i] shopping_list_id]  length] == 0))
+        {
+            Product* p = s.productList[i];
+            
+            p.shopping_list_id = s.id;
+            NSString *token =[[self.user getToken] FormatForGet];
+            NSMutableString *productString = [[NSMutableString alloc] initWithString:[p FormatForGet]];
+            
+            
+            
+            
+            [productString replaceCharactersInRange : NSMakeRange(0,1) withString:@"&"];
+            
+            NSString *parameter = [[NSString alloc] initWithFormat:@"%@%@",token,productString];
+            
+            //Sauvegarde Product sur le webService
+            
+            [JSonWebService startWebserviceWithURL:[RouteController getRoute:RouteCreateProduct]  withParameter:parameter responseBlock:^(id response, NSError *error, int codeResponse)
+             {
+                 if(error)
+                 {
+                     NSLog(@"error : %@", [error description]);
+                 }
+                 else{
+                     NSLog(@"response : %@", [response description]);
+                     [JSonWebService ManageError:response];
+                     p.id = [[response objectForKey:@"result"] objectForKey:@"id"];
+                     p.name = [[response objectForKey:@"result"] objectForKey:@"name"];
+                 }
+             }];
+        }
+    }
+}
 
 @end

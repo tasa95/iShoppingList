@@ -51,65 +51,6 @@
 
 
 
-
-+(NSURL*) loginRoute
-{
-    NSMutableString* string = [NSMutableString new];
-    [string appendFormat:@"%@/account/login.php",[JSonWebService getHost]];
-    return [RouteController returnNSURLFromString:string];
-}
-
-
-+(NSURL*) createShoppingRoute
-{
-    NSMutableString* string = [NSMutableString new];
-    [string appendFormat:@"%@/shopping_list/create.php",[JSonWebService getHost]];
-    return [RouteController returnNSURLFromString:string];
-}
-
-
-+(NSURL*) ListShoppingRoute
-{
-    NSMutableString* string = [NSMutableString new];
-    [string appendFormat:@"%@/shopping_list/list.php",[JSonWebService getHost]];
-    return [RouteController returnNSURLFromString:string];
-}
-
-
-+(NSURL*) EditShoppingRoute
-{
-    NSMutableString* string = [NSMutableString new];
-    [string appendFormat:@"%@/shopping_list/edit.php",[JSonWebService getHost]];
-    return [RouteController returnNSURLFromString:string];
-}
-
-
-
-
-+(NSURL*) RemoveShoppingRoute
-{
-    NSMutableString* string = [NSMutableString new];
-    [string appendFormat:@"%@/shopping_list/remove.php",[JSonWebService getHost]];
-    return [RouteController returnNSURLFromString:string];
-}
-
-
-
-+(NSURL*) updateUser
-{
-    NSMutableString* string = [NSMutableString new];
-    [string appendFormat:@"%@/users/update_user.php",[JSonWebService getHost]];
-    return [RouteController returnNSURLFromString:string];
-}
-
-
-+(NSURL*) CreateProduct
-{
-    NSMutableString* string = [NSMutableString new];
-    [string appendFormat:@"%@/users/update_user.php",[JSonWebService getHost]];
-    return [RouteController returnNSURLFromString:string];
-}
-
 +(NSURL*) returnNSURLFromString:(NSString*) string
 {
     NSURL * url= [[NSURL alloc ] initWithString:string];

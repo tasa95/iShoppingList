@@ -7,6 +7,7 @@
 //
 
 #import "Shop.h"
+#import "Product.h"
 #import <objc/runtime.h>
 
 @implementation Shop
@@ -74,7 +75,40 @@
         {
             [parameter appendString:@"?"];
         }
-        [parameter appendFormat: @"%@=%@",key,[dictionary valueForKey:key]];
+        if (![dictionary valueForKey:key]) {
+            [parameter appendFormat: @"%@=%@",key,@"''"];
+        }
+        else{
+            if( !([[dictionary valueForKey:key] isKindOfClass:[NSArray class]]) || ([[dictionary valueForKey:key] isKindOfClass:[NSDictionary class]]))
+            {
+                if([[dictionary valueForKey:key] isKindOfClass:[NSDate class]])
+                {
+                    [parameter appendFormat: @"%@=%@",key,[dictionary valueForKey:key]];
+                    [parameter appendString:@" "];
+                    
+                }
+                else{
+                    if([key isEqualToString:@"completed"])
+                    {
+                        [parameter appendFormat: @"%@=%@",key,[dictionary valueForKey:key]];
+                    }
+                    else{
+                        NSString *string = [dictionary valueForKey:key];
+                        [parameter appendFormat: @"%@=%@",key,[[ string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding ]];
+                        
+                        
+                    
+                    }
+                   
+                }
+             
+            }
+            else{
+                [parameter appendFormat: @"%@=''",key];
+            }
+        }
+        
+        
         count++;
         if(count < ([dictionary count] ))
         {
@@ -82,6 +116,9 @@
         }
         
     }
+    
+    parameter = [parameter stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
     return parameter;
 }
 
@@ -148,6 +185,28 @@
 {
 
     return total_price_;
+}
+
+
+- (NSString*) filePath {
+    NSArray* docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* docPath = [docPaths objectAtIndex:0];
+  
+    return [docPath stringByAppendingFormat:@"shoplist_%@.archive",self.name];
+}
+
+-(void) saveObject {
+    [NSKeyedArchiver archiveRootObject:self toFile:[self filePath]];
+}
+
+
+-(void) calculateTotalPrice{
+    
+    total_price_ = 0;
+    for (int i = 0 ; i < [self.productList count]; i++) {
+        Product *p = self.productList[i];
+        total_price_+= p.price * p.quantity;
+    }
 }
 
 

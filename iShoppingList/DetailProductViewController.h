@@ -24,7 +24,7 @@
     id<DetailProductViewDelegate> delegate_;
 }
 
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithProduct:(Product*)produit andWithDelegate:(id)delegate;
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithProduct:(Product*)produit andWithDelegate:(id)delegate andWithMode:(int)mode;
 
 @property (strong, nonatomic) IBOutlet UITextField *LabelPrix;
 @property (strong, nonatomic) IBOutlet UITextField *LabelQte;

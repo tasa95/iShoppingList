@@ -46,4 +46,7 @@
 -(void)setToken:(Token*) token;
 -(Token*)getToken;
 
+- (NSString*) filePath;
+-(void) saveObject;
+
 @end

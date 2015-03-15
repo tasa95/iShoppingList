@@ -123,6 +123,7 @@
                      }
                      else
                      {
+                        
                          [self goToHomeListController:(id)response withUser:(User*)user];
 
                      }
@@ -186,13 +187,14 @@
 -(void)goToHomeListController:(id)response withUser:(User*)user
 {
  
+        NSLog(@"response : %@",response);
+        if([JSonWebService ManageError:response])
+        {
+            [user setToken: [Token BuildTokenWithText: [[response objectForKey:@"result"] objectForKey :@"token" ]]];
+            [user saveObject];
+            [self initializeHomeListController:user];
+        }
     
-    int codeRetour =  [[response objectForKey :@"code" ] intValue];
-    if([JSonWebService reactionToHTTPCode:codeRetour])
-    {
-        [user setToken: [Token BuildTokenWithText: [[response objectForKey:@"result"] objectForKey :@"token" ]]];
-        [self initializeHomeListController:user];
-    }
 }
 
 

@@ -31,6 +31,11 @@
     return token;
 }
 
++(Token*) getToken
+{
+
+}
+
 
 -(instancetype)init
 {
@@ -104,7 +109,22 @@
 
 
     
+-(instancetype)initWithCoder:(NSCoder *)aDecoder
+{
     
+    
+    if(self = [super init])
+    {
+        token_ = [aDecoder decodeObjectForKey:@"token_"];
+    }
+    return self;
+}
+
+-(void) encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:token_ forKey:@"token_"];
+}
+
 
 
 

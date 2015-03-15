@@ -90,6 +90,7 @@
         
         
         NSLog(@"URL : %@" , URL);
+        NSLog(@"myUrl : %@" , myUrl);
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
         
     
@@ -123,7 +124,6 @@
             
             if( [theResponse statusCode] < 100 ||  [theResponse statusCode]> 399 )
                 error = [[NSError alloc] initWithDomain:[[theResponse URL] absoluteString] code:[theResponse statusCode] userInfo:response];
-            
             
         }
         
@@ -202,10 +202,23 @@
     
     
     return DoSomething;
-
-    
 }
 
+
++(bool)ManageError:(id)response
+{
+    bool DoSomething = true;
+    int codeRetour =  [[response objectForKey :@"code" ] intValue];
+    NSString *error;
+    if(codeRetour != 0)
+    {
+        error = [response objectForKey :@"msg" ];
+        DoSomething = false;
+        NSString *alert = [[NSString alloc] initWithFormat:@"%@",error ];
+        [JSonWebService Alert:alert];
+    }
+    return DoSomething;
+}
 
 
 +(void )Alert:(NSString*) stringAlert

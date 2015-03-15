@@ -10,6 +10,7 @@
 #import "Shop.h"
 #import "Product.h"
 #import "DetailProductViewController.h"
+#import "User.h"
 
 
 @protocol AddShopControllerDelegate <NSObject, UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
@@ -24,12 +25,13 @@
     Shop* shop_;
     id<AddShopControllerDelegate> delegate_;
     double TotalPrice_;
-    int mode ;
+    int mode_ ;
+    User* user_ ;
                 //0 creation
                 //1 edition
     
 }
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithName:(NSString*)name andWithShop:(Shop*)shop andWithMode:(int) mode;
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andWithName:(NSString*)name andWithShop:(Shop*)shop andWithMode:(int)mode;
 @property (strong, nonatomic) IBOutlet UILabel *totalPriceLabel;
 
 @property (nonatomic, strong) Shop* shop;
@@ -41,4 +43,9 @@
 - (IBAction)onTouchProductAdd:(id)sender;
 - (IBAction)onTouchSave:(id) sender;
 - (bool)dissmissKeyboard;
+
+
+-(void) setUser:(User*) user;
+-(User*) getUser;
+
 @end

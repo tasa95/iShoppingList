@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 
-@interface Token : NSObject
+@interface Token : NSObject <NSCoding>
 {
   
     NSString* token_;
@@ -27,5 +27,9 @@
 -(NSDictionary*)getDictionary;
 -(NSData*)FormatForWebService;
 -(NSString*)FormatForGet;
+
+- (NSString*) filePath;
+-(void) saveObject;
+
 
 @end
