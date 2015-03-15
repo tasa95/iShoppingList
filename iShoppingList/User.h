@@ -11,8 +11,9 @@
 #import <objc/runtime.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "Token.h"
+#import "ParamsURL.h"
 
-@interface User : NSObject <NSCoding>
+@interface User : ParamsURL 
 {
 @private
     NSString* firstname_;
