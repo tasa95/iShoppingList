@@ -24,7 +24,6 @@
     @private
     Shop* shop_;
     id<AddShopControllerDelegate> delegate_;
-    double TotalPrice_;
     int mode_ ;
     User* user_ ;
                 //0 creation
@@ -47,5 +46,8 @@
 
 -(void) setUser:(User*) user;
 -(User*) getUser;
+
+-(void)printTotalPrice;
+-(void)reloadData;
 
 @end

@@ -24,7 +24,41 @@
         {
             [parameter appendString:@"?"];
         }
-        [parameter appendFormat: @"%@=%@",key,[dictionary valueForKey:key]];
+        if (![dictionary valueForKey:key]) {
+            [parameter appendFormat: @"%@=%@",key,@"''"];
+        }
+        else{
+            if( !([[dictionary valueForKey:key] isKindOfClass:[NSArray class]]) || ([[dictionary valueForKey:key] isKindOfClass:[NSDictionary class]]))
+            {
+                if([[dictionary valueForKey:key] isKindOfClass:[NSDate class]])
+                {
+                    [parameter appendFormat: @"%@=%@",key,[dictionary valueForKey:key]];
+                    [parameter appendString:@" "];
+                    
+                }
+                else{
+                    if([key isEqualToString:@"completed"])
+                    {
+                        [parameter appendFormat: @"%@=%@",key,[dictionary valueForKey:key]];
+                    }
+                    else{
+                        if([[dictionary valueForKey:key] isKindOfClass:[NSString class]])
+                        {
+                        NSString *string = [dictionary valueForKey:key];
+                        [parameter appendFormat: @"%@=%@",key,[[ string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding ]];
+                        }
+                        else{
+                            [parameter appendFormat: @"%@=%@",key,[dictionary valueForKey:key]];
+                        }
+                    }
+                }
+            }
+            else{
+                [parameter appendFormat: @"%@=''",key];
+            }
+        }
+        
+        
         count++;
         if(count < ([dictionary count] ))
         {
@@ -32,7 +66,11 @@
         }
         
     }
+    
+    parameter = [parameter stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
     return parameter;
+
 }
 
 
@@ -57,7 +95,13 @@
     
     for (int i = 0; i < count; i++) {
         NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
-        [dict setObject:[self valueForKey:key] forKey:key];
+        if ([self valueForKey:key]) {
+             [dict setObject:[self valueForKey:key] forKey:key];
+        }
+        else{
+             [dict setObject:@"''" forKey:key];
+        }
+       
     }
     
     free(properties);

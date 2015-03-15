@@ -148,6 +148,8 @@
 		4FC7CEBB1A8FA0B4005830E6 /* ModelShop */ = {
 			isa = PBXGroup;
 			children = (
+				FB0A0C7E1AB592D500A39524 /* ParamsURL.h */,
+				FB0A0C7F1AB592D500A39524 /* ParamsURL.m */,
 				4FC7CEBC1A8FA0E0005830E6 /* Shop.h */,
 				4FC7CEBD1A8FA0E0005830E6 /* Shop.m */,
 				FB7D52891A99DD8000453E71 /* User.h */,
@@ -305,8 +307,6 @@
 				FB905CCD1A98AFF7006BA66E /* ConnexionViewController.xib */,
 				4FD70E6C1A8F9664002522D9 /* HomeListController.h */,
 				4FD70E6D1A8F9664002522D9 /* HomeListController.m */,
-				FB0A0C7E1AB592D500A39524 /* ParamsURL.h */,
-				FB0A0C7F1AB592D500A39524 /* ParamsURL.m */,
 				4FD70E6E1A8F9664002522D9 /* HomeListController.xib */,
 				4FC7CEC51A90E4DA005830E6 /* AddShopController.m */,
 				4FC7CEC41A90E4DA005830E6 /* AddShopController.h */,

@@ -49,5 +49,5 @@
 
 - (NSString*) filePath;
 -(void) saveObject;
-
+-(NSDictionary*)getDictionary;
 @end

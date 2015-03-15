@@ -30,4 +30,6 @@
 
 -(void)goToAddShopViewWithMode:(int)Mode andWithShop:(Shop*)s;
 -(void)SaveNewProducts:(Shop*)s;
+
+-(void) reloadData:(Shop*) s;
 @end

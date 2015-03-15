@@ -80,7 +80,7 @@
         if ([delegate_ respondsToSelector:@selector(DetailProductControllerModifyProduct:)]) {
             
             
-            self.product.price = [self.LabelPrix.text floatValue];
+            self.product.price =[self.LabelPrix.text floatValue];
             self.product.quantity = [self.LabelQte.text integerValue];
             
             

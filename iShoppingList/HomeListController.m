@@ -90,6 +90,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self reloadData:nil];
 }
 
 
@@ -134,7 +135,10 @@
                      bool completed = [[tempDictionary  objectForKey:@"completed"] integerValue];
                      Shop *s = [[Shop alloc] initWithId:newId andWithName:name andWithCreatedDate:[df dateFromString: date] andIsCompleted:completed andWithProductList:[NSMutableArray new]];
                      
+       
                      
+                     
+
                      //NSLog(NSStringFromClass([shoplist_ class]));
                      [shoplist_ addObject:s];
                      
@@ -172,9 +176,10 @@
                                       NSString* shopping_list_id = [tempDictionary objectForKey:@"shopping_list_id"];
                                       Product *product = [[Product alloc] initWithId:newId andWithName:name andWithQuantity:quantity andWithPrice:price andWithShoppingListId:shopping_list_id];
                                       [s.productList addObject:product];
+                                      [s calculateTotalPrice];
                                   }
                                   
-                                  [self.tableView reloadData];
+                                  [self reloadData:s];
                               }
                           }
                       }];
@@ -216,7 +221,7 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
     
     if(s)
     {
-        [s calculateTotalPrice];
+        
         cell.NameShopLabel.text = s.name;
         cell.textLabel.textColor = [UIColor blueColor];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -315,14 +320,14 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
                      if([JSonWebService ManageError:response])
                      {
                          [shoplist_ removeObjectAtIndex:indexPath.row];
-                         [self.tableView reloadData];
+                         [self reloadData:s];
                      }
                  }
              }];
         }
         else{
             [shoplist_ removeObjectAtIndex:indexPath.row];
-            [self.tableView reloadData];
+            [self reloadData:s];
         }
         
         
@@ -436,7 +441,7 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
              NSLog(@"response : %@", [response description]);
              if([JSonWebService ManageError:response])
                  [self SaveNewProducts:s];
-             [self.tableView reloadData];
+             [self reloadData:s];
              
              [self.navigationController popToViewController:self animated:YES];
          }
@@ -493,5 +498,13 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
         }
     }
 }
+-(void) reloadData:(Shop*) s
+{
+    if(s)
+        [s calculateTotalPrice];
+    [self.tableView reloadData];
+}
+
+
 
 @end

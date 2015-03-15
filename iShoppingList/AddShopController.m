@@ -166,9 +166,8 @@ static NSString* const kShoppingCellId = @"ProductCell";
     self.nameOfShop.text = self.shop.name;
     
     //NSLog(@"%@",[self.shop.productList description]);
-    [self.testTableView reloadData];
-    self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%.02f", TotalPrice_ ];
-}
+    [self reloadData];
+    }
 
 - (void)didReceiveMemoryWarning
 {
@@ -224,7 +223,7 @@ static NSString* const kShoppingCellId = @"ProductCell";
     
     
     
-    [self.testTableView reloadData];
+    [self reloadData];
     
     
     
@@ -244,7 +243,7 @@ static NSString* const kShoppingCellId = @"ProductCell";
     
     Product *p = [self.shop.productList  objectAtIndex:indexPath.row];
     
-    TotalPrice_ += p.price * p.quantity;
+   
     cell.name.text =  p.name;
     if(p.price !=0)
         cell.price.text = [[NSString alloc] initWithFormat:@"%.2f€",p.price];
@@ -252,17 +251,18 @@ static NSString* const kShoppingCellId = @"ProductCell";
         cell.price.text = [[NSString alloc] initWithFormat:@"%.2f€",0.00];
     cell.qte.text = [[NSString alloc] initWithFormat:@"%d",p.quantity ];
     cell.imageView.image = [UIImage imageNamed:@"notselectedcheckbox.png"];
-    if(TotalPrice_ !=0)
-        self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%.2f€", TotalPrice_ ];
-    else
-        self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%.2f€", 0.00 ];
+    
+    if([p.id length] == 0)
+    {
+        cell.backgroundColor =  [[UIColor alloc] initWithRed:51 green:116 blue:171 alpha:1.0];
+    }
+    
     
     
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    TotalPrice_ = 0;
     return [self.shop.productList count];
 }
 
@@ -291,13 +291,13 @@ static NSString* const kShoppingCellId = @"ProductCell";
                      {
                          [self.shop.productList removeObjectAtIndex:indexPath.row];
                      }
-                     [self.testTableView reloadData];
+                     [self reloadData];
                  }
              }];
         }
         else{
             [self.shop.productList removeObjectAtIndex:indexPath.row];
-            [self.testTableView reloadData];
+            [self reloadData];
         }
         
         
@@ -365,6 +365,10 @@ static NSString* const kShoppingCellId = @"ProductCell";
         
     }
     else{
+        double totalPrice =  [self.totalPriceLabel.text doubleValue];
+        totalPrice += p.price * p.quantity;
+
+        self.totalPriceLabel.text = [[NSString alloc] initWithFormat :@"%.2f",totalPrice ];
         [self.testTableView reloadData];
     }
     
@@ -381,7 +385,17 @@ static NSString* const kShoppingCellId = @"ProductCell";
     return user_;
 }
 
+-(void) printTotalPrice
+{
+    [self.shop calculateTotalPrice];
+    self.totalPriceLabel.text = [[NSString alloc] initWithFormat:@"%.02f", [self.shop getTotal_price ]];
+}
 
+-(void) reloadData
+{
+    [self.testTableView reloadData];
+    [self printTotalPrice];
+}
 
 
 @end
