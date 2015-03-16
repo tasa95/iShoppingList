@@ -9,7 +9,7 @@
 #import "Token.h"
 
 @implementation Token
-
+static Token *token = nil;
 @synthesize token = token_;
  
     
@@ -23,7 +23,7 @@
 
 +(Token*)BuildTokenWithText:(NSString*)TextToken
 {
-    static Token *token = nil;
+   
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         token = [[Token alloc] initWithTextToken:TextToken];
@@ -33,7 +33,7 @@
 
 +(Token*) getToken
 {
-
+    return token;
 }
 
 
