@@ -73,7 +73,7 @@
 
 
 - (void) onTouchAdd {
-    [self goToAddShopViewWithMode:1 andWithShop:[[Shop alloc] init]];
+    [self goToAddShopViewWithMode:0 andWithShop:[[Shop alloc] init]];
 }
 
 - (void) onTouchEdit {
@@ -225,7 +225,7 @@ static NSString* const kShoppingCellId = @"shoppingItemId";
         cell.NameShopLabel.text = s.name;
         cell.textLabel.textColor = [UIColor blueColor];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEEE dd MMMM yyyy 'à' HH:mm"];
+        [dateFormatter setDateFormat:@"EEEE dd MMMM yyyy 'at' HH:mm"];
         
         cell.TotalPriceOfShop.text = [[NSString alloc] initWithFormat:@"%.02f€",[s getTotal_price]];
         cell.DateCreationLabel.text = [NSString stringWithFormat:@"%@ ", [dateFormatter stringFromDate:s.created_date]];

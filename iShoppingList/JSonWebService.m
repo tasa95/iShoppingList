@@ -93,14 +93,9 @@
         NSLog(@"myUrl : %@" , myUrl);
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
         
-    
         request.HTTPMethod = [JSonWebService getStringTasMethodRequest:tasMethodRequestGet];
         
-       
-    
-        
         NSError* error = nil;
-
 
         NSHTTPURLResponse * theResponse = [[NSHTTPURLResponse alloc] init];
         NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&theResponse error:&error];
